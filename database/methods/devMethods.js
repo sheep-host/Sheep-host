@@ -11,7 +11,7 @@ function addDev(req, res){
 		devID: devID;
 		devUser: devUser;
 		devPW: devPW;
-	})
+	});
 	dev.save(function(error){
 		assert.equal(error.errors['devID'].message,
 			'Unique `devID` not generated');
@@ -22,7 +22,7 @@ function addDev(req, res){
 		console.log('dev created: ', dev.devUser);
 		res.locals.devID = devID;
 		res.send();
-	})
+	});
 }
 
 function addDB(req, res){
@@ -37,7 +37,10 @@ function addDB(req, res){
 	}, { $set{ devDB: devDB }
 	}, { new: true }
 
-	)
+	, function(err, dev){
+		// define new collection with devID and devDB
+		// predetermined schema?
+	})
 }
 
 var main = mongoose.connection;
