@@ -22,14 +22,14 @@ function update(req, res, next){
 }
 
 function create(req, res, next) {
-  const db = mongoose.createConnection(uri + data.db.name);
+  const db = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
   const dbModel = new db.model('_label', new mongoose.Schema({
     createdBy: String,
     createdAt: Date,
   }));
 
   dbModel({
-    createdBy: req.body.name,
+    createdBy: req.body.userName,
     createdAt: new Date(),
   }).save(function (err, results) {
     if (err) throw err;

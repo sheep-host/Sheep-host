@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const chai = require('chai');
-const methods = require('../database/methods/devDbMethods');
+// const methods = require('../database/methods/devDbMethods');
 
 const expect = chai.expect;
 const uri = 'mongodb://localhost/testDB';
@@ -24,10 +24,10 @@ describe('devDB middleware testing', function() {
             },
           } },
       }));
-    mdl({
+    mdl({ // create a user for test
       userName: 'sheep',
       password: 'sleepy',
-    }).save(); // create dummy test data
+    }).save();
   });
 
   after(() => {
@@ -35,19 +35,19 @@ describe('devDB middleware testing', function() {
   });
 
   it('update function should update correct user\'s database information', (done) => {
-    methods.update(
-      {
-        body: {
-          userName: 'sheep',
-          dbId: '1234',
-          dbName: 'fluffy',
-          collectionName: 'fur',
-          schema: '{ color: String }',
-        }
-      },
-      {},
-      () => console.log('testing! testing! 123!')
-    );
+    // methods.update(
+    //   {
+    //     body: {
+    //       userName: 'sheep',
+    //       dbId: '1234',
+    //       dbName: 'fluffy',
+    //       collectionName: 'fur',
+    //       schema: '{ color: String }',
+    //     }
+    //   },
+    //   {},
+    //   () => console.log('testing! testing! 123!')
+    // );
 
     mdl.find({}, (err, res) => {
       if (err) throw err;
