@@ -1,6 +1,6 @@
 'use strict';
 const mongoose = require('mongoose');
-const Dev = require('./devModel');
+const Dev = require('../models/devModel');
 mongoose.connect('mongodb://localhost/sheepDevs');
 
 function addDev(req, res){
@@ -8,9 +8,9 @@ function addDev(req, res){
 	let devUser = req.body.username;
 	let devPW = req.body.password;
 	let dev = new Dev({
-		devID: devID;
-		devUser: devUser;
-		devPW: devPW;
+		devID: devID,
+		devUser: devUser,
+		devPW: devPW
 	});
 	dev.save(function(error){
 		assert.equal(error.errors['devID'].message,
@@ -31,10 +31,10 @@ function addDB(req, res){
 	let devUser = req.body.username;
 	let devPW = req.body.password;
 	Dev.findOneAndUpdate({
-		devID: devID;
-		devUser: devUser;
-		devPW: devPW;
-	}, { $set{ devDB: devDB }
+		devID: devID,
+		devUser: devUser,
+		devPW: devPW
+	}, { $set:{ devDB: devDB }
 	}, { new: true }
 
 	, function(err, dev){
@@ -48,3 +48,8 @@ main.on('error', console.error.bind(console, 'connection error:'));
 main.once('open', function() {
   console.log('We are connected!');
 });
+
+module.exports = {addDev, addDB};
+
+
+
