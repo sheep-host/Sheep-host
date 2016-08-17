@@ -25,23 +25,6 @@ function addDev(req, res){
 	});
 }
 
-function addDB(req, res){
-	let devDB = req.body.devDB;
-	let devID = req.body.devID;
-	let devUser = req.body.username;
-	let devPW = req.body.password;
-	Dev.findOneAndUpdate({
-		devID: devID;
-		devUser: devUser;
-		devPW: devPW;
-	}, { $set{ devDB: devDB }
-	}, { new: true }
-
-	, function(err, dev){
-		// define new collection with devID and devDB
-		// predetermined schema?
-	})
-}
 
 var main = mongoose.connection;
 main.on('error', console.error.bind(console, 'connection error:'));
