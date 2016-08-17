@@ -3,49 +3,49 @@
 const mongoose = require('mongoose');
 const chai = require('chai');
 const expect = chai.expect;
+const Dev = require('../database/models/devModel');
 
-//sheepDB_test.js: unit tests for Sheep DB methods and model.
+//sheepDB_test.js: unit tests for Dev model.
 
 describe('Sheep DB Test', function() {
-	var testDB, testModel;
 
 	before(function (done) {
-		testDB = mongoose.connect('mongodb://localhost/testDB');
-		
-		testModel = testDB.model('Test', new mongoose.Schema({
-			name: {type: String, required: true},
-			password: {type: String, required: true}
-		}));
-
-		done();
+        mongoose.connect('mongodb://localhost/testDB');
+        var db = mongoose.connection;
+        db.on('error', console.error.bind(console, 'connection error:'));
+        db.once('open', function() {
+          console.log('We are connected!');
+          done();
+        });	
 	});
 
     describe('Test Database', function() {
-        it('should save to Test Database', function(done) {
-        	var errTest = false;
-        	var testSave = testModel({
-        		name: 'sheepy',
-        		password: 'sleepy'
-        	});
-        	testSave.save(done);
+        it('Sheep DB schema saves to Test Database', function(done) {
+            var testDev = Dev({
+                userName: 'Sheepy',
+                password: 'Sleepy',
+            });
+
+            testDev.save(done);
         });
 
-		it('should not save incorrect object to Test Database', function(done) {
-			var testSave = testModel({
-				name: 'sheepy',
-				xassword: 'sleepy'
+		it('Should not save incorrect object to Test Database', function(done) {
+			var wrongSave = Dev({
+				userName: 'Sheepy',
+				xassword: 'Sleepy'
 			});
-			testSave.save(err => { 
+
+			wrongSave.save(err => { 
         		if(err) { return done(); }
-        		throw new Error('Should generate error');
+        		throw new Error('Should generate error!');
 
         	});
 		});
 
-        it('should retrieve data from Test Database', function(done) {
-        	testModel.find({name: 'sheepy'}, (err, sheep) => {
+        it('Should retrieve data from Test Database', function(done) {
+        	Dev.find({userName: 'Sheepy'}, (err, sheep) => {
         		if(err) {throw err;} 
-        		if(sheep.length === 0) {throw new Error('No data retrieved');}
+        		if(sheep.length === 0) {throw new Error('No data retrieved!');}
         		done();
         	});
         });
@@ -58,7 +58,3 @@ describe('Sheep DB Test', function() {
     });
 
 });
-
-//Create Dev User Tests
-
-//CRUD middleware tests for Sheep DB
