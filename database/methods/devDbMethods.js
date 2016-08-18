@@ -22,15 +22,13 @@ function update(req, res, next){
 }
 
 function create(req, res, next) {
-  const db = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
-  const dbModel = new db.model('_label', new mongoose.Schema({
-    createdBy: String,
-    createdAt: Date,
+  const devDB = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
+  const devModel = devDB.model('label', new mongoose.Schema({
+    createdBy: String
   }));
 
-  dbModel({
-    createdBy: req.body.userName,
-    createdAt: new Date(),
+  devModel({
+    createdBy: req.body.userName
   }).save(function (err, results) {
     if (err) throw err;
     else next();
