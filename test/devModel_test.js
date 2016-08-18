@@ -5,7 +5,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const Dev = require('../database/models/devModel');
 
-//sheepDB_test.js: unit tests for Dev model.
+//Tests for Dev model.
 
 describe('Sheep DB Test', function() {
 
@@ -49,11 +49,11 @@ describe('Sheep DB Test', function() {
         		done();
         	});
         });
+    });
 
-        after(function(done){
-        	mongoose.connection.db.dropDatabase(function(){
-        		mongoose.connection.close(done);
-        	});
+    after(function(done){
+        mongoose.connection.db.dropDatabase(function(){
+            mongoose.connection.close(done);
         });
     });
 
