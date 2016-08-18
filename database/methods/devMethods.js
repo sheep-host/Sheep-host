@@ -12,6 +12,17 @@ function addDev(req, res, next){
   	if (err) throw err;
   	else next();
   });
+
+//   const newDev ={
+//   	userName: req.body.userName,
+//   	password: req.body.password
+//   };
+  
+// 	Dev.create(newDev, function(err, result){
+// 		if(err) throw err;
+// 		console.log('dev saved', result);
+// 		res.send(result); //for postman testing
+// 	})
 }
 
 
