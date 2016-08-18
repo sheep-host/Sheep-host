@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const chai = require('chai');
 const expect = chai.expect;
 const Dev = require('../database/models/devModel');
-const sheepDB = require('../database/SheepDB');
 
 //Tests for sheep DB.
 
@@ -14,7 +13,6 @@ describe('Sheep DB Test', function() {
 	before(function (done) {
         mongoose.connect('mongodb://localhost/sheepTest');
         db = mongoose.connection;
-        //db = sheepDB;
         db2 = db.useDb('sheepTest2');
         db.on('error', console.error.bind(console, 'connection error:'));
         db.once('open', function() {

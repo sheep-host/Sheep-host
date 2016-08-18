@@ -1,7 +1,6 @@
 "use strict";
 
 const mongoose = require('mongoose');
-const Dev = require('../database/models/devModel');
 
 mongoose.connect('mongodb://localhost/sheep');
 
