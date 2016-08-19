@@ -12,7 +12,11 @@ import devDbMethods from '../database/methods/devDbMethods';
 import devMethods from '../database/methods/devMethods';
 import devModel from '../database/models/devModel';
 import db from '../database/sheepDB';
+<<<<<<< HEAD
 import postDevDB from '../database/methods/devAPI/postDevDB';
+=======
+import createDevDB from './routes/createDevDB'
+>>>>>>> 23edc77ed102ac07cbc7d93d388d7e882a471ec1
 
 
 let app = express();
@@ -22,16 +26,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 //api for creating account
-app.use('/users', signup)
+app.use('/signup', signup)
 
 //api for logging in
 app.use('/api/checkUserLogin', userCheck)
 
-app.use('/postDevDB', )
-
-
-
-
+app.use('/createDevDB', createDevDB)
 
 // app.use(webpackMiddleware(webpack(webpackConfig)));
 
@@ -50,6 +50,7 @@ app.get('/', (req, res) => {
 
 
 app.post('/signup', devMethods.addDev);
+
 
 // createDB button press on client
 app.post('/createDevDB', devDbMethods.createDevDB, devDbMethods.updateDevProfile);
