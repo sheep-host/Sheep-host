@@ -37,7 +37,7 @@ class SignupForm extends React.Component {
 
 			if(response.data) { 
 				console.log('IF STATEMENT SIGNUP POST')
-				browserHistory.push('dashboard/:' + _this.username)
+				browserHistory.push('dashboard/' + _this.username)
 			} 
 
 
