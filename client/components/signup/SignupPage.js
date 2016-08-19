@@ -5,7 +5,7 @@ import { userSignupRequest } from '../../actions/signupActions';
 import  Dashboard  from '../Dashboard';
 //is route component for this route
 
-
+//this renders signupform - which is where they login, confirming they're account and rendering to DB
 class SignupPage extends React.Component {
 	render() {
 
@@ -34,4 +34,6 @@ SignupPage.propTypes = {
 
 //short cut version
 // export default connect((state) => { return {} }, {userSignupRequest }) (SignupPage);
+
+//not using redux right now, using axios.post inside of onsubmit function in signupform component
 export default connect(null, {userSignupRequest }) (SignupPage);

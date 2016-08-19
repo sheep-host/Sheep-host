@@ -31,10 +31,13 @@ class SignupForm extends React.Component {
 		console.log(this.state);
 		var _this = this.state
 
-		axios.post('/users', { user: this.state }).then(function(response) {
-			console.log('SignupForm on submit response')
-			browserHistory.push('dashboard/:' + _this.username)
-		}).catch(function(error) {
+		axios.post('/signup', { user: this.state }).then(function(response) {
+			
+			if(response.data) { 
+				console.log('IF STATEMENT SIGNUP POST')
+				browserHistory.push('dashboard/:' + _this.username)
+			}
+			}).catch(function(error) {
 			console.log('ERROR ON PROMISE SIGNUP FORM', error)
 		})
 		// this.props.userSignupRequest(this.state).then(function() {
