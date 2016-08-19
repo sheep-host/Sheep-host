@@ -25,17 +25,26 @@ function updateDevProfile(req, res, next){
 
 // new DB spooled up using id from dev profile and chosen db name
 function createDevDB(req, res, next) {
-  const devDB = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
-  const devModel = devDB.model('label', new mongoose.Schema({
-    createdBy: String
-  }));
-
-  devModel({
-    createdBy: req.body.userName
-  }).save(function (err, results) {
-    if (err) throw err;
-    res.json(results);
-  });
+  const query = {
+    database:[{
+      id: req.body.dbId,
+    }]
+  };
+  Devs.find(query, function(err, dev){
+    if(!dev){
+      const devDB = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
+      const devModel = devDB.model('label', new mongoose.Schema({
+        createdBy: String
+      }));
+    devModel({
+      createdBy: req.body.userName
+    }).save(function (err, results) {
+        if (err) throw err;
+        res.json(results);
+      });
+    }
+    else (res.json({nah: 'b'}))
+  })
 }
 
 module.exports = { updateDevProfile, createDevDB };
