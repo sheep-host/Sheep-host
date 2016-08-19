@@ -19,7 +19,7 @@ class Dashboard extends React.Component {
 			username: this.props.params.username,
 			dbName: '',
 			collectionName: '',
-			Schema:{"username": "String", "password": "String"}
+			schema:'{"username": "String", "password": "String"}'
 		}
 	
 		this.onChange = this.onChange.bind(this)
