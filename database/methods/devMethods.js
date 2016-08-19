@@ -7,8 +7,8 @@ function addDev(req, res, next){
 
 	console.log('inside addDev');
   const newDev = Dev({
-  	userName: req.body.user.username,
-  	password: req.body.user.password
+  	userName: req.body.username,
+  	password: req.body.password
   });
 
   newDev.save(function (err) {
@@ -17,10 +17,26 @@ function addDev(req, res, next){
   	else {
   		console.log('SAVED')
   		//next();
+      console.log('RES', res)
   		res.send(true);
-  	}
+      // Dev.findOne({'userName': req.body.user.username}, 'userName', function(err, dev) {
+      //   if(!err) {
+      //     if(dev.userName === req.body.user.username) {
+      //       console.log('INSIDE MONGO');
+            
 
-  });
+      //       res.send(true);
+      //     } else {
+      //       console.log('Error from addDev - userName already there')
+      //       return ({error: error})
+      //     }
+
+        }
+      })
+
+  	}
+ 
+
 
 //   const newDev ={
 //   	userName: req.body.userName,
@@ -32,7 +48,7 @@ function addDev(req, res, next){
 // 		console.log('dev saved', result);
 // 		res.send(result); //for postman testing
 // 	})
-}
+
 
 
 module.exports = {

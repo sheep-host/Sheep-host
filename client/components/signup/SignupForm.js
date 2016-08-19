@@ -11,8 +11,7 @@ class SignupForm extends React.Component {
 		super(props);
 		this.state = {
 			username:'',
-			password:'',
-			passwordConfirmation:''
+			password:''
 		}
 
 		this.onChange = this.onChange.bind(this)
@@ -31,8 +30,8 @@ class SignupForm extends React.Component {
 		console.log(this.state);
 		var _this = this.state
 
-		axios.post('/signup', { user: this.state }).then(function(response) {
-			
+		axios.post('/signup', {this.state }).then(function(response) {
+			console.log('THIS.STATE', this.state)
 			if(response.data) { 
 				console.log('IF STATEMENT SIGNUP POST')
 				browserHistory.push('dashboard/:' + _this.username)

@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
 
 //api for creating account
-app.use('/users', signup)
+app.use('/signup', signup)
 
 //api for logging in
 app.use('/api/checkUserLogin', userCheck)
@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/signup', devMethods.addDev)
+
 
 // mongoose.connect('mongodb://localhost/new-practice-db', () => {
 //   console.log('connected to local mongoDB');
