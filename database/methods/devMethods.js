@@ -6,9 +6,10 @@ const Dev = require('../models/devModel');
 function addDev(req, res, next){
 
 	console.log('inside addDev');
+  console.log('REQ.body', req.body)
   const newDev = Dev({
-  	userName: req.body.user.username,
-  	password: req.body.user.password
+  	userName: req.body.username,
+  	password: req.body.password
   });
 
   newDev.save(function (err) {
@@ -17,10 +18,29 @@ function addDev(req, res, next){
   	else {
   		console.log('SAVED')
   		//next();
+      
   		res.send(true);
-  	}
 
-  });
+    }
+  })
+
+}
+
+function usernameExist(req, res, next){
+  Dev.findOne({'userName': req.body.username}, 'userName', function(err, dev) {
+    console.log('inside usernameExist')
+    console.log('dev username exist',dev);
+      if(dev === null) {
+        console.log('name does not exist');
+        next();
+      } else
+      {
+        console.log('name exists!');
+        res.send(false);
+      } 
+  })
+} 
+
 
 //   const newDev ={
 //   	userName: req.body.userName,
@@ -32,11 +52,12 @@ function addDev(req, res, next){
 // 		console.log('dev saved', result);
 // 		res.send(result); //for postman testing
 // 	})
-}
+
 
 
 module.exports = {
-  addDev
+  addDev,
+  usernameExist
 
 }; 
  
