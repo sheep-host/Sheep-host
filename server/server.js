@@ -50,6 +50,8 @@ app.get('/', (req, res) => {
 
 
 
+app.post('/createDevDB', devDbMethods.updateDevProfile, devDbMethods.createDevDB)
+
 // mongoose.connect('mongodb://localhost/new-practice-db', () => {
 //   console.log('connected to local mongoDB');
 // });

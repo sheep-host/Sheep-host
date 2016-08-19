@@ -14,8 +14,8 @@ const Database = new Schema({
 });
 
 const devSchema = new Schema({
-  userName: { type: String, required: true },
-  password: { type: String, required: true },
+  userName: { type: String },
+  password: { type: String },
   database: [Database],
 });
 
