@@ -30,7 +30,7 @@ class SignupForm extends React.Component {
 		e.preventDefault();
 		console.log('THIS.STATE ON SUBMIT', this.state);
 		var _this = this.state
-		console.log('THISSSS', _this)
+		
 		axios.post('/signup', _this ).then(function(response) {
 			
 			console.log('response.data yo',response.data)

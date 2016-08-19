@@ -10,16 +10,16 @@ import axios from 'axios';
 	// 			name="Schema"
 	// 		/>
 
-
+ 
 class Dashboard extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			username: this.props.params.username,
-			databaseName: '',
+			dbName: '',
 			collectionName: '',
-			Schema:{username: 'string', password: 'string' }
+			Schema:{"username": "String", "password": "String"}
 		}
 	
 		this.onChange = this.onChange.bind(this)
@@ -32,8 +32,9 @@ class Dashboard extends React.Component {
 	}
  
 	onSubmit(e) {
-		axios.post('/createDB', this.state).then(function(response) {
+		axios.post('/createDevDB', this.state).then(function(response) {
 			console.log('RESPONSE FROM DASHBOARD SUBMIT')
+			browser
 		}).catch(function(error) {
 			console.log('error on dashboard onSubmit promise', error)
 		})
@@ -56,9 +57,9 @@ class Dashboard extends React.Component {
 			<input 
 				onChange={this.onChange}
 				placeholder="Database Name"
-				value={this.state.databaseName}
+				value={this.state.dbName}
 				type="text"
-				name="databaseName"
+				name="dbName"
 			/> 
 			<input
 

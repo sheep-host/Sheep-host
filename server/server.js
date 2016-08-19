@@ -14,7 +14,7 @@ import devDbMethods from '../database/methods/devDbMethods';
 import devMethods from '../database/methods/devMethods';
 import devModel from '../database/models/devModel';
 import db from '../database/sheepDB';
-import dbCreator from './routes/dbCreator'
+import createDevDB from './routes/createDevDB'
 
 
 let app = express();
@@ -29,7 +29,7 @@ app.use('/signup', signup)
 //api for logging in
 app.use('/api/checkUserLogin', userCheck)
 
-app.use('/createDB', dbCreator)
+app.use('/createDevDB', createDevDB)
 
 
 
