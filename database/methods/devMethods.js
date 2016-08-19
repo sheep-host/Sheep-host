@@ -4,7 +4,6 @@ const Dev = require('../models/devModel');
 
 
 function addDev(req, res, next){
-
 	console.log('inside addDev');
   console.log('REQ.body', req.body)
   const newDev = Dev({
@@ -20,10 +19,19 @@ function addDev(req, res, next){
   		//next();
       
   		res.send(true);
-
     }
   })
 
+//   const newDev ={
+//    userName: req.body.userName,
+//    password: req.body.password
+//   };
+  
+//  Dev.create(newDev, function(err, result){
+//    if(err) throw err;
+//    console.log('dev saved', result);
+//    res.send(result); //for postman testing
+//  })
 }
 
 function usernameExist(req, res, next){
@@ -42,22 +50,5 @@ function usernameExist(req, res, next){
 } 
 
 
-//   const newDev ={
-//   	userName: req.body.userName,
-//   	password: req.body.password
-//   };
-  
-// 	Dev.create(newDev, function(err, result){
-// 		if(err) throw err;
-// 		console.log('dev saved', result);
-// 		res.send(result); //for postman testing
-// 	})
-
-
-
-module.exports = {
-  addDev,
-  usernameExist
-
-}; 
+module.exports = { addDev, usernameExist }; 
  
