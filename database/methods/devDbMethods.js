@@ -26,6 +26,7 @@ function updateDevProfile(req, res, next){
 // new DB spooled up using id from dev profile and chosen db name
 function createDevDB(req, res, next) {
   const query = {
+    userName: req.body.userName,
     database:[{
       id: req.body.dbId,
     }]
