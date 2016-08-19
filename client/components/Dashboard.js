@@ -23,6 +23,9 @@ class Dashboard extends React.Component {
 	console.log('DASHBOARD THIS.PROPS', this.props)
 
 		return (
+
+		
+
 			<div>
 			<h3> Welcome to your Dashboard <em>{this.props.params.username}</em></h3>
 			
