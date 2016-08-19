@@ -1,40 +1,49 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const app = express();
-const bodyParser = require('body-parser');
-const db = mongoose.createConnection('mongodb://localhost/sheep2');
-// const Devs = require('../database/models/devModel');
-const db2 = db.useDb('sheep2');
+import express from 'express'
+import path from 'path';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackConfig from '../webpack.config.js';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import signup from './routes/signup';
+import userCheck from './routes/userCheck'
+import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import devDbMethods from '../database/methods/devDbMethods';
+import devMethods from '../database/methods/devMethods';
+import devModel from '../database/models/devModel';
+import db from '../database/sheepDB';
 
-app.use(bodyParser.urlencoded({ extended:true }));
-app.use(express.static('public'));
+
+let app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.json())
+
+//api for creating account
+app.use('/users', signup)
+
+//api for logging in
+app.use('/api/checkUserLogin', userCheck)
+
+
+
+// app.use(webpackMiddleware(webpack(webpackConfig)));
+
+const compiler = webpack(webpackConfig);
+
+app.use(webpackMiddleware(compiler, {
+	hot: true,
+	publicPath: webpackConfig.output.publicPath,
+	onInfo: true
+}));
+app.use(webpackHotMiddleware(compiler))
 
 app.get('/', (req, res) => {
-  res.sendFile('index.html');
-});
+	res.sendFile(path.join(__dirname, './index.html'));
+})
 
-const Devs = db2.model('Devs', new mongoose.Schema({
-  name: String,
-  password: String
-}));
 
-app.get('/sheep', (req, res) => {
-  Devs.find({}, (err, results) => {
-    if (err) throw err;
-    res.json(results);
-  });
-});
+app.listen(3000, () => console.log('Running on local host 3000 dawg'))
 
-app.post('/sheep', (req, res) => {
-  let Dev = Devs({
-    name: 'sheepy4',
-    password: 'sleepy4'
-  });
-  Dev.save((err, result) => {
-    console.log('success');
-  });
-});
 
-app.listen(3000, () => {
-  console.log('listening on port 3000');
-});
