@@ -31,7 +31,7 @@ class SignupForm extends React.Component {
 		console.log(this.state);
 		var _this = this.state
 
-		axios.post('/users', { user: this.state }).then(function(response) {
+		axios.post('/signup', { user: this.state }).then(function(response) {
 			
 			if(response.data) { 
 				console.log('IF STATEMENT SIGNUP POST')

@@ -29,10 +29,6 @@ app.use('/users', signup)
 app.use('/api/checkUserLogin', userCheck)
 
 
-mongoose.connect('mongodb://localhost/sheepDB');
-const db = mongoose.connection;
-
-
 
 
 
