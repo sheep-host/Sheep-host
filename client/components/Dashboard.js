@@ -1,5 +1,6 @@
 import React from 'react';
 
+//component will mount that goes to database and grabs users data and displays it
 
 class Dashboard extends React.Component {
 
