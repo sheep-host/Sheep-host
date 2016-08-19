@@ -1,4 +1,5 @@
 
+
 import express from 'express'
 import path from 'path';
 import webpack from 'webpack';
@@ -51,7 +52,16 @@ app.get('/', (req, res) => {
 })
 
 
-app.listen(3000, () => console.log('Running on local host 3000 dawg'))
+app.post('/signup', devMethods.addDev)
+
+// mongoose.connect('mongodb://localhost/new-practice-db', () => {
+//   console.log('connected to local mongoDB');
+// });
+
+//all route handling in routes.js
 
 
+app.listen(3000, () => {
+  console.log('listening on port 3000');
+})
 
