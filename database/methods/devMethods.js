@@ -1,33 +1,31 @@
 'use strict';
 const mongoose = require('mongoose');
-const Dev = require('./devModel');
-mongoose.connect('mongodb://localhost/sheepDevs');
+const Dev = require('../models/devModel');
 
-function addDev(req, res){
-	let devID = Math.random().toString(36).substr(2,9);
-	let devUser = req.body.username;
-	let devPW = req.body.password;
-	let dev = new Dev({
-		devID: devID;
-		devUser: devUser;
-		devPW: devPW;
-	});
-	dev.save(function(error){
-		assert.equal(error.errors['devID'].message,
-			'Unique `devID` not generated');
-		assert.equal(error.errors['devUser'].message,
-			'Username required');
-		assert.equal(error.errors['devPW'].message,
-			'Password required');
-		console.log('dev created: ', dev.devUser);
-		res.locals.devID = devID;
-		res.send();
-	});
+function addDev(req, res, next){
+  const newDev = Dev({
+  	userName: req.body.userName,
+  	password: req.body.password
+  });
+
+  newDev.save(function (err) {
+  	if (err) throw err;
+  	else next();
+  });
+
+//   const newDev ={
+//   	userName: req.body.userName,
+//   	password: req.body.password
+//   };
+  
+// 	Dev.create(newDev, function(err, result){
+// 		if(err) throw err;
+// 		console.log('dev saved', result);
+// 		res.send(result); //for postman testing
+// 	})
 }
 
 
-var main = mongoose.connection;
-main.on('error', console.error.bind(console, 'connection error:'));
-main.once('open', function() {
-  console.log('We are connected!');
-});
+module.exports = {
+  addDev
+};
