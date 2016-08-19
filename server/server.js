@@ -12,11 +12,8 @@ import devDbMethods from '../database/methods/devDbMethods';
 import devMethods from '../database/methods/devMethods';
 import devModel from '../database/models/devModel';
 import db from '../database/sheepDB';
-<<<<<<< HEAD
-import postDevDB from '../database/methods/devAPI/postDevDB';
-=======
+import postDevDB from '../database/methods/devAPI/postDevDBMethods';
 import createDevDB from './routes/createDevDB'
->>>>>>> 23edc77ed102ac07cbc7d93d388d7e882a471ec1
 
 
 let app = express();
@@ -55,7 +52,7 @@ app.post('/signup', devMethods.addDev);
 // createDB button press on client
 app.post('/createDevDB', devDbMethods.createDevDB, devDbMethods.updateDevProfile);
 
-app.post('/postDevDB', devPost.validateDev, devPost.populateDB);
+app.post('/postDevDB', postDevDB.validateDev, postDevDB.populateDB);
 
 // mongoose.connect('mongodb://localhost/new-practice-db', () => {
 //   console.log('connected to local mongoDB');
