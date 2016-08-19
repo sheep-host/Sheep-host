@@ -50,6 +50,7 @@ app.get('/', (req, res) => {
 
 
 
+// createDB button press on client
 app.post('/createDevDB', devDbMethods.updateDevProfile, devDbMethods.createDevDB)
 
 // mongoose.connect('mongodb://localhost/new-practice-db', () => {
