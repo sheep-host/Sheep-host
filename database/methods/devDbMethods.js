@@ -19,7 +19,7 @@ function updateDevProfile(req, res, next){
 
   Devs.findOneAndUpdate(query, { $set: data }, function(err, dev) {
     if (err) throw err;
-    next();
+    res.json(req.body.results);
   });
 }
 
@@ -27,21 +27,21 @@ function updateDevProfile(req, res, next){
 function createDevDB(req, res, next) {
   const query = {
     userName: req.body.userName,
-    database:[{
-      id: req.body.dbId,
-    }]
+    'database.name': req.body.dbName
   };
-  Devs.find(query, function(err, dev){
+  Devs.findOne(query, function(err, dev){
+    console.log('dev', dev);
     if(!dev){
       const devDB = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
       const devModel = devDB.model('label', new mongoose.Schema({
         createdBy: String
       }));
-    devModel({
-      createdBy: req.body.userName
+      devModel({
+        createdBy: req.body.userName
     }).save(function (err, results) {
         if (err) throw err;
-        res.json(results);
+        req.body.results = results;
+        next();
       });
     }
     else (res.json({nah: 'b'}))

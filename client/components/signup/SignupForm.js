@@ -12,7 +12,7 @@ class SignupForm extends React.Component {
 		this.state = {
 			username:'',
 			password:'',
-			passwordConfirmation:''
+			//passwordConfirmation:''
 		}
 
 		this.onChange = this.onChange.bind(this)
@@ -28,15 +28,20 @@ class SignupForm extends React.Component {
 
 	onSubmit(e) {
 		e.preventDefault();
-		console.log(this.state);
+		console.log('THIS.STATE ON SUBMIT', this.state);
 		var _this = this.state
-
-		axios.post('/signup', { user: this.state }).then(function(response) {
+		
+		axios.post('/signup', _this ).then(function(response) {
 			
+			console.log('response.data yo',response.data)
+
 			if(response.data) { 
 				console.log('IF STATEMENT SIGNUP POST')
-				browserHistory.push('dashboard/:' + _this.username)
-			}
+				browserHistory.push('dashboard/' + _this.username)
+			} 
+
+
+
 			}).catch(function(error) {
 			console.log('ERROR ON PROMISE SIGNUP FORM', error)
 		})
