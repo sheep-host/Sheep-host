@@ -1,5 +1,3 @@
-
-
 import express from 'express'
 import path from 'path';
 import webpack from 'webpack';
@@ -14,6 +12,7 @@ import devDbMethods from '../database/methods/devDbMethods';
 import devMethods from '../database/methods/devMethods';
 import devModel from '../database/models/devModel';
 import db from '../database/sheepDB';
+import postDevDB from '../database/methods/devAPI/postDevDB';
 
 
 let app = express();
@@ -27,6 +26,8 @@ app.use('/users', signup)
 
 //api for logging in
 app.use('/api/checkUserLogin', userCheck)
+
+app.use('/postDevDB', )
 
 
 
@@ -48,10 +49,12 @@ app.get('/', (req, res) => {
 })
 
 
-app.post('/signup', devMethods.addDev)
+app.post('/signup', devMethods.addDev);
 
 // createDB button press on client
-app.post('/createDevDB', devDbMethods.updateDevProfile, devDbMethods.createDevDB)
+app.post('/createDevDB', devDbMethods.createDevDB, devDbMethods.updateDevProfile);
+
+app.post('/postDevDB', devPost.validateDev, devPost.populateDB);
 
 // mongoose.connect('mongodb://localhost/new-practice-db', () => {
 //   console.log('connected to local mongoDB');
