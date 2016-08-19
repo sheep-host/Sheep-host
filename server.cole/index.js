@@ -7,8 +7,17 @@ import webpackHotMiddleware from 'webpack-hot-middleware';
 import users from './routes/users'
 import userCheck from './routes/userCheck'
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-var Schema = mongoose.Schema;
+import devMethods from '../database/methods/devMethods';
+import devDbMethods from '../database/methods/devDbMethods';
+import db  from '../database/SheepDB'
+
+// mongoose.connect('mongodb://localhost/sheep');
+
+// var db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//   console.log('Connected to sheep DB');
+// });
 
 // mongoose.connect('mongodb://localhost/fuckshit');
 // var db = mongoose.connection;
@@ -31,7 +40,7 @@ var Schema = mongoose.Schema;
 
 let app = express();
 
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 //api for creating account
 app.use('/users', users)
@@ -56,9 +65,9 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, './index.html'));
 })
 
+app.post('/addDev', devMethods.addDev);
 
-
-
+app.post('/createDevDB', devDbMethods.updateDevProfile, devDbMethods.createDevDB)
 
 app.listen(3000, () => console.log('Running on local host 3000 dawg'))
 
