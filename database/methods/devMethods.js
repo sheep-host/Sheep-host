@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Dev = require('../models/devModel');
 
 function addDev(req, res, next){
+
 	console.log('inside addDev');
   const newDev = Dev({
   	userName: req.body.user.username,
@@ -17,6 +18,7 @@ function addDev(req, res, next){
   		//next();
   		res.send(true);
   	}
+
   });
 
 //   const newDev ={
@@ -34,5 +36,7 @@ function addDev(req, res, next){
 
 module.exports = {
   addDev
+
 }; 
  
+

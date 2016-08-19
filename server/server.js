@@ -1,3 +1,4 @@
+
 import express from 'express'
 import path from 'path';
 import webpack from 'webpack';
@@ -27,6 +28,12 @@ app.use('/users', signup)
 app.use('/api/checkUserLogin', userCheck)
 
 
+mongoose.connect('mongodb://localhost/sheepDB');
+const db = mongoose.connection;
+
+
+
+
 
 // app.use(webpackMiddleware(webpack(webpackConfig)));
 
@@ -45,5 +52,6 @@ app.get('/', (req, res) => {
 
 
 app.listen(3000, () => console.log('Running on local host 3000 dawg'))
+
 
 

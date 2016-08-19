@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+"use strict";
+
+>>>>>>> 14fecff45392c9316acc7d6a777b32d0449ecccd
 const mongoose = require('mongoose');
 const chai = require('chai');
 const methods = require('../database/methods/devDbMethods');
