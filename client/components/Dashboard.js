@@ -16,7 +16,7 @@ class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: this.props.params.username,
+			userName: this.props.params.username,
 			dbName: '',
 			collectionName: '',
 			schema:'{"username": "String", "password": "String"}'
@@ -32,9 +32,10 @@ class Dashboard extends React.Component {
 	}
  
 	onSubmit(e) {
+		e.preventDefault();
 		axios.post('/createDevDB', this.state).then(function(response) {
 			console.log('RESPONSE FROM DASHBOARD SUBMIT')
-			browser
+			
 		}).catch(function(error) {
 			console.log('error on dashboard onSubmit promise', error)
 		})

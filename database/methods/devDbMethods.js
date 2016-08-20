@@ -29,10 +29,15 @@ function createDevDB(req, res, next) {
     userName: req.body.userName,
     'database.name': req.body.dbName
   };
+  console.log('in createDB', req.body);
+  let dbId;
+  Devs.findOne({userName: req.body.userName},function(err, dev){
+    dbId = dev._id;
+  });
   Devs.findOne(query, function(err, dev){
     console.log('dev', dev);
     if(!dev){
-      const devDB = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
+      const devDB = mongoose.createConnection(uri + dbId + '_' + req.body.dbName);
       const devModel = devDB.model('label', new mongoose.Schema({
         createdBy: String
       }));
