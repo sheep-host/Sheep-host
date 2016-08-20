@@ -1,5 +1,4 @@
-import db from '../../sheepDB';
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const Devs = require('../../models/devModel');
 
@@ -11,16 +10,12 @@ function validateDev(req, res, next){
 		}
 		req.body.dev = dev;
 		next();
-	})
+	});
 }
 
 function populateDB(req, res, next){
-	let dev = req.body.dev;
-	let schema = JSON.parse(dev.database[0].collections[0].devSchema);
-	let devDBName = dev.database[0].id + '_' + dev.database[0].name;
-	const devDB = db.useDb(devDBName);
-	const devModel = devDB.model(dev.database[0].collections[0].name, new mongoose.Schema(schema));
-	devModel({username: req.body.name, password: req.body.type}).save(function(err, results){
+	const devModel = req.body.devModel;
+	devModel({username: req.body.username, password: req.body.password}).save(function(err, results){
 		if (err) throw err;
 		res.json(results);
 	});
