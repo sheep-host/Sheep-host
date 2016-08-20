@@ -2,12 +2,31 @@ import mongoose from 'mongoose';
 import Devs from'../../models/devModel';
 import db from '../../sheepDB';
 
-
+function checkPassword(req, res, next){
+	Devs.findOne({userName: req.body.userName, password: req.body.password},function(err, dev){
+		console.log(dev);
+		if(dev === null){
+			console.log('dev is null');
+			res.status(422).send('Incorrect username/password');
+		}
+		else{
+			res.send(true);
+		}
+	});
+}
 
 function extractId(req, res, next){
+	console.log(req.body.userName);
 	Devs.findOne({userName: req.body.userName},function(err, dev){
-		req.body.dbId = dev._id;
-		next();
+		console.log(dev);
+		if(dev === null){
+			console.log('dev is null');
+			res.status(422).send('Incorrect username/password');
+		}
+		else{
+			req.body.dbId = dev._id;
+			next();
+		}
 	});
 }
 
@@ -21,4 +40,4 @@ function openDB(req, res, next){
 	next();
 }
 
-module.exports = { extractId, openDB };
+module.exports = { checkPassword, extractId, openDB };

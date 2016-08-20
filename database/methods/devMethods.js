@@ -41,10 +41,9 @@ function usernameExist(req, res, next){
       if(dev === null) {
         console.log('name does not exist');
         next();
-      } else
-      {
+      } else {
         console.log('name exists!');
-        res.send(false);
+        res.status(422).send('User exists, please choose another username');
       } 
   })
 } 

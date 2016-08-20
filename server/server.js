@@ -5,6 +5,7 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackConfig from '../webpack.config.js';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import signup from './routes/signup';
+import login from './routes/login';
 import userCheck from './routes/userCheck'
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
@@ -25,6 +26,8 @@ app.use(bodyParser.json())
 //api for creating account
 app.use('/signup', signup)
 
+app.use('/login', login)
+
 //api for logging in
 app.use('/api/checkUserLogin', userCheck);
 
@@ -34,6 +37,7 @@ app.use('/createDevDB', createDevDB);
 app.use('/getDevDB', getDevDB);
 
 app.use('/postDevDB', postDevDB);
+
 
 // app.use(webpackMiddleware(webpack(webpackConfig)));
 
