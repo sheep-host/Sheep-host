@@ -8,7 +8,6 @@ import signup from './routes/signup';
 import userCheck from './routes/userCheck'
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import devDbMethods from '../database/methods/devDbMethods';
 import devMethods from '../database/methods/devMethods';
 import devModel from '../database/models/devModel';
 import db from '../database/sheepDB';
@@ -37,7 +36,8 @@ const compiler = webpack(webpackConfig);
 app.use(webpackMiddleware(compiler, {
 	hot: true,
 	publicPath: webpackConfig.output.publicPath,
-	onInfo: true
+	onInfo: true,
+	historyApiFallback: true
 }));
 app.use(webpackHotMiddleware(compiler))
 
@@ -49,9 +49,6 @@ app.get('/', (req, res) => {
 app.post('/signup', devMethods.addDev);
 
 
-// createDB button press on client
-app.post('/createDevDB', devDbMethods.createDevDB, devDbMethods.updateDevProfile);
-
 app.post('/postDevDB', postDevDB.validateDev, postDevDB.populateDB);
 
 // mongoose.connect('mongodb://localhost/new-practice-db', () => {
@@ -60,6 +57,10 @@ app.post('/postDevDB', postDevDB.validateDev, postDevDB.populateDB);
 
 //all route handling in routes.js
 
+//for react router - will allow back and forth - will render /index.html no matter what
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, './index.html'));
+});
 
 app.listen(3000, () => {
   console.log('listening on port 3000');

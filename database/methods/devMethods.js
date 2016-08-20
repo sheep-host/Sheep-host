@@ -7,7 +7,7 @@ function addDev(req, res, next){
 	console.log('inside addDev');
   console.log('REQ.body', req.body)
   const newDev = Dev({
-  	userName: req.body.username,
+  	userName: req.body.userName,
   	password: req.body.password
   });
 
