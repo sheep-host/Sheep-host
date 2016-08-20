@@ -10,21 +10,23 @@ import axios from 'axios';
 	// 			name="Schema"
 	// 		/>
 
- 
 class Dashboard extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
+
 			userName: this.props.params.username,
 			dbName: '',
 			collectionName: '',
 			schema:'{"username": "String", "password": "String"}'
 		}
-	
 		this.onChange = this.onChange.bind(this)
 		this.onSubmit = this.onSubmit.bind(this)
+	} 
 
+	componentDidMount() {
+		console.log('COMPONENT DID MOUNT DASHBOARD')
 	}
 
 	onChange(e) {
@@ -33,23 +35,21 @@ class Dashboard extends React.Component {
  
 	onSubmit(e) {
 		e.preventDefault();
-		axios.post('/createDevDB', this.state).then(function(response) {
-			console.log('RESPONSE FROM DASHBOARD SUBMIT')
-			
+
+		var _this = this
+		console.log('_THIS.state', _this.state)
+		axios.post('/createDevDB', _this.state).then(function(response) {
+			console.log('DASHBOARD STATE AFTER SUBMIT', _this.state)
+
 		}).catch(function(error) {
 			console.log('error on dashboard onSubmit promise', error)
 		})
 	}
 
 	render() {
-
-	
-
 		return (
 
-		
-
-			<div>
+		<div>
 			<h3> Welcome to your Dashboard <em>{this.props.params.username}</em></h3>
 			
 		<form onSubmit={this.onSubmit}>			
@@ -76,16 +76,13 @@ class Dashboard extends React.Component {
 			className="btn btn-primary"> 
 			 Create MongoDB </button>
 			</form>
-					
+				{this.state.database}
 		</div>
 
 			
 			)
 	}
 
- 
-
-
-}
+ }
 
 export default Dashboard;

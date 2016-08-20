@@ -43,7 +43,7 @@ app.use(webpackMiddleware(compiler, {
 	hot: true,
 	publicPath: webpackConfig.output.publicPath,
 	onInfo: true,
-	historyApiFallback: true
+	historyApiFallback:true
 }));
 
 app.use(webpackHotMiddleware(compiler));
@@ -52,11 +52,11 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, './index.html'));
 })
 
+
 // mongoose.connect('mongodb://localhost/new-practice-db', () => {
 //   console.log('connected to local mongoDB');
 // });
 
-//all route handling in routes.js
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {

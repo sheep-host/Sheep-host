@@ -14,7 +14,7 @@ class Greetings extends React.Component {
 	render() {
 	return (
 		<div className="jumbotron">
-			<h1>Ayy</h1>
+			<h1>WELCOME TO SHEEP.HOST, YOU SON OF A BITCH</h1>
 		</div>
 		)
 	}
