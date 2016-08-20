@@ -35,16 +35,15 @@ function addDev(req, res, next){
 }
 
 function usernameExist(req, res, next){
-  Dev.findOne({'userName': req.body.username}, 'userName', function(err, dev) {
+  Dev.findOne({'userName': req.body.userName}, 'userName', function(err, dev) {
     console.log('inside usernameExist')
     console.log('dev username exist',dev);
       if(dev === null) {
         console.log('name does not exist');
         next();
-      } else
-      {
+      } else {
         console.log('name exists!');
-        res.send(false);
+        res.status(422).send('User exists, please choose another username');
       } 
   })
 } 

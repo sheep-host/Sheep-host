@@ -5,10 +5,12 @@ const Devs = require('../../models/devModel');
 function validateDev(req, res, next){
 	Devs.findById(req.params.dbId, function(err, dev){
 		if(!dev){
-			res.send(err);
+			res.status(422).send('Incorrect user information');
 		}
-		req.body.dev = dev;
-		next();
+		else{
+			req.body.dev = dev;
+			next();
+		}
 	})
 }
 function showAllData(req, res, next){

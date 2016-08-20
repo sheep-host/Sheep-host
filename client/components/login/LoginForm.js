@@ -10,9 +10,8 @@ class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username:'',
+			userName:'',
 			password:'',
-			passwordConfirmation:''
 		}
 
 		this.onChange = this.onChange.bind(this)
@@ -30,12 +29,13 @@ class LoginForm extends React.Component {
 		e.preventDefault();
 		
 		console.log('LoginForm on submit')
-		var that = this.state
+		var _this = this.state
 		
-		axios.post('/api/checkUserLogin', { user: this.state }).then(function(response) {
+		axios.post('/login', _this).then(function(response) {
 			console.log('login form on submit response', response)
-
-			browserHistory.push('dashboard/:' + that.username)
+			if(response.data){
+				browserHistory.push('dashboard/:' + _this.userName)
+			}
 		}).catch(function(error) {
 			console.log(error)
 		})
@@ -56,10 +56,10 @@ class LoginForm extends React.Component {
 				<div className="form-group">
 					<label className="control-label"> Username</label>
 					<input
-						value={this.state.username}
+						value={this.state.userName}
 						onChange={this.onChange}
 						type="text"
-						name="username"
+						name="userName"
 						className="form-control"
 					/>
 					</div>
