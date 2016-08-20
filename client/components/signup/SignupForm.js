@@ -37,7 +37,7 @@ class SignupForm extends React.Component {
 
 			if(response.data) { 
 				console.log('IF STATEMENT SIGNUP POST')
-				browserHistory.push('dashboard/' + _this.username)
+				browserHistory.push('dashboard/' + _this.userName)
 			} 
 
 
@@ -64,7 +64,7 @@ class SignupForm extends React.Component {
 						value={this.state.userName}
 						onChange={this.onChange}
 						type="text"
-						name="username"
+						name="userName"
 						className="form-control"
 					/>
 					</div>

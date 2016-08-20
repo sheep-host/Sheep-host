@@ -15,10 +15,10 @@ class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			database: 'nothing',
-			dbName:'',
+
 			userName: this.props.params.username,
-			collectionName:'',
+			dbName: '',
+			collectionName: '',
 			schema:'{"username": "String", "password": "String"}'
 		}
 		this.onChange = this.onChange.bind(this)
@@ -35,10 +35,12 @@ class Dashboard extends React.Component {
  
 	onSubmit(e) {
 		e.preventDefault();
+
 		var _this = this
 		console.log('_THIS.state', _this.state)
 		axios.post('/createDevDB', _this.state).then(function(response) {
 			console.log('DASHBOARD STATE AFTER SUBMIT', _this.state)
+
 		}).catch(function(error) {
 			console.log('error on dashboard onSubmit promise', error)
 		})
