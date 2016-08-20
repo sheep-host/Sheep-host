@@ -43,11 +43,7 @@ app.use(webpackMiddleware(compiler, {
 	hot: true,
 	publicPath: webpackConfig.output.publicPath,
 	onInfo: true,
-<<<<<<< HEAD
 	historyApiFallback:true
-=======
-	historyApiFallback: true
->>>>>>> 0661d1463b15a451c3fd9a4b35ebd7423cef5867
 }));
 
 app.use(webpackHotMiddleware(compiler));
@@ -56,33 +52,16 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, './index.html'));
 })
 
-<<<<<<< HEAD
 
-
-
-
-
-// createDB button press on client
-app.post('/createDevDB', devDbMethods.updateDevProfile, devDbMethods.createDevDB)
-
-=======
->>>>>>> 0661d1463b15a451c3fd9a4b35ebd7423cef5867
 // mongoose.connect('mongodb://localhost/new-practice-db', () => {
 //   console.log('connected to local mongoDB');
 // });
 
-//all route handling in routes.js
-<<<<<<< HEAD
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, './index.html'));
-})
-=======
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, './index.html'));
 });
->>>>>>> 0661d1463b15a451c3fd9a4b35ebd7423cef5867
 
 app.listen(3000, () => {
   console.log('listening on port 3000');
