@@ -30,10 +30,12 @@ describe('Sheep DB middleware functions testing', function() {
                         password: 'Sleepy',
                     }
                 },
-                // mocking empty object for ressponse 
-                {},
+                // mocking function with done to confirm test passes 
+                {
+                    send: () => {done();}
+                },
                 // invoke done in place of next 
-                done
+                () => {throw new Error('Unit test does not account for Next. Update this test.')} // this doesn't get invoke but is a placeholder in case 'next' is added later
             );
             
         });
@@ -45,6 +47,46 @@ describe('Sheep DB middleware functions testing', function() {
                 done();
             });
         });
+
+    describe('usernameExist function test', function() {
+    it('usernameExist should flag that a name already exists in database', function(done) {
+        devMethods.usernameExist( 
+        // call function with data already saved in Test DB
+            {
+                body: {
+                    userName: 'Sheepy',
+                    password: 'Sleepy',
+                }
+            },
+            // mocking to pass test that name exists
+            {
+                send: () => {done();}
+            },
+            // Test will not pass if name does not exist 
+            () => {throw new Error('Name does not exist in Test DB when it should exist!')}
+        );
+        
+    });
+
+    it('usernameExist should confirm that a name does not already exists in database', function(done) {
+        devMethods.usernameExist( 
+        // call function with data that is not already saved in Test DB
+            {
+                body: {
+                    userName: 'Sheepy2',
+                    password: 'Sleepy',
+                }
+            },
+            // Test should fail if the name exists
+            {
+                send: () => {throw new Error('Fail! Name already exists in Test database!')}
+            },
+            // Test will pass if name does not exist 
+            () => {done();}
+        );  
+    });
+
+    });
 
     after(function(done){
         mongoose.connection.db.dropDatabase(function(){

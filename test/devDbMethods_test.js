@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 "use strict";
 
->>>>>>> 14fecff45392c9316acc7d6a777b32d0449ecccd
 const mongoose = require('mongoose');
 const chai = require('chai');
 const methods = require('../database/methods/devDbMethods');
@@ -26,9 +23,9 @@ describe('devDB middleware functions testing', function() {
             default: {
               id: { type: String, default: 'null' },
               name: { type: String, default: 'null' },
-              collection: {
+              collections: {
                 name: { type: String, default: 'null' },
-                schema: { type: String, default: 'null' },
+                devSchema: { type: String, default: 'null' },
               },
             } },
         }));
@@ -44,7 +41,7 @@ describe('devDB middleware functions testing', function() {
 
     it('update function should update correct user\'s database information', (done) => {
       const Devs = mdl; // set to match the variable used within update to hold the model
-      methods.update( // call function with expected data
+      methods.updateDevProfile( // call function with expected data
         {
           body: {
             userName: 'sheep',
@@ -54,7 +51,9 @@ describe('devDB middleware functions testing', function() {
             schema: '{ color: String }',
           }
         },
-        {},
+        {
+          json: () => {}
+        },
         () => {}
       );
 
@@ -66,8 +65,8 @@ describe('devDB middleware functions testing', function() {
         expect(dev.database).to.be.an('array');
         expect(dev.database[0].id).to.equal('1234');
         expect(dev.database[0].name).to.equal('fluffy');
-        expect(dev.database[0].collection.name).to.equal('fur');
-        expect(dev.database[0].collection.schema).to.equal('{ color: String }');
+        expect(dev.database[0].collections[0].name).to.equal('fur');
+        expect(dev.database[0].collections[0].devSchema).to.equal('{ color: String }');
         done();
       });
     });
@@ -75,7 +74,7 @@ describe('devDB middleware functions testing', function() {
 
   describe('create middle function test', () => {
     before((done) => {
-      methods.create(
+      methods.createDevDB(
         {
           body: {
             userName: 'sheep',
