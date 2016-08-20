@@ -10,7 +10,7 @@ class SignupForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username:'',
+			userName:'',
 			password:'',
 			//passwordConfirmation:''
 		}
@@ -61,7 +61,7 @@ class SignupForm extends React.Component {
 				<div className="form-group">
 					<label className="control-label"> Username</label>
 					<input
-						value={this.state.username}
+						value={this.state.userName}
 						onChange={this.onChange}
 						type="text"
 						name="username"

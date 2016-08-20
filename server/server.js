@@ -42,13 +42,16 @@ const compiler = webpack(webpackConfig);
 app.use(webpackMiddleware(compiler, {
 	hot: true,
 	publicPath: webpackConfig.output.publicPath,
-	onInfo: true
+	onInfo: true,
+	historyApiFallback:true
 }));
 app.use(webpackHotMiddleware(compiler))
 
 app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, './index.html'));
 })
+
+
 
 
 
@@ -61,7 +64,9 @@ app.post('/createDevDB', devDbMethods.updateDevProfile, devDbMethods.createDevDB
 // });
 
 //all route handling in routes.js
-
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname, './index.html'));
+})
 
 app.listen(3000, () => {
   console.log('listening on port 3000');
