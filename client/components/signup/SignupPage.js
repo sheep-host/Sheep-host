@@ -7,16 +7,18 @@ import  Dashboard  from '../Dashboard';
 
 //this renders signupform - which is where they login, confirming they're account and rendering to DB
 class SignupPage extends React.Component {
+	 
+	
 	render() {
 
-		const { userSignupRequest } = this.props
+		const { a } = this.props
 
 		return (
 			<div className="row">
 				<div className="col-md-4 col-md-offset-4">
 
 					<SignupForm 
-						userSignupRequest={userSignupRequest} 
+						hello={a} 
 					/>
 				</div>
 			</div>
