@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import cookie from 'react-cookie'
 //component will mount that goes to database and grabs users data and displays it
 
 	// <input 
@@ -27,7 +28,12 @@ class Dashboard extends React.Component {
 	} 
 
 	componentDidMount() {
-		console.log('COMPONENT DID MOUNT DASHBOARD')
+		let _id = cookie.load('_id').slice(2);
+		axios.get('/'+_id).then(function(response) {
+			console.log('response', response);
+		}).catch(function(error) {
+			console.log(error)
+		});
 	}
 
 	onChange(e) {
