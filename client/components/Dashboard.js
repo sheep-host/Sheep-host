@@ -16,6 +16,7 @@ class Dashboard extends React.Component {
 		super(props);
 		this.state = {
 
+			database:'a;sdlkfj;al',
 			userName: this.props.params.username,
 			dbName: '',
 			collectionName: '',
@@ -52,7 +53,7 @@ class Dashboard extends React.Component {
 		<div>
 			<h3> Welcome to your Dashboard <em>{this.props.params.username}</em></h3>
 			
-		<form onSubmit={this.onSubmit}>			
+		<form onSubmit={this.onSubmit} >			
 
 
 			<input 

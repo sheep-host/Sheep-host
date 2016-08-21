@@ -34,7 +34,7 @@ class LoginForm extends React.Component {
 		axios.post('/login', _this).then(function(response) {
 			console.log('login form on submit response', response)
 			if(response.data){
-				browserHistory.push('dashboard/:' + _this.userName)
+				browserHistory.push('dashboard/' + _this.userName)
 			}
 		}).catch(function(error) {
 			console.log(error)
