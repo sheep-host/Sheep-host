@@ -17,7 +17,7 @@ function addDev(req, res, next){
   // 	else {
   // 		console.log('SAVED')
   // 		//next();
-      
+
   // 		res.send(true);
   //   }
   // })
@@ -26,11 +26,13 @@ function addDev(req, res, next){
    userName: req.body.userName,
    password: req.body.password
   };
-  
+
  Dev.create(newDev, function(err, result){
    if(err) throw err;
    console.log('dev saved', result);
-   res.send(true); //placeholder response.
+   req.body.dev = result;
+  //  res.send(true); //placeholder response - updated for cookie functionality
+    next();
  })
 }
 
@@ -44,10 +46,9 @@ function usernameExist(req, res, next){
       } else {
         console.log('name exists!');
         res.status(422).send('User exists, please choose another username');
-      } 
+      }
   })
-} 
+}
 
 
-module.exports = { addDev, usernameExist }; 
- 
+module.exports = { addDev, usernameExist };

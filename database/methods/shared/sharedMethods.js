@@ -10,15 +10,17 @@ function checkPassword(req, res, next){
 			res.status(422).send('Incorrect username/password');
 		}
 		else{
-			res.send(true);
+			// res.send(true); // changed to call next() to accomidate cookie setting functionality
+      req.body.dev = dev;
+      next();
 		}
 	});
 }
 
 function extractId(req, res, next){
-	console.log(req.body.userName);
+	console.log('extractID/req.body.userName: ', req.body.userName);
 	Devs.findOne({userName: req.body.userName},function(err, dev){
-		console.log(dev);
+		console.log('dev: ', dev);
 		if(dev === null){
 			console.log('dev is null');
 			res.status(422).send('Incorrect username/password');
