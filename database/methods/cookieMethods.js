@@ -17,7 +17,7 @@ function setCookie(req, res, next) {
 }
 
 function setDatabaseCookieTrue(req, res, next) {
-  res.cookie('database', true, { maxAge: 600000 }).send(true);
+  res.cookie('database', true, { maxAge: 600000 }).json(req.body.result);
 }
 
 export default { setCookie, setDatabaseCookieTrue };
