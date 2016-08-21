@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import cookie from 'react-cookie'
 //component will mount that goes to database and grabs users data and displays it
 
 	// <input 
@@ -15,8 +16,9 @@ class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-
+			database: '',
 			userName: this.props.params.username,
+			dbId: '',
 			dbName: '',
 			collectionName: '',
 			schema:'{"username": "String", "password": "String"}'
@@ -26,7 +28,13 @@ class Dashboard extends React.Component {
 	} 
 
 	componentDidMount() {
-		console.log('COMPONENT DID MOUNT DASHBOARD')
+		let that = this;
+		let _id = cookie.load('_id').slice(3,-1);
+		axios.get('/api/'+_id).then(function(response) {
+			that.setState({dbId: _id, database: JSON.stringify(response.data) });
+		}).catch(function(error) {
+			console.log(error)
+		});
 	}
 
 	onChange(e) {
@@ -52,7 +60,7 @@ class Dashboard extends React.Component {
 		<div>
 			<h3> Welcome to your Dashboard <em>{this.props.params.username}</em></h3>
 			
-		<form onSubmit={this.onSubmit}>			
+		<form onSubmit={this.onSubmit} >			
 
 
 			<input 
@@ -76,7 +84,8 @@ class Dashboard extends React.Component {
 			className="btn btn-primary"> 
 			 Create MongoDB </button>
 			</form>
-				{this.state.database}
+				<p>Your dev ID: {this.state.dbId}</p>
+				<p>{this.state.database}</p>
 		</div>
 
 			
