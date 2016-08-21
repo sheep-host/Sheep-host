@@ -32,6 +32,18 @@ function extractId(req, res, next){
 	});
 }
 
+function validateDev(req, res, next){
+	Devs.findById(req.params.dbId, function(err, dev){
+		if(!dev){
+			res.status(422).send('Incorrect user information');
+		}
+		else{
+			req.body.dev = dev;
+			next();
+		}
+	})
+}
+
 function openDB(req, res, next){
 	let dev = req.body.dev;
 	let schema = JSON.parse(dev.database[0].collections[0].devSchema);
@@ -42,4 +54,4 @@ function openDB(req, res, next){
 	next();
 }
 
-module.exports = { checkPassword, extractId, openDB };
+module.exports = { checkPassword, extractId, validateDev, openDB };
