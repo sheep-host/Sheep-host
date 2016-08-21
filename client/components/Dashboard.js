@@ -65,7 +65,6 @@ class Dashboard extends React.Component {
 		return (
 
 			<div>
-				<div class='left'>
 				<h3> Welcome to your Dashboard, {this.props.params.username}</h3>
 				<form onSubmit={this.onSubmit} >			
 
