@@ -8,7 +8,7 @@ router.get('/:dbId', sharedMethods.validateDev, sharedMethods.openDB, apiMethods
 
 router.post('/:dbId', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.populateDB);
 
-router.put('/:dbId/:id', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.updateDB);
+router.put('/:dbId/:id', apiMethods.storePut, sharedMethods.validateDev, sharedMethods.openDB, apiMethods.updateDB);
 
 router.delete('/:dbId/:id', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.remove);
 

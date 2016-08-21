@@ -29,16 +29,36 @@ function showAllData(req, res, next){
 }
 
 //PUT
+function storePut(req, res, next){
+	let put = {};
+	for(let key in req.body){
+		put[key] = req.body[key];
+	}
+	res.locals.put = put;
+	next();
+}
+
 function updateDB(req, res, next){
-	console.log(req.body);
+	// console.log(req.body);
+	// console.log(req.body.put);
+	const devModel = req.body.devModel;
+	let put = res.locals.put;
 	const id = req.params.id;
-	res.send(200);
-	// devModel.findOneAndUpdateAndUpdate(id, )
+	devModel.findByIdAndUpdate(id, put, function(err, result){
+		if (err) res.sendsStatus(400,'Invalid input');
+		res.json(result);
+	})
 }
 
 //DELETE
 function remove(req, res, next){
-
+	const devModel = req.body.devModel;
+	const id = req.params.id;
+	devModel.findByIdAndRemove(id, function(err, result){
+		if (err) res.sendsStatus(400,'Invalid input');
+		console.log('deleted');
+		res.sendStatus(200, 'Document removed');
+	})
 }
 
-module.exports = { showAllData, populateDB, updateDB, remove };
+module.exports = { storePut, showAllData, populateDB, updateDB, remove };
