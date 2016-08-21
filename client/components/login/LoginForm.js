@@ -19,29 +19,29 @@ class LoginForm extends React.Component {
 
 	}
 	//here, 'this' would refer to event context - bind in constructor (or where passed down through props)
-	//e.target.name refering to input action 
+	//e.target.name refering to input action
 	onChange(e) {
 		this.setState({[e.target.name] : e.target.value })
-	}  
+	}
 
 
 	onSubmit(e) {
 		e.preventDefault();
-		
+
 		console.log('LoginForm on submit')
 		var _this = this.state
-		
+
 		axios.post('/login', _this).then(function(response) {
 			console.log('login form on submit response', response)
 			if(response.data){
-				browserHistory.push('dashboard/:' + _this.userName)
+				browserHistory.push('dashboard/' + _this.userName)
 			}
 		}).catch(function(error) {
 			console.log(error)
 		})
-		
+
 		// this.props.userLogin(this.state).then(function() {
-			
+
 		// 	browserHistory.push('dashboard')
 		// })
 	}
@@ -49,7 +49,7 @@ class LoginForm extends React.Component {
 	//refactor and move 'form-group' to new file - DRY
 	render() {
 		return (
-			
+
 			<form onSubmit={this.onSubmit}>
 				<h1> Login </h1>
 
@@ -69,20 +69,20 @@ class LoginForm extends React.Component {
 					<input
 						onChange={this.onChange}
 						value={this.state.password}
-						
+
 						type="password"
 						name="password"
 						className="form-control"
 					/>
 					</div>
 
-				
+
 
 					<div className="form-group">
 						<button className="btn btn-primary btn-lg">Login
 						</button>
 					</div>
-				
+
 			</form>
 			)
 	}
@@ -98,6 +98,3 @@ LoginForm.contextTypes = {
 
 
 export default LoginForm;
-
-
-
