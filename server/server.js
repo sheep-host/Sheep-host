@@ -8,35 +8,41 @@ import signup from './routes/signup';
 import login from './routes/login';
 import userCheck from './routes/userCheck'
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
 import devMethods from '../database/methods/devMethods';
 import devModel from '../database/models/devModel';
 import db from '../database/sheepDB';
-import postDevDB from './routes/postDevDB';
+import api from './routes/api';
 import createDevDB from './routes/createDevDB';
-import getDevDB from './routes/getDevDB';
-import sharedMethods from '../database/methods/shared/sharedMethods';
+
+//node-restful consider post-MVP
+// import methodOverride from 'method-override';
+// import morgan from 'morgan';
+// import restful from'node-restful';
+
 
 let app = express();
+
+//node-restful consider post-MVP
+// app.use(morgan('dev'));
+
+// app.use(methodOverride());
+
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json())
 
-//api for creating account
+app.use(bodyParser.json({type:'application/vnd.api+json'}));
+
+
 app.use('/signup', signup)
 
 app.use('/login', login)
 
-//api for logging in
-app.use('/api/checkUserLogin', userCheck);
-
 //click 'createDB' button
 app.use('/createDevDB', createDevDB);
 
-app.use('/getDevDB', getDevDB);
-
-app.use('/postDevDB', postDevDB);
+app.use('/api', api);
 
 
 // app.use(webpackMiddleware(webpack(webpackConfig)));
