@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import path from 'path';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
@@ -21,12 +22,14 @@ let app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.json())
+app.use(cookieParser());
+
+app.use(bodyParser.json());
 
 //api for creating account
-app.use('/signup', signup)
+app.use('/signup', signup);
 
-app.use('/login', login)
+app.use('/login', login);
 
 //api for logging in
 app.use('/api/checkUserLogin', userCheck);

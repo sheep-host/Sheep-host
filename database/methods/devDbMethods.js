@@ -20,7 +20,10 @@ function updateDevProfile(req, res, next){
 
   Devs.findOneAndUpdate(query, { $set: data }, function(err, dev) {
     if (err) throw err;
-    res.json(req.body.results);
+    req.body.dev = dev;
+    console.log('updated dev profile: ', dev)
+    // res.json(req.body.results); // changed to call next() for cookie updating
+    next();
   });
 }
 
