@@ -1,4 +1,5 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import path from 'path';
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
@@ -30,14 +31,16 @@ let app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(bodyParser.json())
+app.use(cookieParser());
 
-app.use(bodyParser.json({type:'application/vnd.api+json'}));
+app.use(bodyParser.json());
 
+// app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
-app.use('/signup', signup)
+//api for creating account
+app.use('/signup', signup);
 
-app.use('/login', login)
+app.use('/login', login);
 
 //click 'createDB' button
 app.use('/createDevDB', createDevDB);
