@@ -16,9 +16,9 @@ class Dashboard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-
-			database:'a;sdlkfj;al',
+			database: '',
 			userName: this.props.params.username,
+			dbId: '',
 			dbName: '',
 			collectionName: '',
 			schema:'{"username": "String", "password": "String"}'
@@ -28,9 +28,10 @@ class Dashboard extends React.Component {
 	} 
 
 	componentDidMount() {
-		let _id = cookie.load('_id').slice(2);
-		axios.get('/'+_id).then(function(response) {
-			console.log('response', response);
+		let that = this;
+		let _id = cookie.load('_id').slice(3,-1);
+		axios.get('/api/'+_id).then(function(response) {
+			that.setState({dbId: _id, database: JSON.stringify(response.data) });
 		}).catch(function(error) {
 			console.log(error)
 		});
@@ -83,7 +84,8 @@ class Dashboard extends React.Component {
 			className="btn btn-primary"> 
 			 Create MongoDB </button>
 			</form>
-				{this.state.database}
+				<p>Your dev ID: {this.state.dbId}</p>
+				<p>{this.state.database}</p>
 		</div>
 
 			
