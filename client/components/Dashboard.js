@@ -65,6 +65,7 @@ class Dashboard extends React.Component {
 		return (
 
 			<div>
+				<div class='left'>
 				<h3> Welcome to your Dashboard, {this.props.params.username}</h3>
 				<form onSubmit={this.onSubmit} >			
 
@@ -74,7 +75,7 @@ class Dashboard extends React.Component {
 					value={this.state.dbName}
 					type="text"
 					name="dbName"
-				/> <br/>
+				/> <br/><br/>
 
 				<input
 					onChange={this.onChange} 
@@ -82,7 +83,7 @@ class Dashboard extends React.Component {
 					value={this.state.collectionName}
 					type="text"
 					name="collectionName"
-				/> <br/>
+				/> <br/><br/>
 
 				<textarea
 					onChange={this.onChange} 
@@ -90,12 +91,12 @@ class Dashboard extends React.Component {
 					value={this.state.schema}
 					type="text"
 					name="schema"
-				/> <br/>
+				/> <br/><br/>
 
 				<button 
 					className="btn btn-primary"> 
 					Create MongoDB
-				</button>
+				</button><br/><br/>
 
 				</form>
 				<p>Your dev ID: {this.state.dbId}</p>
