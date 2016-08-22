@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import Devs from'../../models/devModel';
-import db from '../../sheepDB';
+var mongoose = require('mongoose');
+var Devs = require('../../models/devModel');
+var db = require('../../sheepDB');
 
 function checkPassword(req, res, next){
 	Devs.findOne({userName: req.body.userName, password: req.body.password},function(err, dev){

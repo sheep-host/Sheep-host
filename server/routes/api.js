@@ -1,8 +1,8 @@
-import express from 'express';
-import apiMethods from '../../database/methods/devAPI/apiMethods';
-import sharedMethods from '../../database/methods/shared/sharedMethods';
+var express = require('express');
+var apiMethods = require('../../database/methods/devAPI/apiMethods');
+var sharedMethods = require('../../database/methods/shared/sharedMethods');
 
-let router = express.Router()
+var router = express.Router()
 
 router.get('/:dbId', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.showAllData);
 
@@ -12,4 +12,4 @@ router.put('/:dbId/:id', apiMethods.storePut, sharedMethods.validateDev, sharedM
 
 router.delete('/:dbId/:id', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.remove);
 
-export default router;
+module.exports = router;

@@ -1,9 +1,9 @@
-import express from 'express';
-import devMethods from '../../database/methods/devMethods';
-import db from '../../database/sheepDB';
-import cookieMethods from '../../database/methods/cookieMethods.js';
+var express = require('express');
+var devMethods = require('../../database/methods/devMethods');
+var db = require('../../database/sheepDB');
+var cookieMethods = require('../../database/methods/cookieMethods.js');
 
-let router = express.Router()
+var router = express.Router()
 
 //VALIDATION / AUTHENTICATION GOES HERE!!!!!!!~~~~~~~~~~~~~~~
 //and password confirmation
@@ -11,4 +11,4 @@ let router = express.Router()
 router.post('/', devMethods.usernameExist, devMethods.addDev, cookieMethods.setCookie);
 
 
-export default router;
+module.exports = router;
