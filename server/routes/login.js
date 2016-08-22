@@ -1,7 +1,7 @@
 var express = require('express');
 var sharedMethods = require('../../database/methods/shared/sharedMethods');
 var cookieMethods = require('../../database/methods/cookieMethods');
-var db = require('../../database/sheepDB');
+var db = require('../../database/SheepDB');
 
 var router = express.Router()
 

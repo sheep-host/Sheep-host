@@ -11,7 +11,7 @@ var userCheck = require('./routes/userCheck');
 var bodyParser = require('body-parser');
 var devMethods = require('../database/methods/devMethods');
 var devModel = require('../database/models/devModel');
-var db = require('../database/sheepDB');
+var db = require('../database/SheepDB');
 var api = require('./routes/api');
 var createDevDB = require('./routes/createDevDB');
 

@@ -1,4 +1,4 @@
-var db = require('../sheepDB');
+var db = require('../SheepDB');
 var mongoose = require('mongoose');
 var Devs = require('../models/devModel');
 

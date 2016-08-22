@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Devs = require('../../models/devModel');
-var db = require('../../sheepDB');
+var db = require('../../SheepDB');
 
 function checkPassword(req, res, next){
 	Devs.findOne({userName: req.body.userName, password: req.body.password},function(err, dev){
