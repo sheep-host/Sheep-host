@@ -1,6 +1,6 @@
 var express = require('express');
 var devMethods = require('../../database/methods/devMethods');
-var db = require('../../database/sheepDB');
+var db = require('../../database/SheepDB');
 var cookieMethods = require('../../database/methods/cookieMethods.js');
 
 var router = express.Router()
