@@ -6,7 +6,7 @@ let router = express.Router()
 
 router.get('/:dbId', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.showAllData);
 
-router.post('/:dbId', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.populateDB);
+router.post('/:dbId', apiMethods.storePost, sharedMethods.validateDev, sharedMethods.openDB, apiMethods.populateDB);
 
 router.put('/:dbId/:id', apiMethods.storePut, sharedMethods.validateDev, sharedMethods.openDB, apiMethods.updateDB);
 

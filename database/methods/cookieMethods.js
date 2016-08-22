@@ -11,7 +11,10 @@ function setCookie(req, res, next) {
   // res.cookie('sheep', sheepCookie, { maxAge: 60000, httpOnly: true }).send(true);
 
   // httpOnly not set to true, for MVP purposes!
+  console.log('cookie', req.body.dev);
   res.cookie('_id', req.body.dev._id, { maxAge: 600000 });
+  res.cookie('dbName', req.body.dev.database[0].name, { maxAge: 600000 });
+  res.cookie('collectionName', req.body.dev.database[0].collections[0].name, { maxAge: 600000 });
   res.cookie('username', req.body.dev.userName, { maxAge: 600000 });
   res.cookie('database', req.body.dev.database.length > 0, { maxAge: 600000 }).send(true);
 }

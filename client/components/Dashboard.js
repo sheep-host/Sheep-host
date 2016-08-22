@@ -24,7 +24,7 @@ class Dashboard extends React.Component {
 
 	componentDidMount() {
 		this.getData();
-		setInterval(this.getData, 10000);
+		setInterval(this.getData, 4000);
 	}
 
 	onClick() {
@@ -34,12 +34,14 @@ class Dashboard extends React.Component {
 	getData() {
 		let that = this;
 		let _id = cookie.load('_id').slice(3,-1);
+		let _dbName = cookie.load('dbName');
+		let _collectionName = cookie.load('collectionName');
 		axios.get('/api/'+_id).then(function(response) {
 			let dataArray = [];
 			response.data.forEach(function(item){
 				dataArray.push(item)
 			})
-			that.setState({dbId: _id, database: JSON.stringify(response.data) });
+			that.setState({dbName: _dbName, collectionName: _collectionName, dbId: _id, database: JSON.stringify(response.data) });
 		}).catch(function(error) {
 			console.log(error)
 		});
