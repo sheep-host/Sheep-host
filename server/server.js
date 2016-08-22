@@ -34,6 +34,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, '../public/')));
+
 
 // app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
@@ -47,7 +49,6 @@ app.use('/createDevDB', createDevDB);
 
 app.use('/api', api);
 
-app.use(express.static(path.join(__dirname, '../public/')));
 
 
 // app.use(webpackMiddleware(webpack(webpackConfig)));
