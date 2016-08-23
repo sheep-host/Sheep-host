@@ -9,6 +9,7 @@ router.post('/',
   sharedMethods.extractId,
   devDbMethods.createDevDB,
   devDbMethods.updateDevProfile,
+  cookieMethods.setDBCookie,
   cookieMethods.setDatabaseCookieTrue
 );
 
