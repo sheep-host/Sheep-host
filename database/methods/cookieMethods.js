@@ -31,4 +31,4 @@ function setDatabaseCookieTrue(req, res, next) {
   res.json(req.body.result);
 }
 
-export default { setCookie, setDBCookie, setDatabaseCookieTrue };
+module.exports = { setCookie, setDBCookie, setDatabaseCookieTrue };
