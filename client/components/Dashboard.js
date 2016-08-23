@@ -14,7 +14,7 @@ class Dashboard extends React.Component {
 			dbName: '',
 			collectionName: '',
 			schema:'',
-			instructionsVisible: false
+			instructionsVisible: true
 		}
 		this.onChange = this.onChange.bind(this)
 		this.onSubmit = this.onSubmit.bind(this)
@@ -24,7 +24,7 @@ class Dashboard extends React.Component {
 
 	componentDidMount() {
 		this.getData();
-		setInterval(this.getData, 4000);
+		setInterval(this.getData, 2000);
 	}
 
 	onClick() {
@@ -36,12 +36,14 @@ class Dashboard extends React.Component {
 		let _id = cookie.load('_id').slice(3,-1);
 		let _dbName = cookie.load('dbName');
 		let _collectionName = cookie.load('collectionName');
+		let schema = cookie.load('schema');
+		let _schema = JSON.stringify(schema);
 		axios.get('/api/'+_id).then(function(response) {
 			let dataArray = [];
 			response.data.forEach(function(item){
 				dataArray.push(item)
 			})
-			that.setState({dbName: _dbName, collectionName: _collectionName, dbId: _id, database: JSON.stringify(response.data) });
+			that.setState({dbName: _dbName, collectionName: _collectionName, dbId: _id, database: JSON.stringify(response.data), schema: _schema });
 		}).catch(function(error) {
 			console.log(error)
 		});
@@ -103,6 +105,7 @@ class Dashboard extends React.Component {
 				<p>Your dev ID: {this.state.dbId}</p>
 				<p>Your database: {this.state.dbName}</p>
 				<p>Your collection: {this.state.collectionName}</p>
+				<p>Your schema: {this.state.schema}</p>
 				<p>Your data:</p>
 				<div>{this.state.database}</div><br/>
 				<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>

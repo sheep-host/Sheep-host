@@ -8,7 +8,7 @@ let router = express.Router()
 //VALIDATION / AUTHENTICATION GOES HERE!!!!!!!~~~~~~~~~~~~~~~
 //and password confirmation
 
-router.post('/', sharedMethods.checkPassword, cookieMethods.setCookie);
+router.post('/', sharedMethods.checkPassword, cookieMethods.setDBCookie, cookieMethods.setCookie);
 
 
 export default router;
