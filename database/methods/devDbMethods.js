@@ -6,6 +6,7 @@ var uri = 'mongodb://heroku_8q1d73wg:ki4b4j303kbtdi6j2cbeurt0vg@ds013916.mlab.co
 
 // when user clicks createDB button, rest of his profile populates
 function updateDevProfile(req, res, next){
+  console.log('req.body in updateDevProfile: ', req.body);
   var query = { userName: req.body.userName };
   var data = {
     database: [{
@@ -19,6 +20,7 @@ function updateDevProfile(req, res, next){
   };
 
   Devs.findOneAndUpdate(query, { $set: data }, function(err, dev) {
+    console.log('findOneAndUpdate dev: ', dev);
     if (err) throw err;
     req.body.dev = dev;
     console.log('updated dev profile: ', dev)
@@ -35,7 +37,7 @@ function createDevDB(req, res, next) {
   };
   console.log('in createDB', req.body);
   Devs.findOne(query, function(err, dev){
-    console.log('dev', dev);
+    console.log('dev null is good: ', dev);
     if(!dev){
       var devDB = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
       var devModel = devDB.model('label', new mongoose.Schema({
