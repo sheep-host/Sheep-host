@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '../public/')));
+app.use(express.static(__dirname + '/public'));
 
 
 // app.use(bodyParser.json({type:'application/vnd.api+json'}));
@@ -76,10 +76,12 @@ app.use('/api', api);
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '../public/index.html'));
+	res.sendFile('index.html');
 });
 
-app.listen(process.env.PORT || 3000, () => {
+var port = process.env.PORT || 3000;
+
+app.listen(port, () => {
   console.log('listening on port 3000');
 });
 
