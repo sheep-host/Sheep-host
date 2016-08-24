@@ -10,8 +10,8 @@ var devModel = require('./database/models/devModel');
 var db = require('./database/SheepDB');
 var api = require('./server/routes/api');
 var createDevDB = require('./server/routes/createDevDB');
-
-// var webpack = 'webpack';                                  // webpack hot reload???
+var env = require('./.env');
+// var webpack = 'webpack';
 // var webpackMiddleware = 'webpack-dev-middleware';
 // var webpackConfig = '../webpack.config.js';
 // var webpackHotMiddleware = 'webpack-hot-middleware';
