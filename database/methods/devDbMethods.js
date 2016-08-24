@@ -1,7 +1,7 @@
 'use strict';
 var Devs = require('../models/devModel');
 var mongoose = require('mongoose');
-var uri = 'mongodb://heroku_8q1d73wg:ki4b4j303kbtdi6j2cbeurt0vg@ds013916.mlab.com:13916/';
+var uri = 'mongodb://localhost/';
 
 
 // when user clicks createDB button, rest of his profile populates
