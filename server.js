@@ -11,6 +11,9 @@ var db = require('./database/SheepDB');
 var api = require('./server/routes/api');
 var createDevDB = require('./server/routes/createDevDB');
 var env = require('./.env');
+
+var app = express();
+
 // var webpack = 'webpack';
 // var webpackMiddleware = 'webpack-dev-middleware';
 // var webpackConfig = '../webpack.config.js';
@@ -26,8 +29,6 @@ var env = require('./.env');
 // }));
 //
 // app.use(webpackHotMiddleware(compiler));
-
-var app = express();
 
 //node-restful consider post-MVP
 // app.use(morgan('dev'));
