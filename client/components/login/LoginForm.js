@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import{ userLogin } from '../../actions/loginAction'
 
 
 //axios = library for making post requests
@@ -31,7 +32,7 @@ class LoginForm extends React.Component {
 		console.log('LoginForm on submit')
 		var _this = this.state
 
-		axios.post('/login', _this).then(function(response) {
+		this.props.userLogin(_this).then(function(response) {
 			console.log('login form on submit response', response)
 			if(response.data){
 				browserHistory.push('dashboard/' + _this.userName)

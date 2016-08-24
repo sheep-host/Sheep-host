@@ -3,9 +3,11 @@ import axios from 'axios';
 import cookie from 'react-cookie';
 import InstructionsClick from './instructionsClick';
 import ReactDOM from 'react-dom';
-// import DatabaseForm from './DBInputComponent';
-// import CollectionForm from './CollectionInputComponent'
-// import DevInfo from './DisplayDevInfo';
+import DatabaseForm from './DBInputComponent';
+import CollectionForm from './CollectionInputComponent'
+import DevInfo from './DisplayDevInfo';
+import Schemaform from './SchemaInput';
+// setInterval(this.getData, 10000);
 
 const Dashboard = React.createClass({
 	getInitialState () {
@@ -22,19 +24,14 @@ const Dashboard = React.createClass({
 
 			
 		}
-		this.onChange = this.onChange.bind(this)
-		this.onSubmit = this.onSubmit.bind(this)
-		this.getData = this.getData.bind(this)
-		this.onClick = this.onClick.bind(this);
 
-	} 
-},
+	}, 
+  
 
 	componentDidMount() {
 		this.getData();
-
-		// setInterval(this.getData, 10000);
-	},
+		setInterval(this.getData, 100000);
+	}, 
 
 
 	onClick() {
@@ -66,14 +63,18 @@ const Dashboard = React.createClass({
 	},
 	
 	onDbNameChange(e) {
-				this.setState({dbName: e.target.value })
+		this.setState({dbName: e.target.value })
 		
+	},
+
+	onSchemaChange(e) {
+		this.setState({schema: e.target.value })
 	},
  
 	onSubmit(e) {
 		e.preventDefault();
 		var _this = this
-		(this.state.infoSubmitted)
+	
 		
 		console.log('_THIS.state', _this.state)
 		axios.post('/createDevDB', _this.state).then(function(response) {
@@ -93,13 +94,15 @@ const Dashboard = React.createClass({
 			<div>
 				<h3> Welcome to your Dashboard, {this.props.params.username}</h3>
 			<form onSubmit={this.onSubmit} >
-				<DatabaseForm onChange={this.onDbNameChange} dbName={this.state.dbName} />
-				<CollectionForm onChange={this.onCollectionNameChange} collectionName={this.state.collectionName} />
+				<DatabaseForm onChange={this.onDbNameChange} />
+				<CollectionForm onChange={this.onCollectionNameChange}  />
+				<Schemaform onChange={this.onSchemaChange} />
 			</form>
 				<DevInfo id={this.state.dbId} 
 						 databaseName={this.state.dbName} 
 						 collection={this.state.collectionName} 
-						 database={this.state.database} />
+						 database={this.state.database} 
+						 schema={this.state.schema} />
 
 				<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
 			</div>

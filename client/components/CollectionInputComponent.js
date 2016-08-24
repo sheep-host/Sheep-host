@@ -6,7 +6,7 @@ const CollectionForm = (props) => {
 	
 		<input 
 			onChange={props.onChange}
-			placeholder="Database Name"
+			placeholder="Collection Name"
 			type="text"
 			name="collectionName">
 

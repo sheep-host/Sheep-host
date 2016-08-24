@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import{ userSignupRequest } from '../../actions/signupActions'
 
 
 //axios = library for making post requests
@@ -31,7 +32,7 @@ class SignupForm extends React.Component {
 		console.log('THIS.STATE ON SUBMIT', this.state);
 		var _this = this.state
 		
-		axios.post('/signup', _this ).then(function(response) {
+		this.props.userSignupRequest(_this).then(function(response) {
 			
 			console.log('response.data yo',response.data)
 
