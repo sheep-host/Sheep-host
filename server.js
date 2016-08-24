@@ -16,8 +16,6 @@ var env = require('./.env');
 // var webpackConfig = '../webpack.config.js';
 // var webpackHotMiddleware = 'webpack-hot-middleware';
 
-// app.use(webpackMiddleware(webpack(webpackConfig)));
-
 // const compiler = webpack(webpackConfig);
 //
 // app.use(webpackMiddleware(compiler, {
