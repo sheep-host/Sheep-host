@@ -4,6 +4,7 @@
   "description": "< description goes here >",
   "main": "server.js",
   "scripts": {
+    "build": "babel database/* server/*",
     "start": "nodemon --watch server --exec babel-node -- server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
