@@ -19,13 +19,23 @@ const Dashboard = React.createClass({
 			schema:'',
 			instructionsVisible: false,
 			infoSubmitted: true
+
+			
+		}
+		this.onChange = this.onChange.bind(this)
+		this.onSubmit = this.onSubmit.bind(this)
+		this.getData = this.getData.bind(this)
+		this.onClick = this.onClick.bind(this);
+
 	} 
 },
 
 	componentDidMount() {
 		this.getData();
+
 		// setInterval(this.getData, 10000);
 	},
+
 
 	onClick() {
     	this.setState({instructionsVisible: !this.state.instructionsVisible});
@@ -34,12 +44,16 @@ const Dashboard = React.createClass({
 	getData() {
 		let that = this;
 		let _id = cookie.load('_id').slice(3,-1);
+		let _dbName = cookie.load('dbName');
+		let _collectionName = cookie.load('collectionName');
+		let schema = cookie.load('schema');
+		let _schema = JSON.stringify(schema);
 		axios.get('/api/'+_id).then(function(response) {
 			let dataArray = [];
 			response.data.forEach(function(item){
 				dataArray.push(item)
 			})
-			that.setState({dbId: _id, database: JSON.stringify(response.data) });
+			that.setState({dbName: _dbName, collectionName: _collectionName, dbId: _id, database: JSON.stringify(response.data), schema: _schema });
 		}).catch(function(error) {
 			console.log(error)
 		});
