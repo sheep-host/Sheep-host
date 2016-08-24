@@ -60,12 +60,12 @@ app.use('/api', api);
 
 
 app.get('/', (req, res) => {
-	res.sendFile('/public/index.html'));
+	res.sendFile(__dirname + '/public/index.html');
 });
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {
-	res.sendFile('/public/index.html');
+	res.sendFile(__dirname + '/public/index.html');
 });
 
 var port = process.env.PORT || 3000;
