@@ -24,17 +24,21 @@ function populateDB(req, res, next){
 //GET
 function showAllData(req, res, next){
 	var devModel = req.body.devModel;
-	if(req.query){
-		devModel.find(req.query, function(err, data){
-			if (err) res.status(422).send('Record not found');
-			res.json(data);
-		})
-	}
-	else{
-		devModel.find({}, function(err, data){
-			if (err) throw err;
-			res.json(data);
-		})
+	if(devModel){
+		if(req.query){
+			devModel.find(req.query, function(err, data){
+				if (err) res.status(422).send('Record not found');
+				res.json(data);
+			})
+		}
+		else{
+			devModel.find({}, function(err, data){
+				if (err) throw err;
+				res.json(data);
+			})
+		}
+	} else{
+		res.sendStatus(204);
 	}
 }
 
