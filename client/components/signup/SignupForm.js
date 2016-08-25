@@ -2,11 +2,11 @@ import React from 'react';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import{ userSignupRequest } from '../../actions/signupActions'
+import  SignupInput  from './SignupInput'
 
 
-//axios = library for making post requests
 
-//is route component for this route
+//is root component for this route
 class SignupForm extends React.Component {
 	constructor(props) {
 		super(props);
@@ -20,12 +20,9 @@ class SignupForm extends React.Component {
 		this.onSubmit = this.onSubmit.bind(this)
 
 	}
-	//here, 'this' would refer to event context - bind in constructor (or where passed down through props)
-	//e.target.name refering to input action 
 	onChange(e) {
 		this.setState({[e.target.name] : e.target.value })
 	}  
-
 
 	onSubmit(e) {
 		e.preventDefault();
@@ -33,66 +30,29 @@ class SignupForm extends React.Component {
 		var _this = this.state
 		
 		this.props.userSignupRequest(_this).then(function(response) {
-			
-			console.log('response.data yo',response.data)
-
 			if(response.data) { 
 				console.log('IF STATEMENT SIGNUP POST')
 				browserHistory.push('dashboard/' + _this.userName)
 			} 
-
-
-
 			}).catch(function(error) {
 			console.log('ERROR ON PROMISE SIGNUP FORM', error)
 		})
-		// this.props.userSignupRequest(this.state).then(function() {
-		// 	console.log('inside submit')
-		// 	browserHistory.push('dashboard')
-		// })
+
 	}
 
-	//refactor and move 'form-group' to new file - DRY
+
 	render() {
 		return (
-			
-			<form onSubmit={this.onSubmit}>
-				<h1> Create Account </h1>
-
-				<div className="form-group">
-					<label className="control-label"> Username</label>
-					<input
-						value={this.state.userName}
-						onChange={this.onChange}
-						type="text"
-						name="userName"
-						className="form-control"
-					/>
-					</div>
-
-				<div className="form-group">
-					<label className="control-label">Password</label>
-					<input
-						onChange={this.onChange}
-						value={this.state.password}
-						
-						type="password"
-						name="password"
-						className="form-control"
-					/>
-					</div>
-
-				
-
-					<div className="form-group">
-						<button className="btn btn-primary btn-lg">Sign Up
-						</button>
-					</div>
-				
-			</form>
+			<div>
+				<SignupInput onSubmit={this.onSubmit}
+							 onChange={this.onChange} 
+							 userName={this.state.userName}
+							 password={this.state.password} />			
+			</div>
 			)
 	}
 }
+
 
 SignupForm.propTypes = {
 	userSignupRequest: React.PropTypes.func.isRequired

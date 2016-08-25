@@ -7,6 +7,7 @@ import DatabaseForm from './DBInputComponent';
 import CollectionForm from './CollectionInputComponent'
 import DevInfo from './DisplayDevInfo';
 import Schemaform from './SchemaInput';
+// import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
 const Dashboard = React.createClass({
@@ -98,6 +99,7 @@ const Dashboard = React.createClass({
 				<CollectionForm onChange={this.onCollectionNameChange}  />
 				<Schemaform onChange={this.onSchemaChange} />
 			</form>
+
 				<DevInfo id={this.state.dbId} 
 						 databaseName={this.state.dbName} 
 						 collection={this.state.collectionName} 
