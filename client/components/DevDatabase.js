@@ -5,17 +5,19 @@ import DataItem from './DataItem';
 const DevDatabase = React.createClass({
 	
 	render() {
-	var DataItems=this.props.databaseInfo
-	console.log('DataItems', JSON.parse(DataItems))
-	for(var i = 0; i < 5; i++) {
-		console.log('FORLOOP',i)
-	}
-		
+	console.log('RENDER')
+	var dataArray = []
+	var DataItems=JSON.parse(this.props.databaseInfo).forEach(function(item, i) {
+		dataArray.push(<DataItem key={i} info={item} />)
+		console.log('DATAARRAY', dataArray)
+	})
+	
+
 		return (
 			<div><h3>Your Database </h3>
 			<div className="jumbotron">
 			<ul className="list-group">
-				{DataItems}
+			{dataArray}
 			</ul>
 			</div>
 			</div>
@@ -27,9 +29,9 @@ const DevDatabase = React.createClass({
 
 
 export default DevDatabase;
-				{DataItems.map(function(item, i) {
-					return <DataItem className="list-group-item" key={i} info={item} />
-				})}
+
+
+
 
 // <li className="list-group-item">{dataItems}</li>}
 

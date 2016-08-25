@@ -5,6 +5,15 @@ import { Link } from 'react-router';
 
 
 export default () => {
+  let loginButton;
+  let signupButton
+  if (localStorage.sheepToken){
+    loginButton = <li><Link to="/logout" activeClassName="active"> Log out</Link></li>;
+  }
+  else{
+    loginButton = <li><Link to="/login" activeClassName="active"> Log In </Link></li>
+    signupButton = <li><Link to="/signup" activeClassName="active">Sign up </Link></li>;
+  }
 	return (
 
 	<nav className="navbar navbar-default">
@@ -15,8 +24,8 @@ export default () => {
 
           <div className="collapse navbar-collapse">
             <ul className="nav navbar-nav navbar-right">
-            <li><Link to="/login" activeClassName="active"> Login </Link></li>
-            <li><Link to="/signup" activeClassName="active">Sign up </Link></li>
+            {loginButton}            
+            {signupButton}
             </ul>
           </div>
         </div>

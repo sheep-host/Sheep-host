@@ -14,7 +14,8 @@ function setCookie(req, res, next) {
   console.log('cookie', req.body.dev);
   res.cookie('_id', req.body.dev._id, { maxAge: 600000 });
   res.cookie('username', req.body.dev.userName, { maxAge: 600000 });
-  res.cookie('database', req.body.dev.database.length > 0, { maxAge: 600000 }).send(true);
+  res.cookie('database', req.body.dev.database.length > 0, { maxAge: 600000 });
+  res.json(req.body);
 }
 
 function setDBCookie(req, res, next){

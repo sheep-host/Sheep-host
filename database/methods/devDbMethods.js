@@ -2,6 +2,7 @@
 var Devs = require('../models/devModel');
 var mongoose = require('mongoose');
 var uri = 'mongodb://localhost/';
+var db = require('../SheepDB');
 
 
 // when user clicks createDB button, rest of his profile populates
@@ -39,7 +40,7 @@ function createDevDB(req, res, next) {
   Devs.findOne(query, function(err, dev){
     console.log('dev null is good: ', dev);
     if(!dev){
-      var devDB = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
+      var devDB = db.useDb(req.body.dbId + '_' + req.body.dbName);
       var devModel = devDB.model('label', new mongoose.Schema({
         createdBy: String
       }));
