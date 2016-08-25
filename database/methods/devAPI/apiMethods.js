@@ -23,7 +23,7 @@ function populateDB(req, res, next){
 
 //GET
 function showAllData(req, res, next){
-	const devModel = req.body.devModel;
+	var devModel = req.body.devModel;
 	if(devModel){
 		if(req.query){
 			devModel.find(req.query, function(err, data){
