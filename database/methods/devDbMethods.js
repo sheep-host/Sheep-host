@@ -1,13 +1,14 @@
 'use strict';
-const Devs = require('../models/devModel');
-const mongoose = require('mongoose');
-const uri = 'mongodb://localhost/';
+var Devs = require('../models/devModel');
+var mongoose = require('mongoose');
+var uri = 'mongodb://localhost/';
 
 
 // when user clicks createDB button, rest of his profile populates
 function updateDevProfile(req, res, next){
-  const query = { userName: req.body.userName };
-  const data = {
+  console.log('req.body in updateDevProfile: ', req.body);
+  var query = { userName: req.body.userName };
+  var data = {
     database: [{
       id: req.body.dbId,
       name: req.body.dbName,
@@ -19,6 +20,7 @@ function updateDevProfile(req, res, next){
   };
 
   Devs.findOneAndUpdate(query, { $set: data }, function(err, dev) {
+    console.log('findOneAndUpdate dev: ', dev);
     if (err) throw err;
     req.body.dev = dev;
     console.log('updated dev profile: ', dev)
@@ -29,16 +31,16 @@ function updateDevProfile(req, res, next){
 
 // new DB spooled up using id from dev profile and chosen db name
 function createDevDB(req, res, next) {
-  const query = {
+  var query = {
     userName: req.body.userName,
     'database.name': req.body.dbName
   };
   console.log('in createDB', req.body);
   Devs.findOne(query, function(err, dev){
-    console.log('dev', dev);
+    console.log('dev null is good: ', dev);
     if(!dev){
-      const devDB = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
-      const devModel = devDB.model('label', new mongoose.Schema({
+      var devDB = mongoose.createConnection(uri + req.body.dbId + '_' + req.body.dbName);
+      var devModel = devDB.model('label', new mongoose.Schema({
         createdBy: String
       }));
       devModel({

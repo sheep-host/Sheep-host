@@ -1,12 +1,12 @@
 'use strict';
-const mongoose = require('mongoose');
-const Dev = require('../models/devModel');
+var mongoose = require('mongoose');
+var Dev = require('../models/devModel');
 
 
 function addDev(req, res, next){
 	console.log('inside addDev');
   console.log('REQ.body', req.body)
-  // const newDev = Dev({
+  // var newDev = Dev({
   // 	userName: req.body.userName,
   // 	password: req.body.password
   // });
@@ -22,7 +22,7 @@ function addDev(req, res, next){
   //   }
   // })
 
-  const newDev ={
+  var newDev ={
    userName: req.body.userName,
    password: req.body.password
   };
