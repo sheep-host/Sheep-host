@@ -10,7 +10,7 @@ class LoginPage extends React.Component {
 	render() {
 
 		
-		console.log('LOGIN PAGE', this.props)
+		const { userLogin } = this.props
 		return (
 			<div className="row">
 				<div className="col-md-4 col-md-offset-4">

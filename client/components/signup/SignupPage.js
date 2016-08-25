@@ -11,14 +11,14 @@ class SignupPage extends React.Component {
 	
 	render() {
 
-		const { a } = this.props
+		const { userSignupRequest } = this.props
 
 		return (
 			<div className="row">
 				<div className="col-md-4 col-md-offset-4">
 
 					<SignupForm 
-						hello={a} 
+						userSignupRequest={userSignupRequest} 
 					/>
 				</div>
 			</div>
@@ -37,5 +37,5 @@ SignupPage.propTypes = {
 //short cut version
 // export default connect((state) => { return {} }, {userSignupRequest }) (SignupPage);
 
-//not using redux right now, using axios.post inside of onsubmit function in signupform component
+
 export default connect(null, {userSignupRequest }) (SignupPage);
