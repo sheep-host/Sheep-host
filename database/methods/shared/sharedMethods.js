@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import Devs from'../../models/devModel';
-import db from '../../sheepDB';
+var mongoose = require('mongoose');
+var Devs = require('../../models/devModel');
+var db = require('../../SheepDB');
 
 function checkPassword(req, res, next){
 	Devs.findOne({userName: req.body.userName, password: req.body.password},function(err, dev){
@@ -45,9 +45,9 @@ function validateDev(req, res, next){
 }
 
 function openDB(req, res, next){
-	let dev = req.body.dev;
-	let schema = JSON.parse(dev.database[0].collections[0].devSchema);
-	let devDBName = dev._id + '_' + dev.database[0].name;
+	var dev = req.body.dev;
+	var schema = JSON.parse(dev.database[0].collections[0].devSchema);
+	var devDBName = dev._id + '_' + dev.database[0].name;
 	const devDB = db.useDb(devDBName);
 	const devModel = devDB.model(dev.database[0].collections[0].name, new mongoose.Schema(schema));
 	req.body.devModel = devModel;

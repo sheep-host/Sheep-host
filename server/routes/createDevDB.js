@@ -1,9 +1,9 @@
-import express from 'express';
-import devDbMethods from '../../database/methods/devDbMethods';
-import sharedMethods from '../../database/methods/shared/sharedMethods';
-import cookieMethods from '../../database/methods/cookieMethods';
+var express = require('express');
+var devDbMethods = require('../../database/methods/devDbMethods');
+var sharedMethods = require('../../database/methods/shared/sharedMethods');
+var cookieMethods = require('../../database/methods/cookieMethods');
 
-let router = express.Router();
+var router = express.Router();
 
 router.post('/',
   sharedMethods.extractId,
@@ -13,4 +13,4 @@ router.post('/',
   cookieMethods.setDatabaseCookieTrue
 );
 
-export default router;
+module.exports = router;
