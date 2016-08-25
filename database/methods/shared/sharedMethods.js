@@ -20,8 +20,9 @@ function checkPassword(req, res, next){
 				res.status(401).send('Invalid Password');
 			}
 			else{
-				var devToken = jwt.sign({userName: dev.userName}, 'sheep host');
-				res.cookie(devToken, { httpOnly: true, secure: true, maxAge: 12000 });
+				var devToken = jwt.sign({userName: dev.userName}, 'sheep host', { expiresIn: 60});
+				console.log(devToken);
+				req.body.token = devToken;
 				req.body.dev = dev;
 				next();
 			}
