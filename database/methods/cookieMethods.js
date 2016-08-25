@@ -18,11 +18,13 @@ function setCookie(req, res, next) {
 }
 
 function setDBCookie(req, res, next){
-  console.log('insetdbcookie',req.body.dev);
-  res.cookie('dbName', req.body.dev.database[0].name, { maxAge: 600000 });
-  res.cookie('collectionName', req.body.dev.database[0].collections[0].name, { maxAge: 600000 });
-  console.log('cookie schema', req.body.dev.database[0].collections[0].devSchema);
-  res.cookie('schema', req.body.dev.database[0].collections[0].devSchema, { maxAge: 600000 });
+  console.log(req.body.dev.database[0]);
+  if(req.body.dev.database[0]){
+    console.log('db exists');
+    res.cookie('dbName', req.body.dev.database[0].name, { maxAge: 600000 });
+    res.cookie('collectionName', req.body.dev.database[0].collections[0].name, { maxAge: 600000 });
+    res.cookie('schema', req.body.dev.database[0].collections[0].devSchema, { maxAge: 600000 });
+  }
   next();  
 }
 

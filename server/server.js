@@ -1,4 +1,6 @@
 import express from 'express';
+import expressJwt from 'express-jwt';
+import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
 import path from 'path';
 import webpack from 'webpack';
@@ -31,6 +33,8 @@ let app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use('/dashboard',expressJwt({secret: 'sheep host'}).unless({ path: ['/','/signup','/login']}));
+
 app.use(cookieParser());
 
 app.use(bodyParser.json());
@@ -46,9 +50,6 @@ app.use('/login', login);
 app.use('/createDevDB', createDevDB);
 
 app.use('/api', api);
-
-
-// app.use(webpackMiddleware(webpack(webpackConfig)));
 
 const compiler = webpack(webpackConfig);
 

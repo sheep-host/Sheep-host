@@ -1,19 +1,31 @@
 import mongoose from 'mongoose';
 import Devs from'../../models/devModel';
 import db from '../../sheepDB';
+import jwt from 'jsonwebtoken';
 
 function checkPassword(req, res, next){
-	Devs.findOne({userName: req.body.userName, password: req.body.password},function(err, dev){
-		console.log(dev);
-		if(dev === null){
-			console.log('dev is null');
-			res.status(422).send('Incorrect username/password');
-		}
-		else{
-			// res.send(true); // changed to call next() to accomidate cookie setting functionality
-      req.body.dev = dev;
-      next();
-		}
+	if(!req.body.userName){
+		res.status(400).send('Username required');
+		return;
+	}
+	if(!req.body.password){
+		res.status(400).send('Password required');
+		return;
+	}
+	Devs.findOne({userName: req.body.userName},function(err, dev){
+		dev.comparePassword(req.body.password, function(err, isMatch){
+			if (err) throw err;
+			if(!isMatch){
+				res.status(401).send('Invalid Password');
+			}
+			else{
+				var devToken = jwt.sign({userName: dev.userName}, 'sheep host');
+				res.cookie(devToken, { httpOnly: true, secure: true, maxAge: 12000 });
+				req.body.dev = dev;
+				next();
+			}
+		})
+
 	});
 }
 
@@ -46,11 +58,13 @@ function validateDev(req, res, next){
 
 function openDB(req, res, next){
 	let dev = req.body.dev;
-	let schema = JSON.parse(dev.database[0].collections[0].devSchema);
-	let devDBName = dev._id + '_' + dev.database[0].name;
-	const devDB = db.useDb(devDBName);
-	const devModel = devDB.model(dev.database[0].collections[0].name, new mongoose.Schema(schema));
-	req.body.devModel = devModel;
+	if(dev.database[0]){
+		let schema = JSON.parse(dev.database[0].collections[0].devSchema);
+		let devDBName = dev._id + '_' + dev.database[0].name;
+		const devDB = db.useDb(devDBName);
+		const devModel = devDB.model(dev.database[0].collections[0].name, new mongoose.Schema(schema));
+		req.body.devModel = devModel;
+	}
 	next();
 }
 
