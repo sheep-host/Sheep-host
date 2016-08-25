@@ -1,11 +1,11 @@
-import mongoose from 'mongoose';
+var mongoose = require('mongoose');
 
-const Devs = require('../../models/devModel');
+var Devs = require('../../models/devModel');
 
 //POST
 function storePost(req, res, next){
-	let post = {};
-	for(let key in req.body){
+	var post = {};
+	for(var key in req.body){
 		post[key] = req.body[key];
 	}
 	res.locals.post = post;
@@ -13,8 +13,8 @@ function storePost(req, res, next){
 }
 
 function populateDB(req, res, next){
-	const post = res.locals.post;
-	const devModel = req.body.devModel;
+	var post = res.locals.post;
+	var devModel = req.body.devModel;
 	devModel(post).save(function(err, results){
 		if (err) throw err;
 		else res.status(200).json(results);
@@ -44,8 +44,8 @@ function showAllData(req, res, next){
 
 //PUT
 function storePut(req, res, next){
-	let put = {};
-	for(let key in req.body){
+	var put = {};
+	for(var key in req.body){
 		put[key] = req.body[key];
 	}
 	console.log('initial put object',put);
@@ -56,9 +56,9 @@ function storePut(req, res, next){
 function updateDB(req, res, next){
 	// console.log(req.body);
 	// console.log(req.body.put);
-	const devModel = req.body.devModel;
-	let put = res.locals.put;
-	const id = req.params.id;
+	var devModel = req.body.devModel;
+	var put = res.locals.put;
+	var id = req.params.id;
 	console.log('put after middleware', put, id);
 	devModel.findByIdAndUpdate(id, put, {new: true}, function(err, result){
 		if (err) res.sendStatus(400,'Invalid input');
@@ -69,11 +69,11 @@ function updateDB(req, res, next){
 
 //DELETE
 function remove(req, res, next){
-	const devModel = req.body.devModel;
-	const id = req.params.id;
+	var devModel = req.body.devModel;
+	var id = req.params.id;
 	devModel.findByIdAndRemove(id, function(err, result){
 		if (err) res.sendsStatus(400,'Invalid input');
-		console.log('deleted');
+		console.log('devared');
 		res.sendStatus(200, 'Document removed');
 	})
 }

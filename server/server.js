@@ -1,43 +1,50 @@
-import express from 'express';
-import expressJwt from 'express-jwt';
-import jwt from 'jsonwebtoken';
-import cookieParser from 'cookie-parser';
-import path from 'path';
-import webpack from 'webpack';
-import webpackMiddleware from 'webpack-dev-middleware';
-import webpackConfig from '../webpack.config.js';
-import webpackHotMiddleware from 'webpack-hot-middleware';
-import signup from './routes/signup';
-import login from './routes/login';
-import userCheck from './routes/userCheck'
-import bodyParser from 'body-parser';
-import devMethods from '../database/methods/devMethods';
-import devModel from '../database/models/devModel';
-import db from '../database/sheepDB';
-import api from './routes/api';
-import createDevDB from './routes/createDevDB';
+var express = require('express');
+var cookieParser = require('cookie-parser');
+var path = require('path');
+var signup = require('./routes/signup');
+var login = require('./routes/login');
+var userCheck = require('./routes/userCheck');
+var bodyParser = require('body-parser');
+var devMethods = require('../database/methods/devMethods');
+var devModel = require('../database/models/devModel');
+var db = require('../database/SheepDB');
+var api = require('./routes/api');
+var createDevDB = require('./routes/createDevDB');
+var env = require('../.env');
 
-//node-restful consider post-MVP
-// import methodOverride from 'method-override';
-// import morgan from 'morgan';
-// import restful from'node-restful';
+var app = express();
 
+app.use(express.static(__dirname + '/../public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(bodyParser.json());
 
-let app = express();
+if (env.NODE_ENV === 'development') {
+  var webpack = require('webpack');
+  var webpackMiddleware = require('webpack-dev-middleware');
+  var webpackConfig = require('../webpack.config.js');
+  var webpackHotMiddleware = require('webpack-hot-middleware');
+
+  const compiler = webpack(webpackConfig);
+
+  app.use(webpackMiddleware(compiler, {
+  	hot: true,
+  	publicPath: webpackConfig.output.publicPath,
+  	onInfo: true,
+  	historyApiFallback:true
+  }));
+
+  app.use(webpackHotMiddleware(compiler));
+}
 
 //node-restful consider post-MVP
 // app.use(morgan('dev'));
-
 // app.use(methodOverride());
 
-
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use('/dashboard',expressJwt({secret: 'sheep host'}).unless({ path: ['/','/signup','/login']}));
-
-app.use(cookieParser());
-
-app.use(bodyParser.json());
+//node-restful consider post-MVP
+// var methodOverride = 'method-override';
+// var morgan = 'morgan';
+// var restful ='node-restful';
 
 // app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
@@ -51,32 +58,17 @@ app.use('/createDevDB', createDevDB);
 
 app.use('/api', api);
 
-const compiler = webpack(webpackConfig);
-
-app.use(webpackMiddleware(compiler, {
-	hot: true,
-	publicPath: webpackConfig.output.publicPath,
-	onInfo: true,
-	historyApiFallback:true
-}));
-
-app.use(webpackHotMiddleware(compiler));
-
 app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, './index.html'));
-})
-
-
-// mongoose.connect('mongodb://localhost/new-practice-db', () => {
-//   console.log('connected to local mongoDB');
-// });
-
+	res.sendFile('/public/index.html');
+});
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, './index.html'));
+	res.sendFile('/public/index.html');
 });
 
-app.listen(3000, () => {
+var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
+
+app.listen(port, () => {
   console.log('listening on port 3000');
 });

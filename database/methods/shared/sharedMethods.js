@@ -1,7 +1,6 @@
-import mongoose from 'mongoose';
-import Devs from'../../models/devModel';
-import db from '../../sheepDB';
-import jwt from 'jsonwebtoken';
+var mongoose = require('mongoose');
+var Devs = require('../../models/devModel');
+var db = require('../../SheepDB');
 
 function checkPassword(req, res, next){
 	if(!req.body.userName){
