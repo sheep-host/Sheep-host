@@ -10,24 +10,32 @@ var devModel = require('../database/models/devModel');
 var db = require('../database/SheepDB');
 var api = require('./routes/api');
 var createDevDB = require('./routes/createDevDB');
+var env = require('../.env');
 
 var app = express();
 
-// var webpack = 'webpack';
-// var webpackMiddleware = 'webpack-dev-middleware';
-// var webpackConfig = '../webpack.config.js';
-// var webpackHotMiddleware = 'webpack-hot-middleware';
+app.use(express.static(__dirname + '/../public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+app.use(bodyParser.json());
 
-// const compiler = webpack(webpackConfig);
-//
-// app.use(webpackMiddleware(compiler, {
-// 	hot: true,
-// 	publicPath: webpackConfig.output.publicPath,
-// 	onInfo: true,
-// 	historyApiFallback:true
-// }));
-//
-// app.use(webpackHotMiddleware(compiler));
+if (env.NODE_ENV === 'development') {
+  var webpack = require('webpack');
+  var webpackMiddleware = require('webpack-dev-middleware');
+  var webpackConfig = require('../webpack.config.js');
+  var webpackHotMiddleware = require('webpack-hot-middleware');
+
+  const compiler = webpack(webpackConfig);
+
+  app.use(webpackMiddleware(compiler, {
+  	hot: true,
+  	publicPath: webpackConfig.output.publicPath,
+  	onInfo: true,
+  	historyApiFallback:true
+  }));
+
+  app.use(webpackHotMiddleware(compiler));
+}
 
 //node-restful consider post-MVP
 // app.use(morgan('dev'));
@@ -37,13 +45,6 @@ var app = express();
 // var methodOverride = 'method-override';
 // var morgan = 'morgan';
 // var restful ='node-restful';
-
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(cookieParser());
-
-app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, '/public')));
 
 
 // app.use(bodyParser.json({type:'application/vnd.api+json'}));
@@ -60,15 +61,15 @@ app.use('/api', api);
 
 
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/public/index.html');
+	res.sendFile('/public/index.html');
 });
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {
-	res.sendFile(__dirname + '/public/index.html');
+	res.sendFile('/public/index.html');
 });
 
-var port = process.env.PORT || 3000;
+var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
 
 app.listen(port, () => {
   console.log('listening on port 3000');
