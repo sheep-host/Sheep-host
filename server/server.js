@@ -1,4 +1,6 @@
 var express = require('express');
+var expressJwt = require ('express-jwt');
+var jwt = require ('jsonwebtoken');
 var cookieParser = require('cookie-parser');
 var path = require('path');
 var signup = require('./routes/signup');
@@ -45,6 +47,14 @@ if (env.NODE_ENV === 'development') {
 // var methodOverride = 'method-override';
 // var morgan = 'morgan';
 // var restful ='node-restful';
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/dashboard',expressJwt({secret: 'sheep host'}).unless({ path: ['/','/signup','/login']}));
+
+app.use(cookieParser());
+
+app.use(bodyParser.json());
 
 // app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
