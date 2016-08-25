@@ -47,6 +47,7 @@ const Dashboard = React.createClass({
 		let schema = cookie.load('schema');
 		let _schema = JSON.stringify(schema);
 		axios.get('/api/'+_id).then(function(response) {
+			console.log('GET DATA - RESPONSE')
 			let dataArray = [];
 			response.data.forEach(function(item){
 				dataArray.push(item)
