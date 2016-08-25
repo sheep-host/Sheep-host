@@ -1,9 +1,9 @@
-const db = require('../sheepDB');
-const mongoose = require('mongoose');
-const Devs = require('../models/devModel');
+var db = require('../SheepDB');
+var mongoose = require('mongoose');
+var Devs = require('../models/devModel');
 
 function setCookie(req, res, next) {
-  // const sheepCookie = {
+  // var sheepCookie = {
   //   _id: req.body.dev._id,
   //   userName: req.body.dev.userName,
   //   database: req.body.dev.database.length > 0
@@ -23,7 +23,7 @@ function setDBCookie(req, res, next){
   res.cookie('collectionName', req.body.dev.database[0].collections[0].name, { maxAge: 600000 });
   console.log('cookie schema', req.body.dev.database[0].collections[0].devSchema);
   res.cookie('schema', req.body.dev.database[0].collections[0].devSchema, { maxAge: 600000 });
-  next();  
+  next();
 }
 
 function setDatabaseCookieTrue(req, res, next) {
@@ -31,4 +31,4 @@ function setDatabaseCookieTrue(req, res, next) {
   res.json(req.body.result);
 }
 
-export default { setCookie, setDBCookie, setDatabaseCookieTrue };
+module.exports = { setCookie, setDBCookie, setDatabaseCookieTrue };
