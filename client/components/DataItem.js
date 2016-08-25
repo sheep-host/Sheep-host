@@ -5,7 +5,8 @@ const DataItem = React.createClass({
 		return (
 			
 			<li className="list-group-item">
-				{this.props.iteminfo}
+			hi
+				{this.props.info}
 			</li>
 			)
 	}

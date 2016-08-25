@@ -1,16 +1,21 @@
 import React from 'react';
 import DataItem from './DataItem';
+
+//this.props.databaseInfo is JSON stringified from earlier call.
 const DevDatabase = React.createClass({
 	
 	render() {
-	var dataItems=this.props.databaseInfo
-
+	var DataItems=this.props.databaseInfo
+	console.log('DataItems', JSON.parse(DataItems))
+	for(var i = 0; i < 5; i++) {
+		console.log('FORLOOP',i)
+	}
 		
 		return (
-			<div><h3>Your Shitty Database</h3>
+			<div><h3>Your Database </h3>
 			<div className="jumbotron">
 			<ul className="list-group">
-				{dataItems}
+				{DataItems}
 			</ul>
 			</div>
 			</div>
@@ -22,6 +27,12 @@ const DevDatabase = React.createClass({
 
 
 export default DevDatabase;
+				{DataItems.map(function(item, i) {
+					return <DataItem className="list-group-item" key={i} info={item} />
+				})}
+
+// <li className="list-group-item">{dataItems}</li>}
+
 	// var userDbInfo=this.props.databaseInfo
 	// console.log('USERDBINFO', userDbInfo)
 	// var dataItems=[];
