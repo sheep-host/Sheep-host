@@ -2,6 +2,7 @@ var express = require('express');
 var devDbMethods = require('../../database/methods/devDbMethods');
 var sharedMethods = require('../../database/methods/shared/sharedMethods');
 var cookieMethods = require('../../database/methods/cookieMethods');
+var db = require('../../database/SheepDB');
 
 var router = express.Router();
 
