@@ -46,7 +46,6 @@ if (env.NODE_ENV === 'development') {
 // var morgan = 'morgan';
 // var restful ='node-restful';
 
-
 // app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
 //api for creating account
@@ -58,7 +57,6 @@ app.use('/login', login);
 app.use('/createDevDB', createDevDB);
 
 app.use('/api', api);
-
 
 app.get('/', (req, res) => {
 	res.sendFile('/public/index.html');
