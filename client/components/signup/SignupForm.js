@@ -31,7 +31,6 @@ class SignupForm extends React.Component {
 		
 		this.props.userSignupRequest(_this).then(function(response) {
 			if(response.data) { 
-				console.log('IF STATEMENT SIGNUP POST')
 				browserHistory.push('dashboard/' + _this.userName)
 			} 
 			}).catch(function(error) {

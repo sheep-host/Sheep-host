@@ -7,6 +7,7 @@ import DatabaseForm from './DBInputComponent';
 import CollectionForm from './CollectionInputComponent'
 import DevInfo from './DisplayDevInfo';
 import Schemaform from './SchemaInput';
+import jwtDecode from 'jwt-decode';
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
@@ -25,12 +26,10 @@ const Dashboard = React.createClass({
 		}
 	},
 
-
 	componentDidMount() {
 		this.getData();
 		setInterval(this.getData, 100);
 	},
-
 
 	onClick() {
     	this.setState({instructionsVisible: !this.state.instructionsVisible});
@@ -44,6 +43,9 @@ const Dashboard = React.createClass({
 		let schema = cookie.load('schema');
 		let _schema = JSON.stringify(schema);
 		axios.get('/api/'+_id).then(function(response) {
+			console.log(response.data);
+
+
 			console.log('GET DATA - RESPONSE')
 			// let dataArray = [];
 			// response.data.forEach(function(item){
