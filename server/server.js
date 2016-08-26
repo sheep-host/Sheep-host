@@ -13,8 +13,22 @@ var db = require('../database/SheepDB');
 var api = require('./routes/api');
 var createDevDB = require('./routes/createDevDB');
 var env = require('../.env');
+var fs = require('fs');
+var https = require('https');
 
+var certificate = fs.readFileSync('./certs/www_sheep_host.crt');
+var privateKey = fs.readFileSync('./certs/sheep-host.pem');
+var caBundle = fs.readFileSync('./certs/COMODO_DV_SHA-256_bundle.crt');
 var app = express();
+var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
+
+https.createServer({
+  ca: caBundle,
+  key: privateKey,
+  cert: certificate
+}, app).listen(port, function() {
+  console.log('listening to port ', port);
+});
 
 app.use(express.static(__dirname + '/../public'));
 app.use('/public_api', express.static(__dirname + '/../public/public_api.js'));
@@ -87,8 +101,7 @@ app.get('*', (req, res) => {
 	res.sendFile('/public/index.html');
 });
 
-var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
 
-app.listen(port, () => {
-  console.log('listening on port 3000');
-});
+//app.listen(port, () => {
+//  console.log('listening on port 3000');
+//});
