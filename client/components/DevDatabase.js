@@ -4,10 +4,13 @@ import DataItem from './DataItem';
 //this.props.databaseInfo is JSON stringified from earlier call.
 const DevDatabase = React.createClass({
 	
+
 	render() {
-	console.log('RENDER')
+	console.log('PROPS', this.props)
+	console.log('dev database component RENDER', this.props.databaseInfo)
+
 	var dataArray = []
-	var DataItems=JSON.parse(this.props.databaseInfo).forEach(function(item, i) {
+	this.props.databaseInfo.forEach(function(item, i) {
 		dataArray.push(<DataItem key={i} info={item} />)
 		console.log('DATAARRAY', dataArray)
 	})
@@ -28,11 +31,17 @@ const DevDatabase = React.createClass({
 })
 
 
-export default DevDatabase;
+module.exports = DevDatabase;
 
 
 
-
+	// shouldComponentUpdate (nextProps, nextState) {
+	// 	console.log('next' , nextProps)
+	// 	if(nextProps.databaseInfo === "") {
+	// 		return false
+	// 	}
+	// 	return true
+	// },
 // <li className="list-group-item">{dataItems}</li>}
 
 	// var userDbInfo=this.props.databaseInfo

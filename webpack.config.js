@@ -27,7 +27,12 @@ if (env.NODE_ENV === 'development') {
             path.join(__dirname, 'server/shared')
           ],
           loaders: [ 'react-hot', 'babel' ]
-        }
+        },
+         {
+          test: /\.css$/,
+          inclue: [path.join(__dirname, 'Public')],
+          loaders: ['style', 'css']
+        },
       ]
     },
     resolve: {
