@@ -2,13 +2,13 @@ import React from 'react';
 
 const DevInfo = (props) => {
 	return (
-		<div>
-		<p>Your dev ID: {props.id}</p>
-		<p>Your database: {props.databaseName}</p>
-		<p>Your collection: {props.collectionName}</p>
-		<p>Your Schema: {props.schema} </p>
-		<p>Your data:</p>
-		<div>{props.database}</div><br/>
+		<div className="panel panel-default">
+		<div className="panel heading"><b>Your dev ID</b>: {props.id}</div>
+		<ul className="list-group">
+		<li className="list-group-item">Your database: {props.databaseName}</li>
+		<li className="list-group-item">Your collection: {props.collectionName}</li>
+		<li className="list-group-item">Your Schema: {props.schema} </li>
+		</ul>
 		</div>
 
 		)
