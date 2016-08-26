@@ -17,9 +17,15 @@ var env = require('../.env');
 var app = express();
 
 app.use(express.static(__dirname + '/../public'));
+app.use('/public_api', express.static(__dirname + '/../public/public_api.js'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use('/api', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 if (env.NODE_ENV === 'development') {
   var webpack = require('webpack');
@@ -67,6 +73,10 @@ app.use('/login', login);
 app.use('/createDevDB', createDevDB);
 
 app.use('/api', api);
+
+// app.get('/public_api', (req, res) => {
+//   res.sendFile('/public/public_api.js');
+// });
 
 app.get('/', (req, res) => {
 	res.sendFile('/public/index.html');

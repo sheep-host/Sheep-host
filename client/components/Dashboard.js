@@ -22,23 +22,20 @@ const Dashboard = React.createClass({
 			schema:'',
 			instructionsVisible: false,
 			infoSubmitted: true
-
-			
 		}
+	},
 
-	}, 
-  
 
 	componentDidMount() {
 		this.getData();
-		setInterval(this.getData, 100000);
-	}, 
+		setInterval(this.getData, 100);
+	},
 
 
 	onClick() {
     	this.setState({instructionsVisible: !this.state.instructionsVisible});
   	},
- 
+
 	getData() {
 		let that = this;
 		let _id = cookie.load('_id').slice(3,-1);
@@ -48,10 +45,10 @@ const Dashboard = React.createClass({
 		let _schema = JSON.stringify(schema);
 		axios.get('/api/'+_id).then(function(response) {
 			console.log('GET DATA - RESPONSE')
-			let dataArray = [];
-			response.data.forEach(function(item){
-				dataArray.push(item)
-			})
+			// let dataArray = [];
+			// response.data.forEach(function(item){
+			// 	dataArray.push(item)
+			// })
 			that.setState({dbName: _dbName, collectionName: _collectionName, dbId: _id, database: JSON.stringify(response.data), schema: _schema });
 		}).catch(function(error) {
 			console.log(error)
@@ -59,25 +56,25 @@ const Dashboard = React.createClass({
 	},
 
 	onCollectionNameChange(e) {
-		
+
 		this.setState({collectionName: e.target.value })
-		
+
 	},
-	
+
 	onDbNameChange(e) {
 		this.setState({dbName: e.target.value })
-		
+
 	},
 
 	onSchemaChange(e) {
 		this.setState({schema: e.target.value })
 	},
- 
+
 	onSubmit(e) {
 		e.preventDefault();
 		var _this = this
-	
-		
+
+
 		console.log('_THIS.state', _this.state)
 		axios.post('/createDevDB', _this.state).then(function(response) {
 			console.log('DASHBOARD STATE AFTER SUBMIT', response)
@@ -85,12 +82,12 @@ const Dashboard = React.createClass({
 		}).catch(function(error) {
 			console.log('error on dashboard onSubmit promise', error)
 		})
-		
+
 
 	},
 
 	render() {
-		
+
 		return (
 
 			<div>
@@ -101,21 +98,20 @@ const Dashboard = React.createClass({
 				<Schemaform onChange={this.onSchemaChange} />
 			</form>
 
-				<DevInfo id={this.state.dbId} 
-						 databaseName={this.state.dbName} 
-						 collection={this.state.collectionName} 
-						 database={this.state.database} 
+				<DevInfo id={this.state.dbId}
+						 databaseName={this.state.dbName}
+						 collection={this.state.collectionName}
+						 database={this.state.database}
 						 schema={this.state.schema} />
 
 				<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
 			</div>
 		)
 
-	
+
  }
 })
 
 
 
 export default Dashboard;
-
