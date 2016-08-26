@@ -7,7 +7,9 @@ import DatabaseForm from './DBInputComponent';
 import CollectionForm from './CollectionInputComponent'
 import DevInfo from './DisplayDevInfo';
 import Schemaform from './SchemaInput';
+import DevDatabase  from './DevDatabase';
 import jwtDecode from 'jwt-decode';
+
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
@@ -15,7 +17,7 @@ const Dashboard = React.createClass({
 	getInitialState () {
 		return {
 			isLoggedIn:false,
-			database: '',
+			database: [],
 			userName: this.props.params.username,
 			dbId: '',
 			dbName: '',
@@ -26,9 +28,10 @@ const Dashboard = React.createClass({
 		}
 	},
 
+
 	componentDidMount() {
 		this.getData();
-		setInterval(this.getData, 100);
+		setInterval(this.getData, 5000);
 	},
 
 	onClick() {
@@ -42,16 +45,12 @@ const Dashboard = React.createClass({
 		let _collectionName = cookie.load('collectionName');
 		let schema = cookie.load('schema');
 		let _schema = JSON.stringify(schema);
+
 		axios.get('/api/'+_id).then(function(response) {
-			console.log(response.data);
 
+			console.log('GET DATA - RESPONSE.data', response.data)
 
-			console.log('GET DATA - RESPONSE')
-			// let dataArray = [];
-			// response.data.forEach(function(item){
-			// 	dataArray.push(item)
-			// })
-			that.setState({dbName: _dbName, collectionName: _collectionName, dbId: _id, database: JSON.stringify(response.data), schema: _schema });
+			that.setState({dbName: _dbName, collectionName: _collectionName, dbId: _id, database: response.data, schema: _schema });
 		}).catch(function(error) {
 			console.log(error)
 		});
@@ -76,7 +75,6 @@ const Dashboard = React.createClass({
 		e.preventDefault();
 		var _this = this
 
-
 		console.log('_THIS.state', _this.state)
 		axios.post('/createDevDB', _this.state).then(function(response) {
 			console.log('DASHBOARD STATE AFTER SUBMIT', response)
@@ -93,7 +91,7 @@ const Dashboard = React.createClass({
 		return (
 
 			<div>
-				<h3> Welcome to your Dashboard, {this.props.params.username}</h3>
+				<h3 className="alert alert-info text-center" role="alert"> <b>Welcome to your Dashboard, {this.props.params.username}</b></h3>
 			<form onSubmit={this.onSubmit} >
 				<DatabaseForm onChange={this.onDbNameChange} />
 				<CollectionForm onChange={this.onCollectionNameChange}  />
@@ -102,9 +100,10 @@ const Dashboard = React.createClass({
 
 				<DevInfo id={this.state.dbId}
 						 databaseName={this.state.dbName}
-						 collection={this.state.collectionName}
-						 database={this.state.database}
+						 collectioName={this.state.collectionName}
 						 schema={this.state.schema} />
+
+				<DevDatabase databaseInfo={this.state.database}/>
 
 				<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
 			</div>
