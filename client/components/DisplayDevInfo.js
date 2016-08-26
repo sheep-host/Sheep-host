@@ -1,6 +1,7 @@
 import React from 'react';
 
 const DevInfo = (props) => {
+	console.log('PROPS DEV INFO', props)
 	return (
 		<div className="panel panel-default">
 		<div className="panel heading"><b>Your dev ID</b>: {props.id}</div>

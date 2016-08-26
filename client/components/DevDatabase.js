@@ -6,7 +6,7 @@ const DevDatabase = React.createClass({
 	
 
 	render() {
-	console.log('PROPS', this.props)
+	
 	console.log('dev database component RENDER', this.props.databaseInfo)
 
 	var dataArray = []

@@ -3,16 +3,17 @@ import React from 'react';
 
 const SchemaForm = (props) => {
 	return (
-			<div class="form-control">
+			<div>
+			<div>
 				<textarea 
 					onChange={props.onChange}
 					placeholder="Schema"
 					type="text"
 					name="schema">
 				</textarea>
-			<div>
-			<button
+
 			
+			<button
 				className="btn btn-primary">
 				Create MongoDB
 			</button>

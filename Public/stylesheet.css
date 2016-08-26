@@ -8,4 +8,13 @@
 .panel {
 	background-color: #357A5E;
 }
+.Collection-Input {
+	float: left;
+}
+.Database-Input {
+
+}
+.hide-true {
+	display: none;
+}
 

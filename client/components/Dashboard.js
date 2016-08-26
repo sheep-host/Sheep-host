@@ -24,18 +24,17 @@ const Dashboard = React.createClass({
 			collectionName: '',
 			schema:'',
 			instructionsVisible: false,
-			infoSubmitted: true
+			infoSubmitted: false
 
 			
 		}
 
 	},  
 
-	
 	componentDidMount() {
 	console.log('componentdidmount')
 	this.getData();
-		
+	// setInterval(this.getData, 10000);
 	}, 
 
 	onClick() {
@@ -78,6 +77,7 @@ const Dashboard = React.createClass({
 	onSubmit(e) {
 		e.preventDefault();
 		var _this = this
+		this.setState({infoSubmitted : true});
 		console.log('_THIS.state', _this.state)
 		axios.post('/createDevDB', _this.state).then(function(response) {
 			console.log('DASHBOARD STATE AFTER SUBMIT', response)
@@ -95,15 +95,16 @@ const Dashboard = React.createClass({
 
 			<div>
 				<h3 className="alert alert-info text-center" role="alert"> <b>Welcome to your Dashboard, {this.props.params.username}</b></h3>
-			<form onSubmit={this.onSubmit} >
-				<DatabaseForm onChange={this.onDbNameChange} />
-				<CollectionForm onChange={this.onCollectionNameChange}  />
-				<Schemaform onChange={this.onSchemaChange} />
-			</form>
+				
+				<form onSubmit={this.onSubmit} className={'hide-' + this.state.infoSubmitted}>
+					<DatabaseForm onChange={this.onDbNameChange} />
+					<CollectionForm onChange={this.onCollectionNameChange}  />
+					<Schemaform onChange={this.onSchemaChange} />
+				</form>
 
 				<DevInfo id={this.state.dbId} 
 						 databaseName={this.state.dbName} 
-						 collectioName={this.state.collectionName}  
+						 collectionName={this.state.collectionName}  
 						 schema={this.state.schema} />
 				
 				<DevDatabase databaseInfo={this.state.database}/>
