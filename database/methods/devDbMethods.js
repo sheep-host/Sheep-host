@@ -20,7 +20,7 @@ function updateDevProfile(req, res, next){
     }],
   };
 
-  Devs.findOneAndUpdate(query, { $set: data }, function(err, dev) {
+  Devs.findOneAndUpdate(query, data, { new: true }, function(err, dev) {
     console.log('findOneAndUpdate dev: ', dev);
     if (err) throw err;
     req.body.dev = dev;

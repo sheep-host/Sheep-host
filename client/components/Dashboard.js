@@ -30,27 +30,33 @@ const Dashboard = React.createClass({
 
 
 	componentDidMount() {
-		this.getData();
-		setInterval(this.getData, 5000);
+		this.getDataOnce();
+		setInterval(this.getData, 100);
 	},
 
 	onClick() {
     	this.setState({instructionsVisible: !this.state.instructionsVisible});
   	},
 
-	getData() {
-		let that = this;
+  getDataOnce() {
+    let that = this;
 		let _id = cookie.load('_id').slice(3,-1);
 		let _dbName = cookie.load('dbName');
 		let _collectionName = cookie.load('collectionName');
-		let schema = cookie.load('schema');
+		let schema = cookie.load('schema') ? cookie.load('schema') : schema;
 		let _schema = JSON.stringify(schema);
 
+    that.setState({ schema: _schema, dbName: _dbName, collectionName: _collectionName, dbId: _id });
+  },
+
+	getData() {
+    let _id = this.state.dbId;
+    let that = this;
 		axios.get('/api/'+_id).then(function(response) {
 
 			console.log('GET DATA - RESPONSE.data', response.data)
 
-			that.setState({dbName: _dbName, collectionName: _collectionName, dbId: _id, database: response.data, schema: _schema });
+			that.setState({ database: response.data });
 		}).catch(function(error) {
 			console.log(error)
 		});
@@ -100,7 +106,7 @@ const Dashboard = React.createClass({
 
 				<DevInfo id={this.state.dbId}
 						 databaseName={this.state.dbName}
-						 collectioName={this.state.collectionName}
+						 collectionName={this.state.collectionName}
 						 schema={this.state.schema} />
 
 				<DevDatabase databaseInfo={this.state.database}/>
