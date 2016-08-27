@@ -16,9 +16,10 @@ var env = require('../.env');
 var fs = require('fs');
 var https = require('https');
 
-var certificate = fs.readFileSync('./certs/www_sheep_host.crt');
-var privateKey = fs.readFileSync('./certs/sheep-host.pem');
-var caBundle = fs.readFileSync('./certs/COMODO_DV_SHA-256_bundle.crt');
+var certsPath = path.join(__dirname + '/../certs/');
+var certificate = fs.readFileSync(certsPath + 'www_sheep_host.crt');
+var privateKey = fs.readFileSync(certsPath + 'sheep-host.pem');
+var caBundle = fs.readFileSync(certsPath + 'COMODO_DV_SHA-256_bundle.crt');
 var app = express();
 var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
 
@@ -88,10 +89,6 @@ app.use('/createDevDB', createDevDB);
 
 app.use('/api', api);
 
-// app.get('/public_api', (req, res) => {
-//   res.sendFile('/public/public_api.js');
-// });
-
 app.get('/', (req, res) => {
 	res.sendFile('/public/index.html');
 });
@@ -103,5 +100,5 @@ app.get('*', (req, res) => {
 
 
 //app.listen(port, () => {
-//  console.log('listening on port 3000');
+//  console.log('listening on port', port);
 //});

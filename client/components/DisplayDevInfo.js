@@ -6,12 +6,12 @@ const DevInfo = (props) => {
 
       <p>Cut and paste the following code towards the bottom of the body tag of your web app:</p>
       <pre><code>
-        &lt;script src="http://https://sheep.host/public_api"&gt;&lt;/script&gt;{'\n'}
+        &lt;script src="https://sheep.host/public_api"&gt;&lt;/script&gt;{'\n'}
         &lt;script&gt;{'\n'}
         {'  '}  // Initialize Sheep.host{'\n'}
         {'  '}  var config = &#123;{'\n'}
         {'    '}    dbId: {'\''}{props.id}{'\''},{'\n'}
-        {'    '}    url: "http://https://sheep.host/api/"{'\n'}
+        {'    '}    url: "https://sheep.host/api/"{'\n'}
         {'  '}  &#125;{'\n'}
         {'  '}  sheep.dontSleep(config);{'\n'}
         &lt;/script&gt;
