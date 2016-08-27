@@ -9,6 +9,7 @@ import DevInfo from './DisplayDevInfo';
 import Schemaform from './SchemaInput';
 import DevDatabase  from './DevDatabase';
 import jwtDecode from 'jwt-decode';
+import ClientInput from './clientInput'
 
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
@@ -25,8 +26,6 @@ const Dashboard = React.createClass({
 			schema:'',
 			instructionsVisible: false,
 			infoSubmitted: false
-
-			
 		}
 
 	},  
@@ -50,9 +49,7 @@ const Dashboard = React.createClass({
 		let _schema = JSON.stringify(schema);
 		
 		axios.get('/api/'+_id).then(function(response) {
-
 			console.log('GET DATA - RESPONSE.data', response.data)
-
 			that.setState({dbName: _dbName, collectionName: _collectionName, dbId: _id, database: response.data, schema: _schema });
 		}).catch(function(error) {
 			console.log(error)
@@ -60,7 +57,6 @@ const Dashboard = React.createClass({
 	},
 
 	onCollectionNameChange(e) {
-		
 		this.setState({collectionName: e.target.value })
 		
 	},
@@ -85,22 +81,20 @@ const Dashboard = React.createClass({
 		}).catch(function(error) {
 			console.log('error on dashboard onSubmit promise', error)
 		})
-		
-
 	},
 
 	render() {
-		
 		return (
-
 			<div>
 				<h3 className="alert alert-info text-center" role="alert"> <b>Welcome to your Dashboard, {this.props.params.username}</b></h3>
+				<ClientInput 
+							 shouldShow={this.state.dbName}
+							 onDbNameChange={this.onDbNameChange} 
+							 onSubmit={this.onSubmit}
+							 onSchemaChange={this.onSchemaChange}
+							 onCollectionNameChange={this.onCollectionNameChange}
+				/>
 				
-				<form onSubmit={this.onSubmit} className={'hide-' + this.state.infoSubmitted}>
-					<DatabaseForm onChange={this.onDbNameChange} />
-					<CollectionForm onChange={this.onCollectionNameChange}  />
-					<Schemaform onChange={this.onSchemaChange} />
-				</form>
 
 				<DevInfo id={this.state.dbId} 
 						 databaseName={this.state.dbName} 
@@ -113,11 +107,13 @@ const Dashboard = React.createClass({
 			</div>
 		)
 
-	
- }
+	}
 })
 
 
 
 export default Dashboard;
+
+
+
 
