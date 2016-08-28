@@ -1,4 +1,3 @@
-var db = require('../SheepDB');
 var mongoose = require('mongoose');
 var Devs = require('../models/devModel');
 
@@ -15,7 +14,7 @@ function setCookie(req, res, next) {
   res.cookie('_id', req.body.dev._id, { maxAge: 600000 });
   res.cookie('username', req.body.dev.userName, { maxAge: 600000 });
   res.cookie('database', req.body.dev.database.length > 0, { maxAge: 600000 });
-  res.json(req.body);
+  res.json(req.body.dev);
 }
 
 function setDBCookie(req, res, next){

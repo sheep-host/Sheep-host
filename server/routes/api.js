@@ -4,12 +4,43 @@ var sharedMethods = require('../../database/methods/shared/sharedMethods');
 
 var router = express.Router()
 
-router.get('/:dbId', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.showAllData);
+// post to existing collection
+router.post('/:devID/:dbName/:colID',
+	apiMethods.storePost,
+	sharedMethods.checkDevID,
+	sharedMethods.openDB,	
+	apiMethods.postToCollection
+);
 
-router.post('/:dbId', apiMethods.storePost, sharedMethods.validateDev, sharedMethods.openDB, apiMethods.populateDB);
+// get entire collection
+router.get('/:devID/:dbName/:colID',
+	sharedMethods.checkDevID,
+	sharedMethods.openDB,		
+	apiMethods.getCollection
+);
 
-router.put('/:dbId/:id', apiMethods.storePut, sharedMethods.validateDev, sharedMethods.openDB, apiMethods.updateDB);
+// modify existing document
+router.put('/:devID/:dbName/:colID/:docID',
+	apiMethods.storePut,
+	sharedMethods.checkDevID,
+	sharedMethods.openDB,	
+	apiMethods.putToCollection
+);
 
-router.delete('/:dbId/:id', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.remove);
+// delete existing document
+router.delete('/:devID/:dbName/:colID/:docID',
+	sharedMethods.checkDevID,
+	sharedMethods.openDB,	
+	apiMethods.removeFromCollection
+);
+
+// old API routes
+// router.get('/:dbId', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.showAllData);
+
+// router.post('/:dbId', apiMethods.storePost, sharedMethods.validateDev, sharedMethods.openDB, apiMethods.populateDB);
+
+// router.put('/:dbId/:id', apiMethods.storePut, sharedMethods.validateDev, sharedMethods.openDB, apiMethods.updateDB);
+
+// router.delete('/:dbId/:id', sharedMethods.validateDev, sharedMethods.openDB, apiMethods.remove);
 
 module.exports = router;

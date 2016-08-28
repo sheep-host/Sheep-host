@@ -1,9 +1,10 @@
 
 var mongoose = require('mongoose');
-var Devs = require('../../models/devModel');
-var db = require('../../SheepDB');
+var Models = require('../../models/devModel');
+var sheepDB = require('../../SheepDB');
 var jwt = require ('jsonwebtoken');
 
+// match password on login
 function checkPassword(req, res, next){
 	if(!req.body.userName){
 		res.status(400).send('Username required');
@@ -13,7 +14,7 @@ function checkPassword(req, res, next){
 		res.status(400).send('Password required');
 		return;
 	}
-	Devs.findOne({userName: req.body.userName},function(err, dev){
+	Models.Dev.findOne({userName: req.body.userName},function(err, dev){
 		dev.comparePassword(req.body.password, function(err, isMatch){
 			if (err) throw err;
 			if(!isMatch){
@@ -21,7 +22,6 @@ function checkPassword(req, res, next){
 			}
 			else{
 				var devToken = jwt.sign({userName: dev.userName}, 'sheep host', { expiresIn: 60});
-				console.log(devToken);
 				req.body.token = devToken;
 				req.body.dev = dev;
 				next();
@@ -31,43 +31,40 @@ function checkPassword(req, res, next){
 	});
 }
 
-function extractId(req, res, next){
-	console.log('extractID/req.body.userName: ', req.body.userName);
-	Devs.findOne({userName: req.body.userName},function(err, dev){
-		console.log('dev: ', dev);
-		if(dev === null){
-			console.log('dev is null');
-			res.status(422).send('Incorrect username/password');
-		}
-		else{
-			req.body.dbId = dev._id;
-			next();
-		}
-	});
-}
-
-function validateDev(req, res, next){
-	Devs.findById(req.params.dbId, function(err, dev){
+// temporary security check to prevent spooling up new DBs with incorrect devID
+function checkDevID(req,res,next){
+	var _id;
+	if(req.params.devID){
+		_id = req.params.devID;
+	}
+	else _id = req.body._id;
+	console.log('check id',_id);
+	Models.Dev.findById(_id, function(err, dev){
 		if(!dev){
-			res.status(422).send('Incorrect user information');
+			res.sendStatus(404);
 		}
 		else{
 			req.body.dev = dev;
 			next();
 		}
-	})
+	});
 }
 
+// reused middleware to open DB pool connection
 function openDB(req, res, next){
-	var dev = req.body.dev;
-	if(dev.database[0]){
-		var schema = JSON.parse(dev.database[0].collections[0].devSchema);
-		var devDBName = dev._id + '_' + dev.database[0].name;
-		var devDB = db.useDb(devDBName);
-		var devModel = devDB.model(dev.database[0].collections[0].name, new mongoose.Schema(schema));
+	var devID = req.params.devID;
+	var dbName = req.params.dbName;
+	var colID = req.params.colID;
+	Models.DB.findOne({name: dbName}, function(err, result){
+		console.log('openDB', result);
+		var col = result.collections.id(colID);
+		var colName = col.name;
+		var schema = JSON.parse(col.devSchema);
+		var devDB = sheepDB.useDb(devID + '_' + dbName);
+		var devModel = devDB.model(colName, new mongoose.Schema(schema));
 		req.body.devModel = devModel;
-	}
-	next();
+		next();
+	});
 }
 
-module.exports = { checkPassword, extractId, validateDev, openDB };
+module.exports = { checkPassword, checkDevID, openDB };
