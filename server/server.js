@@ -11,9 +11,10 @@ var devMethods = require('../database/methods/devMethods');
 var devModel = require('../database/models/devModel');
 var db = require('../database/SheepDB');
 var api = require('./routes/api');
-var createDevDB = require('./routes/createDevDB');
+var create = require('./routes/create');
 var env = require('../.env');
-
+var testController = require('../database/methods/testController');
+var getDBs = require('./routes/getDashboardData');
 var app = express();
 
 app.use(express.static(__dirname + '/../public'));
@@ -63,8 +64,10 @@ app.use('/signup', signup);
 
 app.use('/login', login);
 
+app.use('/getDBs', getDBs);
+
 //click 'createDB' button
-app.use('/createDevDB', createDevDB);
+app.use('/create', create);
 
 app.use('/api', api);
 
