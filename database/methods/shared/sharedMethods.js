@@ -21,7 +21,8 @@ function checkPassword(req, res, next){
 				res.status(401).send('Invalid Password');
 			}
 			else{
-				var devToken = jwt.sign({userName: dev.userName}, 'sheep host', { expiresIn: 60});
+				var devToken = jwt.sign({userName: dev.userName, devID: dev._id}, 'sheep host', { expiresIn: 60});
+				console.log('server side token', devToken);
 				req.body.token = devToken;
 				req.body.dev = dev;
 				next();

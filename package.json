@@ -5,16 +5,17 @@
   "main": "server.js",
   "scripts": {
     "start-prod": "node server/server.js",
-    "start": "nodemon server/server.js",
-    "start1": "nodemon --watch server --exec babel-node -- server/server.js",
+    "start": "nodemon --watch server --exec babel-node -- server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "s1akr",
   "license": "MIT",
   "dependencies": {
+    "async-each": "^1.0.1",
+    "async-each-series": "^1.1.0",
     "axios": "0.12.0",
     "bcrypt": "^0.8.7",
-    "bluebird": "^3.4.1",
+    "bluebird": "^3.4.3",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0",

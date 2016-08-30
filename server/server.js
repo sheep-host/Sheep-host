@@ -13,7 +13,6 @@ var db = require('../database/SheepDB');
 var api = require('./routes/api');
 var create = require('./routes/create');
 var env = require('../.env');
-var testController = require('../database/methods/testController');
 var getDBs = require('./routes/getDashboardData');
 var app = express();
 
