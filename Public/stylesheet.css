@@ -28,3 +28,12 @@
 .Your-Database {
 	color: white;
 }
+.i {
+	height: 32px;
+}
+
+.nav-link {
+	display: inline;
+	padding-left: 50px;
+	padding-right: 20px;
+}

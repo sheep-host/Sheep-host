@@ -5,11 +5,11 @@ const DataItem = React.createClass({
 		var dataResults = []
 		for (var value in this.props.info) {
 			dataResults.push( < em > {value.toString()} < /em>, " : " , <b> {this.props.info[value]} </b > )
-			console.log('dataResults', dataResults)
+		
 		}
 		return (
 		
-				<li className = "list-group-item" >
+				<li className = "i list-group-item" >
 				{dataResults} 
 				</li>
 			

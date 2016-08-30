@@ -7,12 +7,12 @@ const DevDatabase = React.createClass({
 	console.log('dev database component RENDER', this.props.databaseInfo)
 	var dataArray = []
 	this.props.databaseInfo.forEach(function(item, i) {
-		dataArray.push(<DataItem key={i} info={item} />)
+		dataArray.push(<DataItem key={i} info={item} style="height: 10px" />)
 		
 	})
 	return (
 			<div>
-				<h3 className="Your-Database">Your Database </h3>
+				<h3 className="Your-Database">Your Database - add DBname </h3>
 				<hr width="1200"></hr>
 				<div className="jumbotron">
 					<ul className="list-group">

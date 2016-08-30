@@ -10,14 +10,16 @@ import Schemaform from './SchemaInput';
 import DevDatabase  from './DevDatabase';
 import jwtDecode from 'jwt-decode';
 import ClientInput from './clientInput'
-
+import DeveloperNavBar from './DeveloperNavBar';
+import FirstNavBar from './Dashboard2.0/FirstNavBar'
+import SecondNavBar from './Dashboard2.0/SecondNavBar'
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
 const Dashboard = React.createClass({
 	getInitialState () {
 		return {
-			isLoggedIn:false,
+
 			database: [],
 			userName: this.props.params.username,
 			dbId: '',
@@ -25,7 +27,8 @@ const Dashboard = React.createClass({
 			collectionName: '',
 			schema:'',
 			instructionsVisible: false,
-			infoSubmitted: false
+			collectionInView: ['Some collection'],
+
 		}
 
 	},  
@@ -69,6 +72,8 @@ const Dashboard = React.createClass({
 	onSchemaChange(e) {
 		this.setState({schema: e.target.value })
 	},
+
+
  
 	onSubmit(e) {
 		e.preventDefault();
@@ -87,21 +92,13 @@ const Dashboard = React.createClass({
 		return (
 			<div>
 				<h3 className="alert alert-info text-center" role="alert"> <b>Welcome to your Dashboard, {this.props.params.username}</b></h3>
-				<ClientInput 
-							 shouldShow={this.state.dbName}
-							 onDbNameChange={this.onDbNameChange} 
-							 onSubmit={this.onSubmit}
-							 onSchemaChange={this.onSchemaChange}
-							 onCollectionNameChange={this.onCollectionNameChange}
-				/>
 				
 
-				<DevInfo id={this.state.dbId} 
-						 databaseName={this.state.dbName} 
-						 collectionName={this.state.collectionName}  
-						 schema={this.state.schema} />
+				<FirstNavBar  />
+				<SecondNavBar />
 				
-				<DevDatabase databaseInfo={this.state.database}/>
+				
+				
 
 				<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
 			</div>
