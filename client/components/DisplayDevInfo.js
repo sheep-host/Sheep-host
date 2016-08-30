@@ -1,8 +1,17 @@
 import React from 'react';
 
 const DevInfo = (props) => {
+	console.log('PROPS DEV INFO', props)
 	return (
 		<div className="panel panel-default">
+  		<div className="well well-lg">
+  			<div><b>Your dev ID</b>: {props.id}</div>
+
+  				<li className>Your database: {props.databaseName}</li>
+  				<li className>Your collection: {props.collectionName}</li>
+  				<li className>Your Schema: {props.schema} </li>
+
+  		</div>
 
       <p>Cut and paste the following code towards the bottom of the body tag of your web app:</p>
       <pre><code>
@@ -18,7 +27,6 @@ const DevInfo = (props) => {
       </code></pre>
   		<p>Your data:</p>
   		<div>{props.database}</div><br/>
-
   		<div className="panel heading"><b>Your dev ID</b>: {props.id}</div>
   		<ul className="list-group">
     		<li className="list-group-item">Your database: {props.databaseName}</li>

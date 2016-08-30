@@ -1,11 +1,39 @@
+
+
 .container {
-	background-color: #75ADA9;
+	background-color: #00327A;
 }
 .navbar {
-	background-color: #7FADAA;
+	background-color: #00327A;
 }
 
 .panel {
 	background-color: #357A5E;
 }
+.Collection-Input {
+	float: left;
+}
+.Database-Input {
 
+}
+.hide-true {
+	display: none;
+}
+
+
+.h {
+	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg')
+}
+
+.Your-Database {
+	color: white;
+}
+.i {
+	height: 32px;
+}
+
+.nav-link {
+	display: inline;
+	padding-left: 50px;
+	padding-right: 20px;
+}

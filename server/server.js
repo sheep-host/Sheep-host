@@ -11,7 +11,7 @@ var devMethods = require('../database/methods/devMethods');
 var devModel = require('../database/models/devModel');
 var db = require('../database/SheepDB');
 var api = require('./routes/api');
-var createDevDB = require('./routes/createDevDB');
+var create = require('./routes/create');
 var env = require('../.env');
 var fs = require('fs');
 var https = require('https');
@@ -19,6 +19,7 @@ var https = require('https');
 var certificate = fs.readFileSync('./certs/www_sheep_host.crt');
 var privateKey = fs.readFileSync('./certs/sheep-host.pem');
 var caBundle = fs.readFileSync('./certs/COMODO_DV_SHA-256_bundle.crt');
+var getDBs = require('./routes/getDashboardData');
 var app = express();
 var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
 
@@ -83,8 +84,10 @@ app.use('/signup', signup);
 
 app.use('/login', login);
 
+app.use('/getDBs', getDBs);
+
 //click 'createDB' button
-app.use('/createDevDB', createDevDB);
+app.use('/create', create);
 
 app.use('/api', api);
 
@@ -93,12 +96,12 @@ app.use('/api', api);
 // });
 
 app.get('/', (req, res) => {
-	res.sendFile('/public/index.html');
+	res.sendFile('/server/index.html');
 });
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {
-	res.sendFile('/public/index.html');
+	res.sendFile('/server/index.html');
 });
 
 
