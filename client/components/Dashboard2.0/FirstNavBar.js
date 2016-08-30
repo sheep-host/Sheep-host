@@ -11,10 +11,8 @@ const FirstNavBar = React.createClass({
 	render() {
 		return (
 			
-				<ul className="nav nav-tabs">
-				  <li role="presentation"><a href="#">props..databaseName</a></li>
-				  <li role="presentation"><a href="#">props..databaseName</a></li>
-				  <li role="presentation"><a href="#">props..databaseName</a></li>
+				<ul className="nav nav-tabs">				 
+					{this.props.name}
 				</ul>
 
 			

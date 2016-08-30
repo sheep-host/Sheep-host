@@ -5,8 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start-prod": "node server/server.js",
-    "start": "nodemon server/server.js",
-    "start1": "nodemon --watch server --exec babel-node -- server/server.js",
+    "start": "nodemon --watch server --exec babel-node -- server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "s1akr",

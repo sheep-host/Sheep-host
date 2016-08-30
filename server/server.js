@@ -13,7 +13,6 @@ var db = require('../database/SheepDB');
 var api = require('./routes/api');
 var create = require('./routes/create');
 var env = require('../.env');
-var testController = require('../database/methods/testController');
 var getDBs = require('./routes/getDashboardData');
 var app = express();
 
@@ -72,12 +71,12 @@ app.use('/create', create);
 app.use('/api', api);
 
 app.get('/', (req, res) => {
-	res.sendFile('/public/index.html');
+	res.sendFile('/server/index.html');
 });
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {
-	res.sendFile('/public/index.html');
+	res.sendFile('/server/index.html');
 });
 
 var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;

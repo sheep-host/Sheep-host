@@ -13,7 +13,7 @@ function getAllDatabases(req, res, next){
     result.forEach(function(item){
       data.push({'_id':item._id, 'name':item.name});
     })
-    res.json(data);
+    res.json(result);
   })
 }
 
