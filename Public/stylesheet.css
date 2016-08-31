@@ -1,7 +1,7 @@
 
 
 .container {
-	background-color: #00327A;
+	background-color: white;
 }
 .navbar {
 	background-color: #00327A;
@@ -25,11 +25,8 @@
 	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg')
 }
 
-.Your-Database {
-	color: white;
-}
-.i {
-	height: 32px;
+.tab{
+	margin-left: 10px;
 }
 
 .nav-link {

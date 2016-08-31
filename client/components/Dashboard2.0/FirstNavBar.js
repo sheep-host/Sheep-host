@@ -9,15 +9,18 @@ const FirstNavBar = React.createClass({
 	},
 
 	render() {
+		console.log('FirstNavBar render')
+
 		return (
-			
-				<ul className="nav nav-tabs">				 
-					{this.props.name}
+			<div>
+				<ul className="nav nav-tabs">	
+					<li>Databases:</li>
+					{this.props.names.map((el, i)=> {
+						return <li className="tab" onClick={this.props.click} id={i} key={i} role="presentation">{el}</li>;
+					})}
 				</ul>
-
-			
-
-			)
+			</div>
+		)
 	}
 })
 

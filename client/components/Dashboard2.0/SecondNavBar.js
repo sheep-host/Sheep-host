@@ -10,16 +10,15 @@ const SecondNavBar = React.createClass({
 
 	render() {
 		return (
-				<div>
-					<ul className="nav nav-pills">
-					  <li role="presentation"><a href="#">Collection 1</a></li>
-					  <li role="presentation"><a href="#">Collection 2</a></li>
-					  <li role="presentation"><a href="#">Collection 3</a></li>
-					</ul>
-				</div>
-			
-
-			)
+			<div>
+				<ul className="nav nav-tabs">
+					<li>Collections:</li>
+					{this.props.names.map((el, i)=> {
+						return <li className="tab" onClick={this.props.click} id={i} key={i} role="presentation">{el}</li>;
+					})}
+				</ul>
+			</div>
+		)
 	}
 })
 
