@@ -1,11 +1,15 @@
 var express = require('express');
 var apiMethods = require('../../database/methods/devAPI/apiMethods');
+var apiController = require('../../database/methods/devAPI/api-key-controller');
 var sharedMethods = require('../../database/methods/shared/sharedMethods');
 
 var router = express.Router()
 
 // post to existing collection
 router.post('/:devID/:dbName/:colID',
+	apiController.parseKey,
+	apiController.keyCheck,
+	apiController.keyPermissions,
 	apiMethods.storePost,
 	sharedMethods.checkDevID,
 	sharedMethods.openDB,	
@@ -14,6 +18,9 @@ router.post('/:devID/:dbName/:colID',
 
 // get entire collection
 router.get('/:devID/:dbName/:colID',
+	apiController.parseKey,
+	apiController.keyCheck,
+	apiController.keyPermissions,
 	sharedMethods.checkDevID,
 	sharedMethods.openDB,		
 	apiMethods.getCollection
@@ -21,6 +28,9 @@ router.get('/:devID/:dbName/:colID',
 
 // modify existing document
 router.put('/:devID/:dbName/:colID/:docID',
+	apiController.parseKey,
+	apiController.keyCheck,
+	apiController.keyPermissions,
 	apiMethods.storePut,
 	sharedMethods.checkDevID,
 	sharedMethods.openDB,	
@@ -29,6 +39,9 @@ router.put('/:devID/:dbName/:colID/:docID',
 
 // delete existing document
 router.delete('/:devID/:dbName/:colID/:docID',
+	apiController.parseKey,
+	apiController.keyCheck,
+	apiController.keyPermissions,
 	sharedMethods.checkDevID,
 	sharedMethods.openDB,	
 	apiMethods.removeFromCollection

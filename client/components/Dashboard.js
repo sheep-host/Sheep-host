@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import cookie from 'react-cookie';
+import { browserHistory } from 'react-router';
 import InstructionsClick from './instructionsClick';
 import ReactDOM from 'react-dom';
 import DatabaseForm from './DBInputComponent';
@@ -8,6 +9,7 @@ import CollectionForm from './CollectionInputComponent'
 import DevInfo from './DisplayDevInfo';
 import Schemaform from './SchemaInput';
 import DevDatabase  from './DevDatabase';
+import auth from './Auth'
 import jwtDecode from 'jwt-decode';
 import ClientInput from './clientInput'
 import DeveloperNavBar from './DeveloperNavBar';
@@ -33,8 +35,15 @@ const Dashboard = React.createClass({
 			activeCollectionData: [],
 			activeCollectionLink: 0,
 		}
-
 	},  
+	
+// 	componentDidMount() {
+// 		if(!auth.loggedIn()){
+// 			browserHistory.push("login");
+// 		}
+// 		let sheepToken = jwtDecode(localStorage.sheepToken);
+// 		console.log('sheep token', sheepToken.exp, Date.now());
+// 		this.getData();	
 
 	componentDidMount() {
 		this.getData()
