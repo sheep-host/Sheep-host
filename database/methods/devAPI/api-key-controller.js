@@ -1,34 +1,68 @@
 var uuid = require('node-uuid');
 var Models = require('../../models/devModel');
+var jwt = require ('jsonwebtoken');
 
 //Create an API key using UUID v4 which generates from random (or pseudo-random) id. 
 function generateKey(){
   return uuid.v4();
 }
 
-//Parse keys from req.headers.authorization
-//There may be CORS issues that need to be addressed
-function parseKey(req, res, next){
+function checkJwt(req, res, next){
   if(!req.headers.authorization){
     res.json({ error: 'Credentials missing' });
   } else {
-    var encoded = req.headers.authorization.split(' ')[1];
-    var decoded = new Buffer(encoded, 'base64').toString('utf8');
-  	res.locals.apikey = {
-  	  key: decoded.split(':')[0],
-  	  access: decoded.split(':')[1],
-  	  method: req.method,
-  	  permissions: null,
-      master: null
-  	};
-  	next();
+    var tokenHeader = req.headers.authorization.split(' ')[0];
+    console.log('tokenheader',tokenHeader)
+    if(tokenHeader === 'Bearer'){
+      var token = req.headers.authorization.split(' ')[1];
+      console.log('token', token);
+      jwt.verify(token, 'sheep host', function(err, decoded){
+        if(decoded.exp*1000 < Date.now()) res.json({ error: 'Token out of date' });
+        console.log(decoded);
+        console.log(decoded.exp);
+        decoded.exp += (60*60*24);
+        console.log(decoded.exp);
+        req.body.token = token;
+        next();
+      });
+    }
+    else next();
+  }
+}
+
+//Parse keys from req.headers.authorization
+//There may be CORS issues that need to be addressed
+function parseKey(req, res, next){
+  console.log('req.body.token in parsekey', req.body.token);
+  if(req.body.token){
+    next();
+  } else {
+    if(!req.headers.authorization){
+      res.json({ error: 'Credentials missing' });
+    }
+    else{
+      var encoded = req.headers.authorization.split(' ')[1];
+      var decoded = new Buffer(encoded, 'base64').toString('utf8');
+    	res.locals.apikey = {
+    	  key: decoded.split(':')[0],
+    	  access: decoded.split(':')[1],
+    	  method: req.method,
+    	  permissions: null,
+        master: null
+      }
+    	next();
+    }
   }
 }
 
 //Query database to confirm api key and secret/client key match and set permissions in res.locals
 function keyCheck(req, res, next){
-  var query = {'api.apiKey' : res.locals.apikey.key};
-  Models.Dev.findOne(query, {}, function(err, dev) {
+  console.log('req.body.token in keycheck', req.body.token);
+  if(req.body.token){
+    next();
+  } else{
+    var query = {'api.apiKey' : res.locals.apikey.key};
+    Models.Dev.findOne(query, {}, function(err, dev) {
       if(dev === null) {
         res.json({error: 'Not Valid'});
       } else if(dev.api.clientKey === res.locals.apikey.access || dev.api.secretKey === res.locals.apikey.access) {
@@ -39,12 +73,19 @@ function keyCheck(req, res, next){
       } else {
         res.json({error: 'Not Valid'});
       }
-  })
+    })
+  }
 }
 
 //Checks client key vs. permissions. Must run parseKey and keyCheck before.
 function keyPermissions(req, res, next){
-  if(res.locals.apikey.permissions){
+  console.log('req.body.token in key permissions', req.body.token);
+  if(req.body.token){
+    next();
+  }
+  else if(res.locals.apikey.permissions){
+        console.log('why is this line logging');
+
     next();
   } else {
     res.json({error: 'Not Valid'});
@@ -82,7 +123,7 @@ function updatePermissions(req, res, next){
 
 
 
-module.exports = { generateKey, parseKey, keyCheck, keyPermissions, masterKey, updatePermissions };
+module.exports = { checkJwt, generateKey, parseKey, keyCheck, keyPermissions, masterKey, updatePermissions };
 
 //Hardcoded API key info for future testing
 // var apiKeyHC = 'ba359df7-f88e-49f1-be3b-0222621479f6'

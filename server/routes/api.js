@@ -7,6 +7,7 @@ var router = express.Router()
 
 // post to existing collection
 router.post('/:devID/:dbName/:colID',
+	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
 	apiController.keyPermissions,
@@ -18,6 +19,7 @@ router.post('/:devID/:dbName/:colID',
 
 // get entire collection
 router.get('/:devID/:dbName/:colID',
+	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
 	apiController.keyPermissions,
@@ -28,6 +30,7 @@ router.get('/:devID/:dbName/:colID',
 
 // modify existing document
 router.put('/:devID/:dbName/:colID/:docID',
+	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
 	apiController.keyPermissions,
@@ -39,6 +42,7 @@ router.put('/:devID/:dbName/:colID/:docID',
 
 // delete existing document
 router.delete('/:devID/:dbName/:colID/:docID',
+	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
 	apiController.keyPermissions,
