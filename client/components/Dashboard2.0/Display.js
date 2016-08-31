@@ -5,7 +5,7 @@ const Display = React.createClass({
 
 	render() {
 		var dataArray = []
-		console.log('THIS.props', this.props.display)
+		console.log('Display component render')
 		this.props.display.forEach((el, i) => {
 			dataArray.push(<DataItem className="list-item" key={i} info={el} />)
 		})

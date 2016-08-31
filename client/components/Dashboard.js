@@ -15,6 +15,8 @@ import FirstNavBar from './Dashboard2.0/FirstNavBar';
 import SecondNavBar from './Dashboard2.0/SecondNavBar';
 import Display from './Dashboard2.0/Display';
 import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
+import UserProfile from './Dashboard2.0/UserProfileInfo.js';
+import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
@@ -33,7 +35,7 @@ const Dashboard = React.createClass({
 			Colkeys: [],
 			activeCollectionData: [],
 			activeCollectionLink: 0,
-			infoDisplayed: 'create'
+			infoDisplayed: 'dashboard'
 		}
 
 	},  
@@ -41,6 +43,12 @@ const Dashboard = React.createClass({
 	componentDidMount() {
 		this.getData()
 	}, 
+
+	toggleInfoDisplayed(e) {
+		console.log('e toggle info', e)
+		this.setState({infoDisplayed: e.target.name})
+		console.log('dashboard toggle info state', this.state)
+	},
 
 	onColClick(e) {
 		
@@ -88,8 +96,8 @@ const Dashboard = React.createClass({
 			return (
 			
 				<div>
-					<h3 className="alert alert-info text-center" role="alert"> <b>Welcome to your Dashboard, {this.props.params.username}</b></h3>
-					<SettingsNavBar />
+					<WelcomeBanner name={this.state.userName}/>
+					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
 					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
 					<Display display={this.state.activeCollectionData} />
@@ -101,10 +109,18 @@ const Dashboard = React.createClass({
 		if(this.state.infoDisplayed === 'create') {
 			return (
 				<div>
-					<SettingsNavBar />
-					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
-					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
+					<WelcomeBanner name={this.state.userName}/>
+					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<ClientInput />
+				</div>
+			)
+		}
+		if(this.state.infoDisplayed === 'profile') {
+			return(
+				<div>
+					<WelcomeBanner name={this.state.userName}/>
+					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
+					<UserProfile />
 				</div>
 			)
 		}
