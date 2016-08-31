@@ -1,20 +1,39 @@
 'use strict';
 var Models = require('../models/devModel');
-var mongoose = require('mongoose');
 var uri = 'mongodb://localhost/';
 var sheepDB = require('../SheepDB');
-
+var Promise = require("bluebird");
+var mongoose = Promise.promisifyAll(require("mongoose"));
 // returns all databases names/_id (NO ACTUAL DATA) for a dev
 function getAllDatabases(req, res, next){
-  Models.DB.find({_creator: req.params.devID}, function(err, result){
-    if(!result) res.sendStatus(404);
-    console.log(result);
-    var data = [];
-    result.forEach(function(item){
-      data.push({'_id':item._id, 'name':item.name});
-    })
-    res.json(data);
-  })
+var data = [];
+    return Models.DB.find({_creator: req.params.devID}).execAsync()
+    .then(function(results){
+        console.log('results', results);
+        return Promise.each(results, function(database){
+            console.log('before nested promise',database._creator, database.name);
+            var devDB = sheepDB.useDb(database._creator + '_' + database.name);
+            return Promise.each(database.collections, function(collection){
+                console.log('nested promise',collection.name, collection.devSchema);
+                var devModel = devDB.model(collection.name, new mongoose.Schema(JSON.parse(collection.devSchema)));
+                return devModel.find({}).execAsync()
+                .then(function(result){
+                    console.log('result', result);
+                    result.push({
+                        'database': database.name,
+                        'collection': collection.name
+                    });
+                    data.push(result);
+                });
+            }).then(function(){
+            });
+        }).then(function(database){
+        });
+    }).then(function(){
+        res.send(data);
+    }).catch(function(err){
+        console.log('error', err);
+    });
 }
 
 // returns an array of all collection names/schema (NO ACTUAL DATA) for a dev's database
