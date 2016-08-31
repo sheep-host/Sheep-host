@@ -11,6 +11,8 @@
   "author": "s1akr",
   "license": "MIT",
   "dependencies": {
+    "async-each": "^1.0.1",
+    "async-each-series": "^1.1.0",
     "axios": "0.12.0",
     "bcrypt": "^0.8.7",
     "bluebird": "^3.4.4",
@@ -24,6 +26,7 @@
     "material-ui": "^0.15.4",
     "mongodb": "^2.2.4",
     "mongoose": "^4.5.7",
+    "node-uuid": "^1.4.7",
     "passport": "^0.3.2",
     "passport-localapikey": "0.0.3",
     "react": "^15.1.0",

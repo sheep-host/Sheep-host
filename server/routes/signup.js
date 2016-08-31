@@ -8,7 +8,11 @@ var router = express.Router()
 //VALIDATION / AUTHENTICATION GOES HERE!!!!!!!~~~~~~~~~~~~~~~
 //and password confirmation
 
-router.post('/', devMethods.usernameExist, devMethods.addDev, cookieMethods.setCookie);
+router.post('/',
+	devMethods.usernameExist,
+	devMethods.addDev,
+	cookieMethods.setCookie
+);
 
 
 module.exports = router;

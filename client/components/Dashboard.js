@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import cookie from 'react-cookie';
+import { browserHistory } from 'react-router';
 import InstructionsClick from './instructionsClick';
 import ReactDOM from 'react-dom';
 import DatabaseForm from './DBInputComponent';
@@ -8,6 +9,7 @@ import CollectionForm from './CollectionInputComponent'
 import DevInfo from './DisplayDevInfo';
 import Schemaform from './SchemaInput';
 import DevDatabase  from './DevDatabase';
+import auth from '../Auth'
 import jwtDecode from 'jwt-decode';
 import ClientInput from './clientInput'
 import DeveloperNavBar from './DeveloperNavBar';
@@ -37,8 +39,15 @@ const Dashboard = React.createClass({
 			activeCollectionLink: 0,
 			infoDisplayed: 'dashboard'
 		}
-
 	},  
+	
+// 	componentDidMount() {
+// 		if(!auth.loggedIn()){
+// 			browserHistory.push("login");
+// 		}
+// 		let sheepToken = jwtDecode(localStorage.sheepToken);
+// 		console.log('sheep token', sheepToken.exp, Date.now());
+// 		this.getData();	
 
 	componentDidMount() {
 		this.getData()
@@ -51,22 +60,26 @@ const Dashboard = React.createClass({
 	},
 
 	onColClick(e) {
-		
-		let that = this.state;
-		let activeCollectionLink = parseInt(e.target.id);
-		let activeCollectionData = that.database[that.DBkeys[that.activeDBLink]][that.Colkeys[activeCollectionLink]];
-		this.setState({activeCollectionLink, activeCollectionData });
-
+		if(auth.loggedIn()){
+			let that = this.state;
+			let activeCollectionLink = parseInt(e.target.id);
+			let activeCollectionData = that.database[that.DBkeys[that.activeDBLink]][that.Colkeys[activeCollectionLink]];
+			this.setState({activeCollectionLink, activeCollectionData });
+			console.log(this.state);
+		}
+		else(auth.redirect());
 	},
 
 	onDBClick(e) {
-
-		let that = this.state;
-		let activeDBLink = parseInt(e.target.id);
-		let Colkeys = Object.keys(that.database[that.DBkeys[activeDBLink]]);
-		let activeCollectionData = that.database[that.DBkeys[activeDBLink]][Colkeys[0]];
-		this.setState({activeDBLink, activeCollectionLink: 0, Colkeys, activeCollectionData });
-
+		if(auth.loggedIn()){
+			let that = this.state;
+			let activeDBLink = parseInt(e.target.id);
+			let Colkeys = Object.keys(that.database[that.DBkeys[activeDBLink]]);
+			let activeCollectionData = that.database[that.DBkeys[activeDBLink]][Colkeys[0]];
+			this.setState({activeDBLink, activeCollectionLink: 0, Colkeys, activeCollectionData });
+			console.log(this.state);
+		}
+		else(auth.redirect());
 	},
  
 	getData() {
