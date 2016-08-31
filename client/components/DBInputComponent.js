@@ -3,6 +3,7 @@ import React from 'react';
 
 const DatabaseForm = (props) => {
 	return (
+		<div className="Database-Input">
 		<div className="input-group input-group-sm">
 			<input 
 			className="form-control"
@@ -13,6 +14,7 @@ const DatabaseForm = (props) => {
 
 			</input>
 		</div>
+	</div>
 	)
 }
 

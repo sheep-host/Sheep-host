@@ -8,61 +8,34 @@ var apiKey = require('./devAPI/api-key-controller');
 
 // returns all databases names/_id (NO ACTUAL DATA) for a dev
 function getAllDatabases(req, res, next){
-	var data = [];
-	return Models.DB.find({_creator: req.params.devID}).execAsync()
-	.then(function(results){
-		console.log('results', results);
-		return Promise.each(results, function(database){
-			console.log('before nested promise',database._creator, database.name);
-			var devDB = sheepDB.useDb(database._creator + '_' + database.name);
-			return Promise.each(database.collections, function(collection){
-				console.log('nested promise',collection.name, collection.devSchema);
-				var devModel = devDB.model(collection.name, new mongoose.Schema(JSON.parse(collection.devSchema)));
-				return devModel.find({}).execAsync()
-				.then(function(result){
-					console.log('result', result);
-					result.push({
-						'database': database.name,
-						'collection': collection.name
-					});
-					data.push(result);
-				});
-			}).then(function(){
-			});
-		}).then(function(database){
-		});
-	}).then(function(){
-		res.send(data);
-	}).catch(function(err){
-		console.log('error', err);
-	});
-	// 	var data = [];
-	// 	if(!result) res.sendStatus(404);
-	// 	// console.log('data result', result);
-	// 	// console.log('result length', result.length);
-	// 	result.forEach(function(database, index){
-	// 		var devDB = sheepDB.useDb(database._creator + '_' + database.name);
-	// 		each(database.collections, function(collection, callback){
-	// 			var devModel = devDB.model(collection.name, new mongoose.Schema(JSON.parse(collection.devSchema)));
-	// 			devModel.find({},function(err, result){
-	// 				console.log('result', result);
-	// 				result['collection'] = collection.name;
-	// 				result['database'] = database.name;
-	// 				console.log('result after adding names', result); 
-	// 				data.push(result);
-
-	// 			});
-	// 			callback();
-	// 		},
-	// 		function(err){
-	// 				if(err) console.log('error');
-	// 			console.log('data in callback',data);
-	// 		});
-	// 		console.log('data1', data); 
-	// 	});
-	// 		console.log('data2', data);
-	// });
-	res.sendStatus(200);
+var data = [];
+    return Models.DB.find({_creator: req.params.devID}).execAsync()
+    .then(function(results){
+        console.log('results', results);
+        return Promise.each(results, function(database){
+            console.log('before nested promise',database._creator, database.name);
+            var devDB = sheepDB.useDb(database._creator + '_' + database.name);
+            return Promise.each(database.collections, function(collection){
+                console.log('nested promise',collection.name, collection.devSchema);
+                var devModel = devDB.model(collection.name, new mongoose.Schema(JSON.parse(collection.devSchema)));
+                return devModel.find({}).execAsync()
+                .then(function(result){
+                    console.log('result', result);
+                    result.push({
+                        'database': database.name,
+                        'collection': collection.name
+                    });
+                    data.push(result);
+                });
+            }).then(function(){
+            });
+        }).then(function(database){
+        });
+    }).then(function(){
+        res.send(data);
+    }).catch(function(err){
+        console.log('error', err);
+    });
 }
 
 // returns an array of all collection names/schema (NO ACTUAL DATA) for a dev's database

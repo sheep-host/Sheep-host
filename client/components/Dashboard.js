@@ -11,117 +11,116 @@ import Schemaform from './SchemaInput';
 import DevDatabase  from './DevDatabase';
 import auth from './Auth'
 import jwtDecode from 'jwt-decode';
-
+import ClientInput from './clientInput'
+import DeveloperNavBar from './DeveloperNavBar';
+import FirstNavBar from './Dashboard2.0/FirstNavBar';
+import SecondNavBar from './Dashboard2.0/SecondNavBar';
+import Display from './Dashboard2.0/Display';
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
 const Dashboard = React.createClass({
 	getInitialState () {
 		return {
-			isLoggedIn:false,
+			activeDBLink: 0,
 			database: [],
 			userName: this.props.params.username,
 			dbId: '',
-			dbName: '',
+			dbNames: '',
 			collectionName: '',
 			schema:'',
 			instructionsVisible: false,
-			infoSubmitted: true		
+			DBkeys: [],
+			Colkeys: [],
+			activeCollectionData: [],
+			activeCollectionLink: 0,
 		}
 	},  
-
-	componentWillMount(){
-		
-	},
 	
+// 	componentDidMount() {
+// 		if(!auth.loggedIn()){
+// 			browserHistory.push("login");
+// 		}
+// 		let sheepToken = jwtDecode(localStorage.sheepToken);
+// 		console.log('sheep token', sheepToken.exp, Date.now());
+// 		this.getData();	
+
 	componentDidMount() {
-		if(!auth.loggedIn()){
-			browserHistory.push("login");
-		}
-		let sheepToken = jwtDecode(localStorage.sheepToken);
-		console.log('sheep token', sheepToken.exp, Date.now());
-		this.getData();	
+		this.getData()
 	}, 
 
-	onClick() {
-    	this.setState({instructionsVisible: !this.state.instructionsVisible});
-  	},
+	onColClick(e) {
+		let that = this.state;
+		let activeCollectionLink = parseInt(e.target.id);
+		let activeCollectionData = that.database[that.DBkeys[that.activeDBLink]][that.Colkeys[activeCollectionLink]];
+		this.setState({activeCollectionLink, activeCollectionData });
+		console.log(this.state);
+	},
+
+	onDBClick(e) {
+		let that = this.state;
+		let activeDBLink = parseInt(e.target.id);
+		let Colkeys = Object.keys(that.database[that.DBkeys[activeDBLink]]);
+		let activeCollectionData = that.database[that.DBkeys[activeDBLink]][Colkeys[0]];
+		this.setState({activeDBLink, activeCollectionLink: 0, Colkeys, activeCollectionData });
+		console.log(this.state);
+	},
  
 	getData() {
 		let that = this;
 		let _id = cookie.load('_id').slice(3,-1);
-		let _dbName = cookie.load('dbName');
-		let _collectionName = cookie.load('collectionName');
-		let schema = cookie.load('schema');
-		let _schema = JSON.stringify(schema);
+		// let _dbName = cookie.load('dbName');
+		// let _collectionName = cookie.load('collectionName');
+		// let schema = cookie.load('schema');
+		// let _schema = JSON.stringify(schema);
 		
-		axios.get('/api/'+_id).then(function(response) {
-
+		axios.get('/getDBs/'+_id).then(function(response) {
+			var info = {};
 			console.log('GET DATA - RESPONSE.data', response.data)
+			var data = response.data;
+			for(var i = 0; i < data.length; i++) {
+				var currentCollection = (data[i].pop());
+				if(!info[currentCollection.database]) info[currentCollection.database] = {};
+				info[currentCollection.database][currentCollection.collection] = data[i];
+			}
 
-			that.setState({dbName: _dbName, collectionName: _collectionName, dbId: _id, database: response.data, schema: _schema });
+			console.log('INFO', info)
+			console.log('keys', Object.keys(info))
+			const DBkeys = Object.keys(info);
+			const Colkeys = Object.keys(info[DBkeys[0]]);
+			const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
+			that.setState({database: info, DBkeys, Colkeys, activeCollectionData});
+			console.log(that.state)
+
 		}).catch(function(error) {
 			console.log(error)
-		});
+		}); 
 	},
 
-	onCollectionNameChange(e) {
-		
-		this.setState({collectionName: e.target.value })
-		
-	},
-	
-	onDbNameChange(e) {
-		this.setState({dbName: e.target.value })
-		
-	},
 
-	onSchemaChange(e) {
-		this.setState({schema: e.target.value })
-	},
- 
-	onSubmit(e) {
-		e.preventDefault();
-		var _this = this
-		console.log('_THIS.state', _this.state)
-		axios.post('/createDevDB', _this.state).then(function(response) {
-			console.log('DASHBOARD STATE AFTER SUBMIT', response)
-
-		}).catch(function(error) {
-			console.log('error on dashboard onSubmit promise', error)
-		})
-		
-
-	},
 
 	render() {
-		
 		return (
-
 			<div>
 				<h3 className="alert alert-info text-center" role="alert"> <b>Welcome to your Dashboard, {this.props.params.username}</b></h3>
-			<form onSubmit={this.onSubmit} >
-				<DatabaseForm onChange={this.onDbNameChange} />
-				<CollectionForm onChange={this.onCollectionNameChange}  />
-				<Schemaform onChange={this.onSchemaChange} />
-			</form>
-
-				<DevInfo id={this.state.dbId} 
-						 databaseName={this.state.dbName} 
-						 collectioName={this.state.collectionName}  
-						 schema={this.state.schema} />
 				
-				<DevDatabase databaseInfo={this.state.database}/>
+
+				<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
+				<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
+				<Display display={this.state.activeCollectionData} />
+
 
 				<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
 			</div>
 		)
 
-	
- }
+	}
 })
 
 
 
 export default Dashboard;
+
+
+
 
