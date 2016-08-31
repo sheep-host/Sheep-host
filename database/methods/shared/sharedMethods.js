@@ -59,7 +59,7 @@ function openDB(req, res, next){
 		console.log('openDB', result);
 		var col = result.collections.id(colID);
 		var colName = col.name;
-		var schema = JSON.parse(col.devSchema);
+		var schema = col.devSchema;
 		var devDB = sheepDB.useDb(devID + '_' + dbName);
 		var devModel = devDB.model(colName, new mongoose.Schema(schema));
 		req.body.devModel = devModel;

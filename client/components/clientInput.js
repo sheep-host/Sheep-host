@@ -2,27 +2,13 @@ import React from 'react';
 
 
 const ClientInput = React.createClass({
-	getInitialState() {
-	    return {
-	        hide: false  
-	    };
-	},
+
 	
-	propTypes: {
-	    onSubmit: React.PropTypes.func,
-	    onDbNameChange: React.PropTypes.func,
-	    onCollectionNameChange: React.PropTypes.func,
-	    onSchemaChange: React.PropTypes.func,
-  	
-  	},
-	onClick() {
-		this.setState({hide: !this.state.hide})
-	},
 
 	render() {
-		if(this.props.shouldShow === undefined) {
 		return (
-		<form onSubmit={this.props.onSubmit} className={'hide-' + this.state.hide}>
+		<div className="jumbotron">
+		<form onSubmit={this.props.onSubmit}>
 				<div className="Client-Input">
 					
 					<div className="input-group input-group-sm">
@@ -63,17 +49,10 @@ const ClientInput = React.createClass({
 				</div>
 			</div>
 			</form>
+		</div>
 		)
-	}
 
-	else {
-		return (
-				<div>
-				
-				</div>
-			)
 	}
-}
 })
 
 

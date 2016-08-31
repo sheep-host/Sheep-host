@@ -14,6 +14,7 @@ import DeveloperNavBar from './DeveloperNavBar';
 import FirstNavBar from './Dashboard2.0/FirstNavBar';
 import SecondNavBar from './Dashboard2.0/SecondNavBar';
 import Display from './Dashboard2.0/Display';
+import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
@@ -32,6 +33,7 @@ const Dashboard = React.createClass({
 			Colkeys: [],
 			activeCollectionData: [],
 			activeCollectionLink: 0,
+			infoDisplayed: 'create'
 		}
 
 	},  
@@ -41,70 +43,71 @@ const Dashboard = React.createClass({
 	}, 
 
 	onColClick(e) {
+		
 		let that = this.state;
 		let activeCollectionLink = parseInt(e.target.id);
 		let activeCollectionData = that.database[that.DBkeys[that.activeDBLink]][that.Colkeys[activeCollectionLink]];
 		this.setState({activeCollectionLink, activeCollectionData });
-		console.log(this.state);
+
 	},
 
 	onDBClick(e) {
+
 		let that = this.state;
 		let activeDBLink = parseInt(e.target.id);
 		let Colkeys = Object.keys(that.database[that.DBkeys[activeDBLink]]);
 		let activeCollectionData = that.database[that.DBkeys[activeDBLink]][Colkeys[0]];
 		this.setState({activeDBLink, activeCollectionLink: 0, Colkeys, activeCollectionData });
-		console.log(this.state);
+
 	},
  
 	getData() {
 		let that = this;
 		let _id = cookie.load('_id').slice(3,-1);
-		// let _dbName = cookie.load('dbName');
-		// let _collectionName = cookie.load('collectionName');
-		// let schema = cookie.load('schema');
-		// let _schema = JSON.stringify(schema);
-		
 		axios.get('/getDBs/'+_id).then(function(response) {
-			var info = {};
-			console.log('GET DATA - RESPONSE.data', response.data)
-			var data = response.data;
-			for(var i = 0; i < data.length; i++) {
-				var currentCollection = (data[i].pop());
+			const DBkeys = Object.keys(info);
+			const Colkeys = Object.keys(info[DBkeys[0]]);
+			const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
+			let info = {};
+			let data = response.data;
+
+			for(let i = 0; i < data.length; i++) {
+				let currentCollection = (data[i].pop());
+
 				if(!info[currentCollection.database]) info[currentCollection.database] = {};
 				info[currentCollection.database][currentCollection.collection] = data[i];
 			}
 
-			console.log('INFO', info)
-			console.log('keys', Object.keys(info))
-			const DBkeys = Object.keys(info);
-			const Colkeys = Object.keys(info[DBkeys[0]]);
-			const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
 			that.setState({database: info, DBkeys, Colkeys, activeCollectionData});
-			console.log(that.state)
-
 		}).catch(function(error) {
-			console.log(error)
+			throw new Error 
 		}); 
 	},
-
-
-
 	render() {
-		return (
-			<div>
-				<h3 className="alert alert-info text-center" role="alert"> <b>Welcome to your Dashboard, {this.props.params.username}</b></h3>
-				
+		if(this.state.infoDisplayed ==='dashboard') {
+			return (
+			
+				<div>
+					<h3 className="alert alert-info text-center" role="alert"> <b>Welcome to your Dashboard, {this.props.params.username}</b></h3>
+					<SettingsNavBar />
+					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
+					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
+					<Display display={this.state.activeCollectionData} />
 
-				<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
-				<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
-				<Display display={this.state.activeCollectionData} />
-
-
-				<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
-			</div>
-		)
-
+					<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
+				</div>
+			)
+		}
+		if(this.state.infoDisplayed === 'create') {
+			return (
+				<div>
+					<SettingsNavBar />
+					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
+					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
+					<ClientInput />
+				</div>
+			)
+		}
 	}
 })
 
