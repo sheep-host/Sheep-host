@@ -23,15 +23,18 @@
     "lodash": "^4.13.1",
     "mongodb": "^2.2.4",
     "mongoose": "^4.5.7",
+    "nodemailer": "^0.7.1",
     "passport": "^0.3.2",
     "passport-localapikey": "0.0.3",
+    "randomstring": "^1.1.5",
     "react": "^15.1.0",
     "react-cookie": "^0.4.8",
     "react-dom": "^15.1.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.0",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "xoauth2": "^1.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",

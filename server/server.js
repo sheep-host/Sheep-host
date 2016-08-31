@@ -13,8 +13,10 @@ var db = require('../database/SheepDB');
 var api = require('./routes/api');
 var createDevDB = require('./routes/createDevDB');
 var env = require('../.env');
+var verify = require('./verify.js');
 var fs = require('fs');
 var https = require('https');
+var randomstring = require('randomstring');
 
 var certsPath = path.join(__dirname + '/../certs/');
 var certificate = fs.readFileSync(certsPath + 'www_sheep_host.crt');
