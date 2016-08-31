@@ -1,11 +1,10 @@
 'use strict';
-var each = require('async-each-series');
 var Models = require('../models/devModel');
-// var mongoose = require('mongoose');
 var uri = 'mongodb://localhost/';
 var sheepDB = require('../SheepDB');
 var Promise = require("bluebird");
 var mongoose = Promise.promisifyAll(require("mongoose"));
+var apiKey = require('./devAPI/api-key-controller'); 
 
 // returns all databases names/_id (NO ACTUAL DATA) for a dev
 function getAllDatabases(req, res, next){
@@ -83,18 +82,23 @@ function getAllCollections(req, res, next){
 	})
 }
 
-// signup middleware
+//Signup middleware. If addDev function is changed, need to change function in test file.
 function addDev(req, res, next){
-	var newDev = {
-		userName: req.body.userName,
-		password: req.body.password
-	};
-	Models.Dev.create(newDev, function(err, dev){
-		if(err) throw err;
-		console.log('dev saved', dev);
-		req.body.dev = dev;
-		next();
-	});
+  var newDev ={
+    userName: req.body.userName,
+    password: req.body.password,
+    api: {
+      apiKey: apiKey.generateKey(),
+      secretKey: apiKey.generateKey(),
+      clientKey: apiKey.generateKey()
+    }
+  };
+
+  Models.Dev.create(newDev, function(err, result){
+    if(err) throw err;
+    req.body.dev = result;
+    next();
+  });
 }
 
 // login middleware
