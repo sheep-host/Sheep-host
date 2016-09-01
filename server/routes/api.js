@@ -13,7 +13,7 @@ router.post('/:devID/:dbName/:colID',
 	apiController.keyPermissions,
 	apiMethods.storePost,
 	sharedMethods.checkDevID,
-	sharedMethods.openDB,	
+	sharedMethods.openDB,
 	apiMethods.postToCollection
 );
 
@@ -24,7 +24,7 @@ router.get('/:devID/:dbName/:colID',
 	apiController.keyCheck,
 	apiController.keyPermissions,
 	sharedMethods.checkDevID,
-	sharedMethods.openDB,		
+	sharedMethods.openDB,
 	apiMethods.getCollection
 );
 
@@ -36,7 +36,7 @@ router.put('/:devID/:dbName/:colID/:docID',
 	apiController.keyPermissions,
 	apiMethods.storePut,
 	sharedMethods.checkDevID,
-	sharedMethods.openDB,	
+	sharedMethods.openDB,
 	apiMethods.putToCollection
 );
 
@@ -47,7 +47,7 @@ router.delete('/:devID/:dbName/:colID/:docID',
 	apiController.keyCheck,
 	apiController.keyPermissions,
 	sharedMethods.checkDevID,
-	sharedMethods.openDB,	
+	sharedMethods.openDB,
 	apiMethods.removeFromCollection
 );
 

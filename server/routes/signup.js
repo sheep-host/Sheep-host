@@ -10,13 +10,19 @@ var router = express.Router()
 
 router.post('/',
   devMethods.usernameExist,
-  devMethods.sendVerification
-);
-
-router.get('/verify/:key',
-  devMethods.verify,
   devMethods.addDev,
   cookieMethods.setCookie
 );
+
+// router.post('/',
+//   devMethods.usernameExist,
+//   devMethods.sendVerification
+// );
+//
+// router.get('/verify/:key',
+//   devMethods.verify,
+//   devMethods.addDev,
+//   cookieMethods.setCookie
+// );
 
 module.exports = router;
