@@ -47,3 +47,76 @@
 	padding-left: 50px;
 	padding-right: 20px;
 }
+
+.btn-default {
+	font-size:20px;
+  background-color: hsl(195, 79%, 49%) !important;
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#71cfee", endColorstr="#1aaedf");
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#71cfee), to(#1aaedf));
+  background-image: -moz-linear-gradient(top, #71cfee, #1aaedf);
+  background-image: -ms-linear-gradient(top, #71cfee, #1aaedf);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #71cfee), color-stop(100%, #1aaedf));
+  background-image: -webkit-linear-gradient(top, #71cfee, #1aaedf);
+  background-image: -o-linear-gradient(top, #71cfee, #1aaedf);
+  background-image: linear-gradient(#71cfee, #1aaedf);
+  border-color: #1aaedf #1aaedf hsl(195, 79%, 44%);
+  color: #333 !important;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
+  -webkit-font-smoothing: antialiased;
+}
+
+.tab-button { 
+  color: #ffffff; 
+  background-color: #611BBD; 
+  border-color: #130269; 
+} 
+ 
+.tab-button:hover, 
+.tab-button:focus, 
+.tab-button:active, 
+.tab-button.active, 
+.open .dropdown-toggle.tab-button { 
+  color: #ffffff; 
+  background-color: #49247A; 
+  border-color: #130269; 
+} 
+ 
+.tab-button:active, 
+.tab-button.active, 
+.open .dropdown-toggle.tab-button { 
+  background-image: none; 
+} 
+ 
+.tab-button.disabled, 
+.tab-button[disabled], 
+fieldset[disabled] .tab-button, 
+.tab-button.disabled:hover, 
+.tab-button[disabled]:hover, 
+fieldset[disabled] .tab-button:hover, 
+.tab-button.disabled:focus, 
+.tab-button[disabled]:focus, 
+fieldset[disabled] .tab-button:focus, 
+.tab-button.disabled:active, 
+.tab-button[disabled]:active, 
+fieldset[disabled] .tab-button:active, 
+.tab-button.disabled.active, 
+.tab-button[disabled].active, 
+fieldset[disabled] .tab-button.active { 
+  background-color: #611BBD; 
+  border-color: #130269; 
+} 
+ 
+.tab-button .badge { 
+  color: #611BBD; 
+  background-color: #ffffff; 
+}
+
+
+
+
+
+
+
+
+

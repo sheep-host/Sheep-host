@@ -33,7 +33,6 @@ class LoginForm extends React.Component {
 		this.props.userLogin(_this).then(function(response) {
 			console.log('login form on submit response', response)
 			if(response.data){
-				console.log('token from login response', cookie.load('token'));
 				localStorage.sheepToken = cookie.load('token');
 				browserHistory.push('dashboard/' + _this.userName)
 			}

@@ -16,6 +16,9 @@ import DeveloperNavBar from './DeveloperNavBar';
 import FirstNavBar from './Dashboard2.0/FirstNavBar';
 import SecondNavBar from './Dashboard2.0/SecondNavBar';
 import Display from './Dashboard2.0/Display';
+import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
+import UserProfile from './Dashboard2.0/UserProfileInfo.js';
+import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
@@ -34,6 +37,7 @@ const Dashboard = React.createClass({
 			activeCollectionData: [],
 			activeCollectionLink: 0,
 			activeDBLink: 0,
+			infoDisplayed: 'dashboard'
 		}
 	},  
 	
@@ -46,8 +50,16 @@ const Dashboard = React.createClass({
 // 		this.getData();	
 
 	componentDidMount() {
+		console.log('component did mount');
+
 		this.getData()
 	}, 
+
+	toggleInfoDisplayed(e) {
+		console.log('e toggle info', e)
+		this.setState({infoDisplayed: e.target.name})
+		console.log('dashboard toggle info state', this.state)
+	},
 
 	onColClick(e) {
 		if(auth.loggedIn()){
@@ -75,51 +87,59 @@ const Dashboard = React.createClass({
 	getData() {
 		let that = this;
 		let _id = jwtDecode(localStorage.sheepToken).devID;
-		// let _dbName = cookie.load('dbName');
-		// let _collectionName = cookie.load('collectionName');
-		// let schema = cookie.load('schema');
-		// let _schema = JSON.stringify(schema);
-		
 		axios.get('/getDBs/'+_id).then(function(response) {
-			var info = {};
-			console.log('GET DATA - RESPONSE.data', response.data)
-			var data = response.data;
-			for(var i = 0; i < data.length; i++) {
-				var currentCollection = (data[i].pop());
+			let info = {};
+			console.log('response', response)
+			let data = response.data;
+			for(let i = 0; i < data.length; i++) {
+				let currentCollection = (data[i].pop());
+
 				if(!info[currentCollection.database]) info[currentCollection.database] = {};
 				info[currentCollection.database][currentCollection.collection] = data[i];
 			}
-
-			console.log('INFO', info)
-			console.log('keys', Object.keys(info))
 			const DBkeys = Object.keys(info);
 			const Colkeys = Object.keys(info[DBkeys[0]]);
 			const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
-			that.setState({database: info, DBkeys, Colkeys, activeCollectionData});
-			console.log(that.state)
 
+			that.setState({database: info, DBkeys, Colkeys, activeCollectionData});
 		}).catch(function(error) {
-			console.log(error)
+			console.log('error on .catch', error) 
 		}); 
 	},
-
-
-
 	render() {
-		return (
-			<div>
-				<h3 className="alert alert-info text-center" role="alert"> <b>Welcome to your Dashboard, {this.props.params.username}</b></h3>
-				
+		console.log('STATE', this.state)
+		if(this.state.infoDisplayed ==='dashboard') {
+			return (
+			
+				<div>
+					<WelcomeBanner name={this.state.userName}/>
+					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
+					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
+					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
+					<Display display={this.state.activeCollectionData} />
 
-				<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
-				<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
-				<Display display={this.state.activeCollectionData} />
-
-
-				<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
-			</div>
-		)
-
+					<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
+				</div>
+			)
+		}
+		if(this.state.infoDisplayed === 'create') {
+			return (
+				<div>
+					<WelcomeBanner name={this.state.userName}/>
+					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
+					<ClientInput />
+				</div>
+			)
+		}
+		if(this.state.infoDisplayed === 'profile') {
+			return(
+				<div>
+					<WelcomeBanner name={this.state.userName}/>
+					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
+					<UserProfile />
+				</div>
+			)
+		}
 	}
 })
 
