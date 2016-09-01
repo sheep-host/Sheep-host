@@ -4,8 +4,8 @@
   "description": "< description goes here >",
   "main": "server.js",
   "scripts": {
-    "start-prod": "node server/server.js",
-    "start": "nodemon --watch server --exec babel-node -- server/server.js",
+    "start": "nodemon server/server.js",
+    "start-dev": "nodemon --watch server --exec babel-node -- server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "s1akr",
@@ -24,8 +24,10 @@
     "material-ui": "^0.15.4",
     "mongodb": "^2.2.4",
     "mongoose": "^4.5.7",
+    "nodemailer": "^0.7.1",
     "passport": "^0.3.2",
     "passport-localapikey": "0.0.3",
+    "randomstring": "^1.1.5",
     "react": "^15.1.0",
     "react-cookie": "^0.4.8",
     "react-dom": "^15.1.0",

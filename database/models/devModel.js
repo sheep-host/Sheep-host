@@ -7,10 +7,9 @@ var Schema = mongoose.Schema;
 var devSchema = new Schema({
   userName: { type: String, required: true },
   password: { type: String, required: true },
+  email: { type: String, required: true },
   database: [{type: Schema.Types.ObjectId, ref: 'Database'}],
 });
-
-
 
 var Collections = new Schema({
   name: { type: String, default: 'null' },

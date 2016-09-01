@@ -12,26 +12,14 @@ var devModel = require('../database/models/devModel');
 var db = require('../database/SheepDB');
 var api = require('./routes/api');
 var create = require('./routes/create');
-var env = require('../.env');
-var fs = require('fs');
-var https = require('https');
-
-var certificate = fs.readFileSync('./certs/www_sheep_host.crt');
-var privateKey = fs.readFileSync('./certs/sheep-host.pem');
-var caBundle = fs.readFileSync('./certs/COMODO_DV_SHA-256_bundle.crt');
 var getDBs = require('./routes/getDashboardData');
-var app = express();
+var env = require('../.env');
 var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
 
-https.createServer({
-  ca: caBundle,
-  key: privateKey,
-  cert: certificate
-}, app).listen(port, function() {
-  console.log('listening to port ', port);
-});
+var app = express();
+var dirname = path.join(__dirname, '/../');
 
-app.use(express.static(__dirname + '/../public'));
+app.use(express.static(dirname + 'public'));
 app.use('/public_api', express.static(__dirname + '/../public/public_api.js'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -42,11 +30,37 @@ app.use('/api', function(req, res, next) {
   next();
 });
 
+if (env.NODE_ENV === 'production') {
+  var fs = require('fs');
+  var https = require('https');
+  var certificate = fs.readFileSync('./certs/www_sheep_host.crt');
+  var privateKey = fs.readFileSync('./certs/sheep-host.pem');
+  var caBundle = fs.readFileSync('./certs/COMODO_DV_SHA-256_bundle.crt');
+
+  https.createServer({
+    ca: caBundle,
+    key: privateKey,
+    cert: certificate
+  }, app).listen(port, function() {
+    console.log('listening to port ', port);
+  });
+}
+
+if (env.NODE_ENV === 'backend') {
+  app.listen(port, () => {
+   console.log('listening on port 3000');
+  });
+}
+
 if (env.NODE_ENV === 'development') {
   var webpack = require('webpack');
   var webpackMiddleware = require('webpack-dev-middleware');
   var webpackConfig = require('../webpack.config.js');
   var webpackHotMiddleware = require('webpack-hot-middleware');
+
+  app.listen(port, () => {
+   console.log('listening on port 3000');
+  });
 
   const compiler = webpack(webpackConfig);
 
@@ -96,15 +110,15 @@ app.use('/api', api);
 // });
 
 app.get('/', (req, res) => {
-	res.sendFile('/server/index.html');
+	res.sendFile(dirname + 'public/index.html');
 });
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {
-	res.sendFile('/server/index.html');
+	res.sendFile(dirname + 'public/index.html');
 });
 
-
-//app.listen(port, () => {
-//  console.log('listening on port 3000');
-//});
+// xoauth2
+// clientID: 192992451771-ehl3dhf01t1g6bo7rrpd6207t1041ive.apps.googleusercontent.com
+// clientSecret: wSFF_2RiQIsOHKuGimMMr52L
+// refreshToken: 1/sAly6SN151A12pXQu5ta8iC1Oh8jo19YTSuHF-Zdxm8

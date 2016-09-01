@@ -3,6 +3,39 @@ var Models = require('../models/devModel');
 var mongoose = require('mongoose');
 var uri = 'mongodb://localhost/';
 var sheepDB = require('../SheepDB');
+var sendMail = require('../../server/verify.js');
+var randomstring = require('randomstring');
+var verModel = require('../models/verModel');
+
+function verify(req, res, next) {
+  verModel.findOne({ key: req.params.key }, function(err, result) {
+    if (err) throw err;
+    else {
+      req.body.userName = result.userName;
+      req.body.password = result.password;
+      req.body.email = result.email;
+      next();
+    }
+  });
+}
+
+function sendVerification(req, res, next) {
+  var randomKey = randomstring.generate();
+  verModel.create({
+    userName: req.body.userName,
+    password: req.body.password,
+    email: req.body.email,
+    key: randomKey
+  }, function(err, result) {
+    if (err) throw err;
+    else {
+      sendMail(req.body.email, randomKey, function(err, message) {
+        if (err) throw err;
+        else res.status(200).send(message);
+      });
+    }
+  });
+}
 
 // returns all databases names/_id (NO ACTUAL DATA) for a dev
 function getAllDatabases(req, res, next){
@@ -38,7 +71,8 @@ function getAllCollections(req, res, next){
 function addDev(req, res, next){
   var newDev = {
     userName: req.body.userName,
-    password: req.body.password
+    password: req.body.password,
+    email: req.body.email
   };
   Models.Dev.create(newDev, function(err, dev){
     if(err) throw err;
@@ -63,8 +97,8 @@ function usernameExist(req, res, next){
   })
 }
 
-// create DB button middleware that adds to DB collection 
-function addDB(req, res, next){
+// create DB button middleware that adds to DB collection
+function addDB(req, res, next) {
   var dev = req.body.dev;
   var db = new Models.DB({
     name: req.body.database,
@@ -116,4 +150,14 @@ function addCollection(req, res, next){
   });
 }
 
-module.exports = { getAllDatabases, getAllCollections, addDev, usernameExist, addDB, createDevDB, addCollection };
+module.exports = {
+  getAllDatabases,
+  getAllCollections,
+  addDev,
+  usernameExist,
+  addDB,
+  createDevDB,
+  addCollection,
+  sendVerification,
+  verify
+};
