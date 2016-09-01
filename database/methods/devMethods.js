@@ -4,7 +4,8 @@ var uri = 'mongodb://localhost/';
 var sheepDB = require('../SheepDB');
 var Promise = require("bluebird");
 var mongoose = Promise.promisifyAll(require("mongoose"));
-var apiKey = require('./devAPI/api-key-controller'); 
+var apiKey = require('./devAPI/api-key-controller');
+var schemaParser = require('./schemaParser') 
 
 // returns all databases names/_id (NO ACTUAL DATA) for a dev
 function getAllDatabases(req, res, next){
