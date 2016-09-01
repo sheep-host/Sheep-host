@@ -53,18 +53,34 @@ function checkDevID(req,res,next){
 
 // reused middleware to open DB pool connection
 function openDB(req, res, next){
+// 	var devID = req.params.devID;
+// 	var dbName = req.params.dbName;
+// 	var colID = req.params.colID;
+// 	Models.DB.findOne({name: dbName}, function(err, result){
+// 		console.log('openDB', result);
+// 		var col = result.collections.id(colID);
+// 		var colName = col.name;
+// 		var schema = col.devSchema;
+// 		var devDB = sheepDB.useDb(devID + '_' + dbName);
+// 		var devModel = devDB.model(colName, new mongoose.Schema(schema));
+// 		req.body.devModel = devModel;
+// 		next();
+// 	});
+// }
+
 	var devID = req.params.devID;
 	var dbName = req.params.dbName;
-	var colID = req.params.colID;
-	Models.DB.findOne({name: dbName}, function(err, result){
+	var colName = req.params.colName;
+	console.log(colName);
+	Models.DB.findOne({name: dbName, 'collections.name': colName}, {"collections.$":1}, function(err, result){
 		console.log('openDB', result);
-		var col = result.collections.id(colID);
-		var colName = col.name;
-		var schema = col.devSchema;
-		var devDB = sheepDB.useDb(devID + '_' + dbName);
-		var devModel = devDB.model(colName, new mongoose.Schema(schema));
-		req.body.devModel = devModel;
-		next();
+		// var col = result.collections.id(colID);
+		// var colName = col.name;
+		// var schema = col.devSchema;
+		// var devDB = sheepDB.useDb(devID + '_' + dbName);
+		// var devModel = devDB.model(colName, new mongoose.Schema(schema));
+		// req.body.devModel = devModel;
+		// next();
 	});
 }
 

@@ -6,7 +6,7 @@ var sharedMethods = require('../../database/methods/shared/sharedMethods');
 var router = express.Router()
 
 // post to existing collection
-router.post('/:devID/:dbName/:colID',
+router.post('/:devID/:dbName/:colName',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
