@@ -85,14 +85,12 @@ const Dashboard = React.createClass({
 		else(auth.redirect());
 	},
 
-<<<<<<< HEAD
-=======
 	onCollectionNameChange(e) {
 		this.setState({collectionName: e.target.value });
 	},
-	
+
 	onDbNameChange(e) {
-		this.setState({dbName: e.target.value });		
+		this.setState({dbName: e.target.value });
 	},
 
 	onSchemaChange(e) {
@@ -137,8 +135,7 @@ const Dashboard = React.createClass({
 			console.log('error on create submit', error);
 		})
 	},
- 
->>>>>>> 73ff6a1dd5d55dda7c4d427f2d7732a234933b1b
+
 	getData() {
 		let that = this;
 		let _id = jwtDecode(localStorage.sheepToken).devID;
@@ -170,10 +167,7 @@ const Dashboard = React.createClass({
 		else{let collectionData = this.state.activeCollectionData;}
 		if(this.state.infoDisplayed ==='dashboard') {
 			return (
-<<<<<<< HEAD
 
-=======
->>>>>>> 73ff6a1dd5d55dda7c4d427f2d7732a234933b1b
 				<div>
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
