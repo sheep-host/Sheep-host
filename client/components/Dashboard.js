@@ -25,19 +25,20 @@ import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
 const Dashboard = React.createClass({
 	getInitialState () {
 		return {
-			activeDBLink: 0,
 			database: [],
 			userName: this.props.params.username,
 			dbId: '',
 			dbNames: '',
-			collectionName: '',
-			schema:'',
 			instructionsVisible: false,
 			DBkeys: [],
 			Colkeys: [],
 			activeCollectionData: [],
 			activeCollectionLink: 0,
-			infoDisplayed: 'dashboard'
+			activeDBLink: 0,
+			infoDisplayed: 'dashboard',
+			schema:'',
+			dbName: '',
+			collectionName: ''
 		}
 	},
 
@@ -84,11 +85,63 @@ const Dashboard = React.createClass({
 		else(auth.redirect());
 	},
 
-	getData() {
-		let sheepToken = jwtDecode(localStorage.sheepToken);
-		let _id = sheepToken.devID;
-		console.log('getData');
+<<<<<<< HEAD
+=======
+	onCollectionNameChange(e) {
+		this.setState({collectionName: e.target.value });
+	},
+	
+	onDbNameChange(e) {
+		this.setState({dbName: e.target.value });		
+	},
+
+	onSchemaChange(e) {
+		this.setState({schema: e.target.value });
+	},
+
+	onCreateClick(e){
+		e.preventDefault();
 		let that = this;
+		let data = {};
+		let link = '/create/';
+		if(that.state.DBkeys.indexOf(that.state.dbName) === -1){
+			link += 'database';
+			data.database = that.state.dbName;
+			data._id = that.state._id;
+		}
+		else{
+			link += that.state._id + '/' + that.state.dbName
+		}
+		data.collectionName = that.state.collectionName;
+		data.schema = that.state.schema;
+		console.log(link, data);
+		axios.post(link, data).then(function(response){
+			console.log(response);
+			let db = response.data;
+			let dbName = db.name;
+			let collectionName = db.collections[db.collections.length-1].name;
+			let database = that.state.database;
+			let DBkeys = that.state.DBkeys;
+			if(DBkeys.indexOf(dbName) === -1){
+				database[dbName] = {};
+				DBkeys.push(dbName);
+			}
+			console.log(database, db, dbName, collectionName);
+			database[dbName][collectionName] = 'no data';
+			dbName = '';
+			collectionName = '';
+			let schema = '';
+			let infoDisplayed = 'dashboard';
+			that.setState({infoDisplayed, database, DBkeys, dbName, collectionName, schema})
+		}).catch(function(error){
+			console.log('error on create submit', error);
+		})
+	},
+ 
+>>>>>>> 73ff6a1dd5d55dda7c4d427f2d7732a234933b1b
+	getData() {
+		let that = this;
+		let _id = jwtDecode(localStorage.sheepToken).devID;
 		axios.get('/getDBs/'+_id).then(function(response) {
 			let info = {};
 			console.log('response', response)
@@ -103,7 +156,7 @@ const Dashboard = React.createClass({
 			const Colkeys = Object.keys(info[DBkeys[0]]);
 			const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
 
-			that.setState({database: info, DBkeys, Colkeys, activeCollectionData});
+			that.setState({_id, database: info, DBkeys, Colkeys, activeCollectionData});
 		}).catch(function(error) {
 			console.log('error on .catch', error)
 		});
@@ -111,9 +164,16 @@ const Dashboard = React.createClass({
 
 	render() {
 		console.log('STATE', this.state)
+		if(!this.state.activeCollectionData){
+			let collectionData = "This collection is empty."
+		}
+		else{let collectionData = this.state.activeCollectionData;}
 		if(this.state.infoDisplayed ==='dashboard') {
 			return (
+<<<<<<< HEAD
 
+=======
+>>>>>>> 73ff6a1dd5d55dda7c4d427f2d7732a234933b1b
 				<div>
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
@@ -130,7 +190,12 @@ const Dashboard = React.createClass({
 				<div>
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
-					<ClientInput />
+					<ClientInput
+						onDbNameChange={this.onDbNameChange}
+						onCollectionNameChange={this.onCollectionNameChange}
+						onSchemaChange={this.onSchemaChange}
+						onCreateClick={this.onCreateClick}
+					 />
 				</div>
 			)
 		}
