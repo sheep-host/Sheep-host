@@ -1,4 +1,18 @@
 # {
 #   "extends": "airbnb",
-#   "root": true
+#   "root": true,
+		"plugins": [
+		"react"
+		],
+		"parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "ev": {
+  "es6": true,
+  "node": true
+  }
 # }
