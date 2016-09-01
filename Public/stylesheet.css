@@ -25,8 +25,21 @@
 	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg')
 }
 
+.tabTitle{
+	margin-right:10px;
+	font-weight: bold;
+}
+
 .tab{
-	margin-left: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid #00327A;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.tab #active{
+	border-bottom: none;
 }
 
 .nav-link {

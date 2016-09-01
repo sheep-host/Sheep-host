@@ -3,9 +3,9 @@ import axios from 'axios';
 import { browserHistory } from 'react-router';
 import{ userLogin } from '../../actions/loginAction'
 import LoginInput from './LoginInput';
-import auth from '../Auth'
+import auth from '../../Auth'
 import jwtDecode from 'jwt-decode';
-
+import cookie from 'react-cookie';
 
 //is route component for this route
 class LoginForm extends React.Component {
@@ -33,7 +33,8 @@ class LoginForm extends React.Component {
 		this.props.userLogin(_this).then(function(response) {
 			console.log('login form on submit response', response)
 			if(response.data){
-				localStorage.sheepToken = response.data.token;
+				console.log('token from login response', cookie.load('token'));
+				localStorage.sheepToken = cookie.load('token');
 				browserHistory.push('dashboard/' + _this.userName)
 			}
 		}).catch(function(error) {
@@ -45,7 +46,6 @@ class LoginForm extends React.Component {
 	componentDidMount(){
 		if(auth.loggedIn()){
 			let sheepToken = jwtDecode(localStorage.sheepToken);
-			console.log(sheepToken);
 			browserHistory.push('dashboard/' + sheepToken.userName);
 		}
 	}

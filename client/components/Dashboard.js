@@ -22,7 +22,6 @@ import Display from './Dashboard2.0/Display';
 const Dashboard = React.createClass({
 	getInitialState () {
 		return {
-			activeDBLink: 0,
 			database: [],
 			userName: this.props.params.username,
 			dbId: '',
@@ -34,6 +33,7 @@ const Dashboard = React.createClass({
 			Colkeys: [],
 			activeCollectionData: [],
 			activeCollectionLink: 0,
+			activeDBLink: 0,
 		}
 	},  
 	
@@ -74,7 +74,7 @@ const Dashboard = React.createClass({
  
 	getData() {
 		let that = this;
-		let _id = cookie.load('_id').slice(3,-1);
+		let _id = jwtDecode(localStorage.sheepToken).devID;
 		// let _dbName = cookie.load('dbName');
 		// let _collectionName = cookie.load('collectionName');
 		// let schema = cookie.load('schema');

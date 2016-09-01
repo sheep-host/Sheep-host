@@ -12,7 +12,7 @@ const SecondNavBar = React.createClass({
 		return (
 			<div>
 				<ul className="nav nav-tabs">
-					<li>Collections:</li>
+					<li className="tabTitle">Collections:</li>
 					{this.props.names.map((el, i)=> {
 						return <li className="tab" onClick={this.props.click} id={i} key={i} role="presentation">{el}</li>;
 					})}
