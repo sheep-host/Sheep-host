@@ -16,7 +16,10 @@ function postToCollection(req, res, next){
 	var devModel = req.body.devModel;
 	devModel(post).save(function(err, results){
 		if (err) throw err;
-		else res.status(200).json(results);
+		else{
+			if(req.body.token) res.cookie('token', req.body.token, { maxAge: 600000 });
+			res.status(200).json(results);
+		}
 	});
 }
 

@@ -6,6 +6,7 @@ var jwt = require ('jsonwebtoken');
 
 // match password on login
 function checkPassword(req, res, next){
+	console.log('login body', req.body);
 	if(!req.body.userName){
 		res.status(400).send('Username required');
 		return;
@@ -21,13 +22,13 @@ function checkPassword(req, res, next){
 				res.status(401).send('Invalid Password');
 			}
 			else{
-				var devToken = jwt.sign({userName: dev.userName}, 'sheep host', { expiresIn: 60});
-				req.body.token = devToken;
+				var sheepToken = jwt.sign({userName: dev.userName, devID: dev._id}, 'sheep host', { expiresIn: 120000});
+				console.log('server side token', sheepToken);
+				req.body.token = sheepToken;
 				req.body.dev = dev;
 				next();
 			}
-		})
-
+		});
 	});
 }
 
@@ -59,7 +60,7 @@ function openDB(req, res, next){
 		console.log('openDB', result);
 		var col = result.collections.id(colID);
 		var colName = col.name;
-		var schema = JSON.parse(col.devSchema);
+		var schema = col.devSchema;
 		var devDB = sheepDB.useDb(devID + '_' + dbName);
 		var devModel = devDB.model(colName, new mongoose.Schema(schema));
 		req.body.devModel = devModel;

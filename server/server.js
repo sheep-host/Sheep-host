@@ -47,7 +47,7 @@ if (env.NODE_ENV === 'production') {
 }
 
 if (env.NODE_ENV === 'backend') {
-  app.listen(port, () => {
+  app.listen(port, function() {
    console.log('listening on port 3000');
   });
 }
@@ -58,11 +58,11 @@ if (env.NODE_ENV === 'development') {
   var webpackConfig = require('../webpack.config.js');
   var webpackHotMiddleware = require('webpack-hot-middleware');
 
-  app.listen(port, () => {
+  app.listen(port, function() {
    console.log('listening on port 3000');
   });
 
-  const compiler = webpack(webpackConfig);
+  var compiler = webpack(webpackConfig);
 
   app.use(webpackMiddleware(compiler, {
   	hot: true,
