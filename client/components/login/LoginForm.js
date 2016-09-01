@@ -7,7 +7,6 @@ import auth from '../../Auth'
 import jwtDecode from 'jwt-decode';
 import cookie from 'react-cookie';
 
-
 //is route component for this route
 class LoginForm extends React.Component {
 	constructor(props) {
@@ -46,7 +45,6 @@ class LoginForm extends React.Component {
 	componentDidMount(){
 		if(auth.loggedIn()){
 			let sheepToken = jwtDecode(localStorage.sheepToken);
-			console.log(sheepToken);
 			browserHistory.push('dashboard/' + sheepToken.userName);
 		}
 	}

@@ -123,9 +123,13 @@ function createDevDB(req, res, next) {
 		createdBy: req.body.dev.userName
 	}).save(function(err, results){
 		if (err) throw err;
-		req.body.results = results;
-		res.json(results);
-	})
+		Models.DB.findOne({name: req.body.database}, function(err, db){
+			if (err) throw err;
+			console.log('db', db);
+			req.body.db = db;
+			res.json(db);
+		});
+	});
 }
 
 // saves collection and schema name to devs record of DBs (does not actually instantiate)
