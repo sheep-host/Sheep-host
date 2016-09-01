@@ -50,6 +50,8 @@ const Dashboard = React.createClass({
 // 		this.getData();	
 
 	componentDidMount() {
+		console.log('component did mount');
+
 		this.getData()
 	}, 
 
@@ -83,28 +85,31 @@ const Dashboard = React.createClass({
 	},
  
 	getData() {
+		let sheepToken = jwtDecode(localStorage.sheepToken);
+		let _id = sheepToken.devID;
+		console.log('getData');
 		let that = this;
-		let _id = cookie.load('_id').slice(3,-1);
 		axios.get('/getDBs/'+_id).then(function(response) {
-			const DBkeys = Object.keys(info);
-			const Colkeys = Object.keys(info[DBkeys[0]]);
-			const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
 			let info = {};
+			console.log('response', response)
 			let data = response.data;
-
 			for(let i = 0; i < data.length; i++) {
 				let currentCollection = (data[i].pop());
 
 				if(!info[currentCollection.database]) info[currentCollection.database] = {};
 				info[currentCollection.database][currentCollection.collection] = data[i];
 			}
+			const DBkeys = Object.keys(info);
+			const Colkeys = Object.keys(info[DBkeys[0]]);
+			const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
 
 			that.setState({database: info, DBkeys, Colkeys, activeCollectionData});
 		}).catch(function(error) {
-			throw new Error 
+			console.log('error on .catch', error) 
 		}); 
 	},
 	render() {
+		console.log('STATE', this.state)
 		if(this.state.infoDisplayed ==='dashboard') {
 			return (
 			
