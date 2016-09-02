@@ -1,14 +1,27 @@
 import React from 'react';
 
-const UserProfile = React.createClass({
-	render() {
+const UserProfile = (props) => {
+	let userDBProfileInfo = []
+	let userInfo = []
+	let infoProps = props.profileInfo
+
+	for(var i in infoProps) {
+		console.log('for in',infoProps[i])
+		console.log('pr', i)
+		if(typeof infoProps[i] === 'string') userInfo.push(<em>{i}</em>, <b>{infoProps[i]}</b>)
+		if(infoProps[i].constructor === Array) {
+		userDBProfileInfo.push(<div key={i} className="panel-body">{i}</div>, <li key={i+1}>{infoProps[i]}</li>)
+		console.log('display', userDBProfileInfo)
+	}	
+}
 		return (
-			<div className="jumbotron">
-				Hello im user profile information
+			<div className="well well-lg">
+				{userInfo}
+			  {userDBProfileInfo}
 			</div>
-		)
-	}
-})
+
+	)
+}
 
 
 
