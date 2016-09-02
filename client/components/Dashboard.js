@@ -29,7 +29,6 @@ const Dashboard = React.createClass({
 			database: [],
 			userName: this.props.params.username,
 			_id: '',
-			dbNames: '',
 			instructionsVisible: false,
 			DBkeys: [],
 			Colkeys: [],
@@ -189,6 +188,11 @@ const Dashboard = React.createClass({
  
 
 	render() {
+		let profileInfo = {};
+		profileInfo['userName'] = this.state.userName
+		for(let name in this.state.database) {
+			profileInfo[name] = Object.keys(this.state.database[name])
+		}
 		console.log('STATE', this.state)
 		if(!this.state.activeCollectionData){
 			let collectionData = "This collection is empty."
@@ -225,7 +229,7 @@ const Dashboard = React.createClass({
 				<div>
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
-					<UserProfile />
+					<UserProfile profileInfo={profileInfo}/>
 				</div>
 			)
 		}
