@@ -18,10 +18,7 @@ function checkJwt(req, res, next){
       console.log('token', token);
       jwt.verify(token, 'sheep host', function(err, decoded){
         if(decoded.exp*1000 < Date.now()) res.json({ error: 'Token out of date' });
-        console.log(decoded);
-        console.log(decoded.exp);
         decoded.exp += (60*60*24);
-        console.log(decoded.exp);
         req.body.token = token;
         next();
       });

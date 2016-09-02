@@ -18,6 +18,7 @@ function checkPassword(req, res, next){
 	Models.Dev.findOne({userName: req.body.userName}).
 	populate('database').
 	exec(function(err, dev){
+		console.log('dev in checkpassword', dev);
 		dev.comparePassword(req.body.password, function(err, isMatch){
 			if (err) throw err;
 			if(!isMatch){
