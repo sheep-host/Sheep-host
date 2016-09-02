@@ -27,7 +27,7 @@ const Dashboard = React.createClass({
 		return {
 			database: [],
 			userName: this.props.params.username,
-			dbId: '',
+			_id: '',
 			dbNames: '',
 			instructionsVisible: false,
 			DBkeys: [],
@@ -51,10 +51,41 @@ const Dashboard = React.createClass({
 // 		this.getData();	
 
 	componentDidMount() {
-		console.log('component did mount');
-
+		let token = jwtDecode(localStorage.sheepToken);
+		console.log('token with keys', token);
+		let authKey = token.authKey;
+		this.setState({authKey});
 		this.getData()
 	}, 
+		getData() {
+		let that = this;
+		console.log('getdata token', jwtDecode(localStorage.sheepToken).devID)
+		let _id = jwtDecode(localStorage.sheepToken).devID;
+		axios.get('/getDBs/'+_id).then(function(response) {
+			console.log('response', response)
+			if(response.data.length> 0){
+				let info = {};	
+				let data = response.data;
+				for(let i = 0; i < data.length; i++) {
+					let currentCollection = (data[i].pop());
+
+					if(!info[currentCollection.database]) info[currentCollection.database] = {};
+					info[currentCollection.database][currentCollection.collection] = data[i];
+				}
+				const DBkeys = Object.keys(info);
+				const Colkeys = Object.keys(info[DBkeys[0]]);
+				const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
+				that.setState({_id, database: info, DBkeys, Colkeys, activeCollectionData});
+			}
+			else{
+				console.log('no data')
+				that.setState({_id})
+			}
+			console.log('state after getdata', that.state);
+		}).catch(function(error) {
+			console.log('error on .catch', error) 
+		}); 
+	},
 
 	toggleInfoDisplayed(e) {
 		console.log('e toggle info', e)
@@ -97,6 +128,10 @@ const Dashboard = React.createClass({
 		this.setState({schema: e.target.value });
 	},
 
+	fetchData(){
+
+	},
+
 	onCreateClick(e){
 		e.preventDefault();
 		let that = this;
@@ -136,28 +171,7 @@ const Dashboard = React.createClass({
 		})
 	},
  
-	getData() {
-		let that = this;
-		let _id = jwtDecode(localStorage.sheepToken).devID;
-		axios.get('/getDBs/'+_id).then(function(response) {
-			let info = {};
-			console.log('response', response)
-			let data = response.data;
-			for(let i = 0; i < data.length; i++) {
-				let currentCollection = (data[i].pop());
 
-				if(!info[currentCollection.database]) info[currentCollection.database] = {};
-				info[currentCollection.database][currentCollection.collection] = data[i];
-			}
-			const DBkeys = Object.keys(info);
-			const Colkeys = Object.keys(info[DBkeys[0]]);
-			const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
-
-			that.setState({_id, database: info, DBkeys, Colkeys, activeCollectionData});
-		}).catch(function(error) {
-			console.log('error on .catch', error) 
-		}); 
-	},
 	render() {
 		console.log('STATE', this.state)
 		if(!this.state.activeCollectionData){
@@ -171,7 +185,11 @@ const Dashboard = React.createClass({
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
 					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
-					<Display display={this.state.activeCollectionData} />
+					<Display
+						display={this.state.activeCollectionData}
+						id={this.state._id}
+						col={this.state.Colkeys[this.state.activeCollectionLink]}
+						db={this.state.DBkeys[this.state.activeDBLink]} />
 
 					<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
 				</div>
