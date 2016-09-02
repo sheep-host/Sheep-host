@@ -28,7 +28,6 @@ const Dashboard = React.createClass({
 			database: [],
 			userName: this.props.params.username,
 			_id: '',
-			dbNames: '',
 			instructionsVisible: false,
 			DBkeys: [],
 			Colkeys: [],
@@ -41,14 +40,6 @@ const Dashboard = React.createClass({
 			collectionName: ''
 		}
 	},  
-	
-// 	componentDidMount() {
-// 		if(!auth.loggedIn()){
-// 			browserHistory.push("login");
-// 		}
-// 		let sheepToken = jwtDecode(localStorage.sheepToken);
-// 		console.log('sheep token', sheepToken.exp, Date.now());
-// 		this.getData();	
 
 	componentDidMount() {
 		let token = jwtDecode(localStorage.sheepToken);
@@ -128,10 +119,6 @@ const Dashboard = React.createClass({
 		this.setState({schema: e.target.value });
 	},
 
-	fetchData(){
-
-	},
-
 	onCreateClick(e){
 		e.preventDefault();
 		let that = this;
@@ -173,6 +160,11 @@ const Dashboard = React.createClass({
  
 
 	render() {
+		let profileInfo = {};
+		profileInfo['userName'] = this.state.userName
+		for(let name in this.state.database) {
+			profileInfo[name] = Object.keys(this.state.database[name])
+		}
 		console.log('STATE', this.state)
 		if(!this.state.activeCollectionData){
 			let collectionData = "This collection is empty."
@@ -185,11 +177,8 @@ const Dashboard = React.createClass({
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
 					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
-					<Display
-						display={this.state.activeCollectionData}
-						id={this.state._id}
-						col={this.state.Colkeys[this.state.activeCollectionLink]}
-						db={this.state.DBkeys[this.state.activeDBLink]} />
+					<Display display={this.state.activeCollectionData} />
+
 
 					<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
 				</div>
@@ -214,7 +203,7 @@ const Dashboard = React.createClass({
 				<div>
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
-					<UserProfile />
+					<UserProfile profileInfo={profileInfo}/>
 				</div>
 			)
 		}
