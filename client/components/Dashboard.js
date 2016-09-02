@@ -37,21 +37,13 @@ const Dashboard = React.createClass({
 			Colkeys: [],
 			activeCollectionData: [],
 			activeCollectionLink: 0,
-			infoDisplayed: 'dashboard'
+			infoDisplayed: 'dashboard',
+
 		}
 	},  
-	
-// 	componentDidMount() {
-// 		if(!auth.loggedIn()){
-// 			browserHistory.push("login");
-// 		}
-// 		let sheepToken = jwtDecode(localStorage.sheepToken);
-// 		console.log('sheep token', sheepToken.exp, Date.now());
-// 		this.getData();	
 
 	componentDidMount() {
 		console.log('component did mount');
-
 		this.getData()
 	}, 
 
@@ -87,7 +79,6 @@ const Dashboard = React.createClass({
 	getData() {
 		let sheepToken = jwtDecode(localStorage.sheepToken);
 		let _id = sheepToken.devID;
-		console.log('getData');
 		let that = this;
 		axios.get('/getDBs/'+_id).then(function(response) {
 			let info = {};
@@ -109,17 +100,20 @@ const Dashboard = React.createClass({
 		}); 
 	},
 	render() {
+		let profileInfo = {};
+		profileInfo['userName'] = this.state.userName
+		for(let name in this.state.database) {
+			profileInfo[name] = Object.keys(this.state.database[name])
+		}
 		console.log('STATE', this.state)
 		if(this.state.infoDisplayed ==='dashboard') {
 			return (
-			
 				<div>
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
 					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
 					<Display display={this.state.activeCollectionData} />
-
 					<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
 				</div>
 			)
@@ -138,7 +132,7 @@ const Dashboard = React.createClass({
 				<div>
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
-					<UserProfile />
+					<UserProfile profileInfo={profileInfo}/>
 				</div>
 			)
 		}

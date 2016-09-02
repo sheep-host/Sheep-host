@@ -4,17 +4,25 @@ import React from 'react';
 const SecondNavBar = React.createClass({
 	getInitialState() {
 	    return {
-	          selected: 'dbname'
+	          activeIndex: null
 	    };
 	},
+
+	toggleColorAndDisplay(e) {
+		console.log('this', e.target)
+		this.props.click(e)
+		
+		console.log('E', e.target)
+		
+},
 
 	render() {
 		return (
 			<div>
-				<ul className="nav nav-tabs">
-					<li>Collections:</li>
+				<ul className="nav nav-tabs" data-toggle="button">
+					<li><h3>Collections:</h3></li>
 					{this.props.names.map((el, i)=> {
-						return <li className="tab-button" onClick={this.props.click} id={i} key={i} role="presentation">{el}</li>;
+						return <button className="tabs btn btn-primary info" aria-pressed="true" onClick={this.toggleColorAndDisplay} id={i} key={i} name={el} role="button">{el}</button>;
 					})}
 				</ul>
 			</div>
