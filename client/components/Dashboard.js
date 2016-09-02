@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import cookie from 'react-cookie';
 import { browserHistory } from 'react-router';
-import InstructionsClick from './instructionsClick';
+import InstructionsClick from './InstructionsClick';
 import ReactDOM from 'react-dom';
 import DatabaseForm from './DBInputComponent';
 import CollectionForm from './CollectionInputComponent'

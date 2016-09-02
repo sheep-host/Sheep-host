@@ -14,61 +14,40 @@ var api = require('./routes/api');
 var create = require('./routes/create');
 var getDBs = require('./routes/getDashboardData');
 var env = require('../.env');
-var verify = require('./verify.js');
-var fs = require('fs');
-var https = require('https');
-var randomstring = require('randomstring');
-
-var certsPath = path.join(__dirname + '/../certs/');
-var certificate = fs.readFileSync(certsPath + 'www_sheep_host.crt');
-var privateKey = fs.readFileSync(certsPath + 'sheep-host.pem');
-var caBundle = fs.readFileSync(certsPath + 'COMODO_DV_SHA-256_bundle.crt');
-var app = express();
 var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
 
 var app = express();
 var dirname = path.join(__dirname, '/../');
 
-var http = express();
-http.get('*', function(req, res) {
-  res.redirect('https://sheep.host');
-}).listen(80);
-
-https.createServer({
-  ca: caBundle,
-  key: privateKey,
-  cert: certificate
-}, app).listen(port, function() {
-  console.log('listening to port ', port);
-});
-
 app.use(express.static(dirname + 'public'));
 app.use('/public_api', express.static(__dirname + '/../public/public_api.js'));
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
-
 app.use('/api', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Method", "GET, POST, OPTIONS, HEAD, PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
 
 if (env.NODE_ENV === 'production') {
-  var fs = require('fs');
-  var https = require('https');
-  var certificate = fs.readFileSync('./certs/www_sheep_host.crt');
-  var privateKey = fs.readFileSync('./certs/sheep-host.pem');
-  var caBundle = fs.readFileSync('./certs/COMODO_DV_SHA-256_bundle.crt');
-
-  https.createServer({
-    ca: caBundle,
-    key: privateKey,
-    cert: certificate
-  }, app).listen(port, function() {
-    console.log('listening to port ', port);
+  app.listen(port, function() {
+   console.log('listening on port 3000');
   });
+  // var fs = require('fs');
+  // var https = require('https');
+  // var certificate = fs.readFileSync('./certs/www_sheep_host.crt');
+  // var privateKey = fs.readFileSync('./certs/sheep-host.pem');
+  // var caBundle = fs.readFileSync('./certs/COMODO_DV_SHA-256_bundle.crt');
+
+  // https.createServer({
+  //   ca: caBundle,
+  //   key: privateKey,
+  //   cert: certificate
+  // }, app).listen(port, function() {
+  //   console.log('listening to port ', port);
+  // });
 }
 
 if (env.NODE_ENV === 'backend') {
@@ -93,7 +72,7 @@ if (env.NODE_ENV === 'development') {
   	hot: true,
   	publicPath: webpackConfig.output.publicPath,
   	onInfo: true,
-  	historyApiFallback: true
+  	historyApiFallback:true
   }));
 
   app.use(webpackHotMiddleware(compiler));
@@ -110,7 +89,7 @@ if (env.NODE_ENV === 'development') {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/dashboard',expressJwt({ secret: 'sheep host' }).unless({ path: ['/','/signup','/login'] }));
+app.use('/dashboard',expressJwt({secret: 'sheep host'}).unless({ path: ['/','/signup','/login']}));
 
 app.use(cookieParser());
 
@@ -130,6 +109,10 @@ app.use('/create', create);
 
 app.use('/api', api);
 
+// app.get('/public_api', (req, res) => {
+//   res.sendFile('/public/public_api.js');
+// });
+
 app.get('/', (req, res) => {
 	res.sendFile(dirname + 'public/index.html');
 });
@@ -139,7 +122,8 @@ app.get('*', (req, res) => {
 	res.sendFile(dirname + 'public/index.html');
 });
 
+// xoauth2
+// clientID: 192992451771-ehl3dhf01t1g6bo7rrpd6207t1041ive.apps.googleusercontent.com
+// clientSecret: wSFF_2RiQIsOHKuGimMMr52L
+// refreshToken: 1/sAly6SN151A12pXQu5ta8iC1Oh8jo19YTSuHF-Zdxm8
 
-//app.listen(port, () => {
-//  console.log('listening on port', port);
-//});
