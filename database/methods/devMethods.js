@@ -5,37 +5,38 @@ var sheepDB = require('../SheepDB');
 var Promise = require("bluebird");
 var mongoose = Promise.promisifyAll(require("mongoose"));
 var apiKey = require('./devAPI/api-key-controller'); 
+var jwt = require ('jsonwebtoken');
 
 // returns all databases names/_id (NO ACTUAL DATA) for a dev
 function getAllDatabases(req, res, next){
-var data = [];
-    return Models.DB.find({_creator: req.params.devID}).execAsync()
-    .then(function(results){
-        console.log('results', results);
-        return Promise.each(results, function(database){
-            console.log('before nested promise',database._creator, database.name);
-            var devDB = sheepDB.useDb(database._creator + '_' + database.name);
-            return Promise.each(database.collections, function(collection){
-                console.log('nested promise',collection.name, collection.devSchema);
-                var devModel = devDB.model(collection.name, new mongoose.Schema(JSON.parse(collection.devSchema)));
-                return devModel.find({}).execAsync()
-                .then(function(result){
-                    console.log('result', result);
-                    result.push({
-                        'database': database.name,
-                        'collection': collection.name
-                    });
-                    data.push(result);
-                });
-            }).then(function(){
-            });
-        }).then(function(database){
-        });
-    }).then(function(){
-        res.send(data);
-    }).catch(function(err){
-        console.log('error', err);
-    });
+	var data = [];
+	return Models.DB.find({_creator: req.params.devID}).execAsync()
+	.then(function(results){
+		console.log('results', results);
+		return Promise.each(results, function(database){
+			console.log('before nested promise',database._creator, database.name);
+			var devDB = sheepDB.useDb(database._creator + '_' + database.name);
+			return Promise.each(database.collections, function(collection){
+				console.log('nested promise',collection.name, collection.devSchema);
+				var devModel = devDB.model(collection.name, new mongoose.Schema(JSON.parse(collection.devSchema)));
+				return devModel.find({}).execAsync()
+				.then(function(result){
+					console.log('result', result);
+					result.push({
+						'database': database.name,
+						'collection': collection.name
+					});
+					data.push(result);
+				});
+			}).then(function(){
+				});
+			}).then(function(database){
+			});
+		}).then(function(){
+				res.send(data);
+		}).catch(function(err){
+				console.log('error', err);
+		});
 }
 
 // returns an array of all collection names/schema (NO ACTUAL DATA) for a dev's database
@@ -57,21 +58,25 @@ function getAllCollections(req, res, next){
 
 //Signup middleware. If addDev function is changed, need to change function in test file.
 function addDev(req, res, next){
-  var newDev ={
-    userName: req.body.userName,
-    password: req.body.password,
-    api: {
-      apiKey: apiKey.generateKey(),
-      secretKey: apiKey.generateKey(),
-      clientKey: apiKey.generateKey()
-    }
-  };
+	var newDev ={
+		userName: req.body.userName,
+		password: req.body.password,
+		api: {
+			apiKey: apiKey.generateKey(),
+			secretKey: apiKey.generateKey(),
+			clientKey: apiKey.generateKey()
+		}
+	};
 
-  Models.Dev.create(newDev, function(err, result){
-    if(err) throw err;
-    req.body.dev = result;
-    next();
-  });
+	Models.Dev.create(newDev, function(err, result){
+		if(err) throw err;
+		console.log('add dev result', result);
+		req.body.dev = result;
+		var sheepToken = jwt.sign({userName: result.userName, devID: result._id}, 'sheep host', { expiresIn: 120000});
+		console.log('server side token', sheepToken);
+		req.body.token = sheepToken;
+		next();
+	});
 }
 
 // login middleware
@@ -105,9 +110,12 @@ function addDB(req, res, next){
 	db.save(function(err){
 		if (err) throw err;
 		console.log('db after saved', db);
-		req.body.db = db;
-		req.body.dev = dev;
-		next();
+		dev.database.push(db);
+		dev.save(function(err){
+			req.body.db = db;
+			req.body.dev = dev;
+			next();	
+		})
 	});
 }
 
@@ -123,7 +131,7 @@ function createDevDB(req, res, next) {
 		createdBy: req.body.dev.userName
 	}).save(function(err, results){
 		if (err) throw err;
-		Models.DB.findOne({name: req.body.database}, function(err, db){
+		Models.DB.findOne({_creator: req.body._id, name: req.body.database}, function(err, db){
 			if (err) throw err;
 			console.log('db', db);
 			req.body.db = db;
