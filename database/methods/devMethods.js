@@ -106,8 +106,8 @@ function addDev(req, res, next){
 		if(err) throw err;
 		console.log('add dev result', result);
 		req.body.dev = result;
-		var sheepToken = jwt.sign({userName: result.userName, devID: result._id}, 'sheep host', { expiresIn: 120000});
-		console.log('server side token', sheepToken);
+    var authKey = new Buffer(result.api.apiKey + ':' + result.api.clientKey).toString('base64');
+    var sheepToken = jwt.sign({authKey: authKey, userName: result.userName, devID: result._id}, 'sheep host', { expiresIn: 120000});
 		req.body.token = sheepToken;
 		next();
 	});
