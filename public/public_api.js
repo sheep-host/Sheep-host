@@ -17,7 +17,7 @@ var sheep = {
   },
 
   get: function(cb) {
-    axios.get(user.url + user.dbId).then(cb);
+    axios.get(user.url + user.id + '/' + dbName + '/' + colName).then(cb);
   },
 
   put: function(query, data) {
