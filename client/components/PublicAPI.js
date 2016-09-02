@@ -8,7 +8,7 @@ const PublicAPI = React.createClass({
           <pre>
             <code>
               &lt;script src="https://npmcdn.com/axios/dist/axios.min.js"&gt;&lt;/script&gt;{'\n'}
-              &lt;script src="https://sheep.host/public_api"&gt;&lt;/script&gt;{'\n'}
+              &lt;script src="http://sheep.host/public_api"&gt;&lt;/script&gt;{'\n'}
               &lt;script&gt;{'\n'}
                   {'  '}// Initialize Sheep.host{'\n'}
                   {'  '}var config = &#123;{'\n'}
