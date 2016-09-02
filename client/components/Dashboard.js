@@ -25,27 +25,58 @@ import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
 const Dashboard = React.createClass({
 	getInitialState () {
 		return {
-			activeDBLink: 0,
 			database: [],
 			userName: this.props.params.username,
-			dbId: '',
-			dbNames: '',
-			collectionName: '',
-			schema:'',
+			_id: '',
 			instructionsVisible: false,
 			DBkeys: [],
 			Colkeys: [],
 			activeCollectionData: [],
 			activeCollectionLink: 0,
+			activeDBLink: 0,
 			infoDisplayed: 'dashboard',
-
+			schema:'',
+			dbName: '',
+			collectionName: ''
 		}
 	},  
 
 	componentDidMount() {
-		console.log('component did mount');
+		let token = jwtDecode(localStorage.sheepToken);
+		console.log('token with keys', token);
+		let authKey = token.authKey;
+		this.setState({authKey});
 		this.getData()
 	}, 
+		getData() {
+		let that = this;
+		console.log('getdata token', jwtDecode(localStorage.sheepToken).devID)
+		let _id = jwtDecode(localStorage.sheepToken).devID;
+		axios.get('/getDBs/'+_id).then(function(response) {
+			console.log('response', response)
+			if(response.data.length> 0){
+				let info = {};	
+				let data = response.data;
+				for(let i = 0; i < data.length; i++) {
+					let currentCollection = (data[i].pop());
+
+					if(!info[currentCollection.database]) info[currentCollection.database] = {};
+					info[currentCollection.database][currentCollection.collection] = data[i];
+				}
+				const DBkeys = Object.keys(info);
+				const Colkeys = Object.keys(info[DBkeys[0]]);
+				const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
+				that.setState({_id, database: info, DBkeys, Colkeys, activeCollectionData});
+			}
+			else{
+				console.log('no data')
+				that.setState({_id})
+			}
+			console.log('state after getdata', that.state);
+		}).catch(function(error) {
+			console.log('error on .catch', error) 
+		}); 
+	},
 
 	toggleInfoDisplayed(e) {
 		console.log('e toggle info', e)
@@ -75,30 +106,59 @@ const Dashboard = React.createClass({
 		}
 		else(auth.redirect());
 	},
- 
-	getData() {
-		let sheepToken = jwtDecode(localStorage.sheepToken);
-		let _id = sheepToken.devID;
-		let that = this;
-		axios.get('/getDBs/'+_id).then(function(response) {
-			let info = {};
-			console.log('response', response)
-			let data = response.data;
-			for(let i = 0; i < data.length; i++) {
-				let currentCollection = (data[i].pop());
 
-				if(!info[currentCollection.database]) info[currentCollection.database] = {};
-				info[currentCollection.database][currentCollection.collection] = data[i];
-			}
-			const DBkeys = Object.keys(info);
-			const Colkeys = Object.keys(info[DBkeys[0]]);
-			const activeCollectionData = info[DBkeys[0]][Colkeys[0]];
-
-			that.setState({database: info, DBkeys, Colkeys, activeCollectionData});
-		}).catch(function(error) {
-			console.log('error on .catch', error) 
-		}); 
+	onCollectionNameChange(e) {
+		this.setState({collectionName: e.target.value });
 	},
+	
+	onDbNameChange(e) {
+		this.setState({dbName: e.target.value });		
+	},
+
+	onSchemaChange(e) {
+		this.setState({schema: e.target.value });
+	},
+
+	onCreateClick(e){
+		e.preventDefault();
+		let that = this;
+		let data = {};
+		let link = '/create/';
+		if(that.state.DBkeys.indexOf(that.state.dbName) === -1){
+			link += 'database';
+			data.database = that.state.dbName;
+			data._id = that.state._id;
+		}
+		else{
+			link += that.state._id + '/' + that.state.dbName
+		}
+		data.collectionName = that.state.collectionName;
+		data.schema = that.state.schema;
+		console.log(link, data);
+		axios.post(link, data).then(function(response){
+			console.log(response);
+			let db = response.data;
+			let dbName = db.name;
+			let collectionName = db.collections[db.collections.length-1].name;
+			let database = that.state.database;
+			let DBkeys = that.state.DBkeys;
+			if(DBkeys.indexOf(dbName) === -1){
+				database[dbName] = {};
+				DBkeys.push(dbName);
+			}
+			console.log(database, db, dbName, collectionName);
+			database[dbName][collectionName] = 'no data';
+			dbName = '';
+			collectionName = '';
+			let schema = '';
+			let infoDisplayed = 'dashboard';
+			that.setState({infoDisplayed, database, DBkeys, dbName, collectionName, schema})
+		}).catch(function(error){
+			console.log('error on create submit', error);
+		})
+	},
+ 
+
 	render() {
 		let profileInfo = {};
 		profileInfo['userName'] = this.state.userName
@@ -106,6 +166,10 @@ const Dashboard = React.createClass({
 			profileInfo[name] = Object.keys(this.state.database[name])
 		}
 		console.log('STATE', this.state)
+		if(!this.state.activeCollectionData){
+			let collectionData = "This collection is empty."
+		}
+		else{let collectionData = this.state.activeCollectionData;}
 		if(this.state.infoDisplayed ==='dashboard') {
 			return (
 				<div>
@@ -114,6 +178,8 @@ const Dashboard = React.createClass({
 					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
 					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
 					<Display display={this.state.activeCollectionData} />
+
+
 					<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
 				</div>
 			)
@@ -123,7 +189,12 @@ const Dashboard = React.createClass({
 				<div>
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
-					<ClientInput />
+					<ClientInput
+						onDbNameChange={this.onDbNameChange}
+						onCollectionNameChange={this.onCollectionNameChange}
+						onSchemaChange={this.onSchemaChange}
+						onCreateClick={this.onCreateClick}
+					 />
 				</div>
 			)
 		}

@@ -6,7 +6,7 @@ var sharedMethods = require('../../database/methods/shared/sharedMethods');
 var router = express.Router()
 
 // post to existing collection
-router.post('/:devID/:dbName/:colID',
+router.post('/:devID/:dbName/:colName',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
@@ -18,7 +18,7 @@ router.post('/:devID/:dbName/:colID',
 );
 
 // get entire collection
-router.get('/:devID/:dbName/:colID',
+router.get('/:devID/:dbName/:colName',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
@@ -29,7 +29,7 @@ router.get('/:devID/:dbName/:colID',
 );
 
 // modify existing document
-router.put('/:devID/:dbName/:colID/:docID',
+router.put('/:devID/:dbName/:colName/:docID',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
@@ -41,7 +41,7 @@ router.put('/:devID/:dbName/:colID/:docID',
 );
 
 // delete existing document
-router.delete('/:devID/:dbName/:colID/:docID',
+router.delete('/:devID/:dbName/:colName/:docID',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,

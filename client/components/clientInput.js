@@ -31,7 +31,7 @@ const ClientInput = React.createClass({
 					<div className="input-group input-group-md">
 						<label for="dbName">Database Name</label>
 						<br></br>
-							<small id="databaseHelp" className="form-text text-muted">Enter Name of Database you would like to add to</small>
+							<small id="databaseHelp" className="form-text text-muted">If you would like to create a new database, enter a new database name. Otherwise, enter the name of an existing database you would like to add a collection to</small>
 								<input 
 									className="form-control"
 									onChange={this.props.onDbNameChange}
@@ -71,7 +71,7 @@ const ClientInput = React.createClass({
 				<div>
 					<button
 						className="btn btn-primary btn-lg"
-						onClick={this.onClick}>
+						onClick={this.props.onCreateClick}>
 							ADD
 					</button>
 				</div>
