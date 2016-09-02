@@ -6,58 +6,75 @@ const ApiSandbox = React.createClass({
 	render(){
 		return(
 			<div className="jumbotron">
+				<h2>Your API Sandbox</h2>
+				<div>Make CRUD requests to this collection to test out your data</div>
+				<br></br>
 				<form>
-				<div className="form-group">
-					
+				<div className="form-group">	
 					<div className="input-group input-group-md">
-						<label for="dbName">Database Name</label>
-						<br></br>
-							<small id="databaseHelp" className="form-text text-muted">If you would like to create a new database, enter a new database name. Otherwise, enter the name of an existing database you would like to add a collection to</small>
+						<label for="dbName">POST</label><br></br>
+							<small id="postHelp" className="form-text text-muted">Add a document to this collection</small>
 								<input 
 									className="form-control"
-									onChange={this.props.onDbNameChange}
-									placeholder="Database Name"
+									onChange={this.props.onPostChange}
+									placeholder="Enter {<key>: <value>} of new document"
 									type="text"
-									name="dbName">
+									name="post">
 								</input>
-					</div>
-					
-					<p></p>
-				<div className="input-group input-group-md">
-					<label for="collectionName">Collection Name</label>
-					<br></br>
-					<small id="collectionHelp" className="form-text text-muted">Enter name of collection you are creating</small>
-						<input 
-							className="form-control"
-							onChange={this.props.onCollectionNameChange}
-							placeholder="Collection Name"
-							type="text"
-							name="collectionName">
-						</input>
-				</div>
-				<p></p>
-				<div className="form-group form-control-md">
-					<label for="collectionName">Schema</label>
-					<br></br>
-					<small id="databaseHelp" className="form-text text-muted">Use JSON format and please highlight the type</small>
-						<textarea 
-							rows="5"
-							className="form-control form-control-md"
-							onChange={this.props.onSchemaChange}
-							placeholder="Schema"
-							type="text"
-							name="schema">
-						</textarea>
-				</div>
-				<div>
-					<button
+								<button
 						className="btn btn-primary btn-lg"
-						onClick={this.props.onCreateClick}>
-							ADD
+						onClick={this.props.onPostClick}>
+							POST
 					</button>
+					</div>
 				</div>
-			</div>
-		</form>
+				</form>
+				<form>
+				<div className="form-group">	
+					<div className="input-group input-group-md">
+						<label for="dbName">PUT</label><br></br>
+							<small id="putHelp" className="form-text text-muted">Update a document in this collection</small>
+								<input 
+									className="form-control"
+									onChange={this.props.onPutChange}
+									placeholder="Copy and paste _id of desired document"
+									type="text"
+									name="putID">
+								</input>
+								<input 
+									className="form-control"
+									onChange={this.props.onPutChange}
+									placeholder="Enter {<key>: <value>} to change"
+									type="text"
+									name="put">
+								</input>
+								<button
+						className="btn btn-primary btn-lg"
+						onClick={this.props.onputClick}>
+							PUT
+					</button>
+					</div>
+				</div>
+				</form><form>
+				<div className="form-group">	
+					<div className="input-group input-group-md">
+						<label for="dbName">DELETE</label><br></br>
+							<small id="deleteHelp" className="form-text text-muted">Delete a record from this collection</small>
+								<input 
+									className="form-control"
+									onChange={this.props.onDELETEChange}
+									placeholder="Copy and paste _id of desired document"
+									type="text"
+									name="DELETE">
+								</input>
+								<button
+						className="btn btn-primary btn-lg"
+						onClick={this.props.onDELETEClick}>
+							DELETE
+					</button>
+					</div>
+				</div>
+				</form>
 			</div>
 		)
 	}

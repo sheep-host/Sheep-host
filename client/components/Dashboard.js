@@ -51,7 +51,8 @@ const Dashboard = React.createClass({
 	},
 
 	componentDidUpdate(){
-		if(auth.loggedIn && this.state.database.length > 0){
+		console.log('fetch',auth.loggedIn(), this.state.database);
+		if(auth.loggedIn() && this.state.DBkeys.length > 0 && this.state.infoDisplayed === 'dashboard'){
 			setInterval(this.fetchData, 20000);
 		}
 	}, 
@@ -175,7 +176,7 @@ const Dashboard = React.createClass({
 				DBkeys.push(dbName);
 			}
 			console.log(database, db, dbName, collectionName);
-			database[dbName][collectionName] = 'no data';
+			database[dbName][collectionName] = [];
 			dbName = '';
 			collectionName = '';
 			let schema = '';
