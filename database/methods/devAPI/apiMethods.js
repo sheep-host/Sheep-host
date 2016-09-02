@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 
 var Devs = require('../../models/devModel');
 
-//POST
 function storePost(req, res, next){
 	var post = {};
 	for(var key in req.body){
@@ -12,37 +11,26 @@ function storePost(req, res, next){
 	next();
 }
 
-function populateDB(req, res, next){
+function postToCollection(req, res, next){
 	var post = res.locals.post;
 	var devModel = req.body.devModel;
 	devModel(post).save(function(err, results){
 		if (err) throw err;
-		else res.status(200).json(results);
+		else{
+			if(req.body.token) res.cookie('token', req.body.token, { maxAge: 600000 });
+			res.status(200).json(results);
+		}
 	});
 }
 
-//GET
-function showAllData(req, res, next){
+function getCollection(req, res, next){
 	var devModel = req.body.devModel;
-	if(devModel){
-		if(req.query){
-			devModel.find(req.query, function(err, data){
-				if (err) res.status(422).send('Record not found');
-				res.json(data);
-			})
-		}
-		else{
-			devModel.find({}, function(err, data){
-				if (err) throw err;
-				res.json(data);
-			})
-		}
-	} else{
-		res.sendStatus(204);
-	}
+	devModel.find({}, function(err, data){
+		if (err) throw err;
+		res.json(data);
+	});
 }
 
-//PUT
 function storePut(req, res, next){
 	var put = {};
 	for(var key in req.body){
@@ -53,29 +41,25 @@ function storePut(req, res, next){
 	next();
 }
 
-function updateDB(req, res, next){
-	// console.log(req.body);
-	// console.log(req.body.put);
-	var devModel = req.body.devModel;
+function putToCollection(req, res, next){
 	var put = res.locals.put;
-	var id = req.params.id;
-	console.log('put after middleware', put, id);
-	devModel.findByIdAndUpdate(id, put, {new: true}, function(err, result){
+	var devModel = req.body.devModel;
+	var docID = req.params.docID;
+	devModel.findByIdAndUpdate(docID, put, { new: true }, function(err, result){
 		if (err) res.sendStatus(400,'Invalid input');
 		console.log('result after put', result);
 		res.json(result);
 	})
 }
 
-//DELETE
-function remove(req, res, next){
+function removeFromCollection(req, res, next){
+	console.log('in remove');
 	var devModel = req.body.devModel;
-	var id = req.params.id;
-	devModel.findByIdAndRemove(id, function(err, result){
+	var docID = req.params.docID;
+	devModel.findByIdAndRemove(docID, function(err, result){
 		if (err) res.sendsStatus(400,'Invalid input');
-		console.log('devared');
 		res.sendStatus(200, 'Document removed');
 	})
 }
 
-module.exports = { storePost, storePut, showAllData, populateDB, updateDB, remove };
+module.exports = { storePost, postToCollection, getCollection, storePut, putToCollection, removeFromCollection };

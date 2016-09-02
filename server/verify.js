@@ -1,4 +1,6 @@
-var verify = function(address, string) {
+var nodemailer = require('nodemailer');
+
+var sendMail = function(address, string, cb) {
   var transporter;
   var message;
 
@@ -13,14 +15,15 @@ var verify = function(address, string) {
   message = {
     from: 'administrator@sheep.host',
     to: address,
-    subject: 'It works!!!',
-    html: '<h3>To verify your email</h3>\n\nClick the following link: <a href="https://sheep.host/verify/:' + string + '">https://sheep.host/verify/:' + string + '</a>',
+    subject: 'Verification required',
+    html: 'click the following link to verify your email address: <a href="http://localhost:3000/signup/verify/' + string + '">http://localhost:3000/signup/verify/' + string + '</a>',
   };
 
   transporter.sendMail(message, function(error, info){
-    if (error) throw error;
+    if (error) cb(error, null);
     transporter.close();
+    cb(null, 'Verification email sent');
   });
 };
 
-module.exports = verify;
+module.exports = sendMail;

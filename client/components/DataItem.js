@@ -1,27 +1,35 @@
+// 		var dataResults = []
+		// for (var value in this.props.info) {
+		// 	dataResults.push( < em > {value.toString()} < /em>, " : " , <b> {this.props.info[value]} </b > )
+		
+		// }
+// 		return (
+		
+				// <li className = "i list-group-item" >
+				// {dataResults} 
+				// </li>
+			
+// 		)
+// 	}
+// })
+
+
+
 import React from 'react';
 
 const DataItem = React.createClass({
 	render() {
-		console.log('DATA ITEM RENDER')
-		var anotherArray =[]
-		
-			for(var value in this.props.info){
-			var key=value.toString()
-		
-			anotherArray.push(<em> {value.toString()}</em>, " : " , <b> {this.props.info[value]} </b>)
-			console.log('another array', anotherArray)
+		var dataResults = [];
+		for (var value in this.props.info) {
+			dataResults.push(<em>{value.toString()}</em>, " : ", <b>{this.props.info[value]} ,  </b>)
 		}
-		
 		return (
-			
-			<li className="list-group-item">
-			
-				{anotherArray}
+			<li className = "i list-group-item" >
+			{dataResults} 
 			</li>
-			)
+		)
 	}
 })
-
 
 
 

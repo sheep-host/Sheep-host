@@ -3,6 +3,7 @@ import React from 'react';
 
 const CollectionForm = (props) => {
 	return (
+	<div className="Collection-Input">
 	<div className="input-group input-group-sm">
 		<input 
 			className="form-control"
@@ -13,6 +14,7 @@ const CollectionForm = (props) => {
 
 			</input>
 		</div>
+	</div>
 		
 	)
 }

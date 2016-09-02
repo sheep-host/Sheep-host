@@ -11,7 +11,8 @@ var devMethods = require('../database/methods/devMethods');
 var devModel = require('../database/models/devModel');
 var db = require('../database/SheepDB');
 var api = require('./routes/api');
-var createDevDB = require('./routes/createDevDB');
+var create = require('./routes/create');
+var getDBs = require('./routes/getDashboardData');
 var env = require('../.env');
 var verify = require('./verify.js');
 var fs = require('fs');
@@ -24,6 +25,9 @@ var privateKey = fs.readFileSync(certsPath + 'sheep-host.pem');
 var caBundle = fs.readFileSync(certsPath + 'COMODO_DV_SHA-256_bundle.crt');
 var app = express();
 var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
+
+var app = express();
+var dirname = path.join(__dirname, '/../');
 
 var http = express();
 http.get('*', function(req, res) {
@@ -38,7 +42,7 @@ https.createServer({
   console.log('listening to port ', port);
 });
 
-app.use(express.static(__dirname + '/../public'));
+app.use(express.static(dirname + 'public'));
 app.use('/public_api', express.static(__dirname + '/../public/public_api.js'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -51,13 +55,39 @@ app.use('/api', function(req, res, next) {
   next();
 });
 
+if (env.NODE_ENV === 'production') {
+  var fs = require('fs');
+  var https = require('https');
+  var certificate = fs.readFileSync('./certs/www_sheep_host.crt');
+  var privateKey = fs.readFileSync('./certs/sheep-host.pem');
+  var caBundle = fs.readFileSync('./certs/COMODO_DV_SHA-256_bundle.crt');
+
+  https.createServer({
+    ca: caBundle,
+    key: privateKey,
+    cert: certificate
+  }, app).listen(port, function() {
+    console.log('listening to port ', port);
+  });
+}
+
+if (env.NODE_ENV === 'backend') {
+  app.listen(port, function() {
+   console.log('listening on port 3000');
+  });
+}
+
 if (env.NODE_ENV === 'development') {
   var webpack = require('webpack');
   var webpackMiddleware = require('webpack-dev-middleware');
   var webpackConfig = require('../webpack.config.js');
   var webpackHotMiddleware = require('webpack-hot-middleware');
 
-  const compiler = webpack(webpackConfig);
+  app.listen(port, function() {
+   console.log('listening on port 3000');
+  });
+
+  var compiler = webpack(webpackConfig);
 
   app.use(webpackMiddleware(compiler, {
   	hot: true,
@@ -93,18 +123,20 @@ app.use('/signup', signup);
 
 app.use('/login', login);
 
+app.use('/getDBs', getDBs);
+
 //click 'createDB' button
-app.use('/createDevDB', createDevDB);
+app.use('/create', create);
 
 app.use('/api', api);
 
 app.get('/', (req, res) => {
-	res.sendFile('/public/index.html');
+	res.sendFile(dirname + 'public/index.html');
 });
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {
-	res.sendFile('/public/index.html');
+	res.sendFile(dirname + 'public/index.html');
 });
 
 
