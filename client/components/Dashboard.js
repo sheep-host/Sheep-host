@@ -19,6 +19,7 @@ import Display from './Dashboard2.0/Display';
 import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
 import UserProfile from './Dashboard2.0/UserProfileInfo.js';
 import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
+import PublicAPI from './PublicAPI';
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
@@ -191,7 +192,10 @@ const Dashboard = React.createClass({
 						id={this.state._id}
 						col={this.state.Colkeys[this.state.activeCollectionLink]}
 						db={this.state.DBkeys[this.state.activeDBLink]} />
-
+          <PublicAPI
+            devId={this.state._id}
+            authKey={this.state.authKey}
+          />
 					<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
 				</div>
 			)
