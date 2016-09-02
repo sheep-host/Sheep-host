@@ -19,6 +19,7 @@ import Display from './Dashboard2.0/Display';
 import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
 import UserProfile from './Dashboard2.0/UserProfileInfo.js';
 import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
+import ApiSandbox from './Dashboard2.0/apiSandbox';
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
@@ -41,26 +42,45 @@ const Dashboard = React.createClass({
 			collectionName: ''
 		}
 	},  
-	
-// 	componentDidMount() {
-// 		if(!auth.loggedIn()){
-// 			browserHistory.push("login");
-// 		}
-// 		let sheepToken = jwtDecode(localStorage.sheepToken);
-// 		console.log('sheep token', sheepToken.exp, Date.now());
-// 		this.getData();	
 
 	componentDidMount() {
 		let token = jwtDecode(localStorage.sheepToken);
 		console.log('token with keys', token);
 		let authKey = token.authKey;
 		this.setState({authKey});
-		this.getData()
+		this.getData();
+	},
+
+	componentDidUpdate(){
+		if(auth.loggedIn && this.state.database.length > 0){
+			setInterval(this.fetchData, 20000);
+		}
 	}, 
-		getData() {
+
+	fetchData(){
+		let that = this;
+		const _id = that.state._id;
+		const _dbName = that.state.DBkeys[that.state.activeDBLink];
+		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
+		const link = _id + '/' + _dbName + '/' + _collectionName;
+		console.log('link', link);
+		axios({
+			method: 'get',
+			baseURL: 'http://localhost:3000/api/',
+			url: link,
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
+		}).then(function(response){
+			console.log('fetch', response);
+			that.state.database[_dbName][_collectionName] = response.data;
+			that.setState({activeCollectionData: response.data, database: that.state.database})
+		})
+	},
+
+	getData() {
 		let that = this;
 		console.log('getdata token', jwtDecode(localStorage.sheepToken).devID)
 		let _id = jwtDecode(localStorage.sheepToken).devID;
+		console.log('_id for axios', _id);
 		axios.get('/getDBs/'+_id).then(function(response) {
 			console.log('response', response)
 			if(response.data.length> 0){
@@ -128,10 +148,6 @@ const Dashboard = React.createClass({
 		this.setState({schema: e.target.value });
 	},
 
-	fetchData(){
-
-	},
-
 	onCreateClick(e){
 		e.preventDefault();
 		let that = this;
@@ -185,13 +201,8 @@ const Dashboard = React.createClass({
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
 					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
-					<Display
-						display={this.state.activeCollectionData}
-						id={this.state._id}
-						col={this.state.Colkeys[this.state.activeCollectionLink]}
-						db={this.state.DBkeys[this.state.activeDBLink]} />
-
-					<InstructionsClick instructionsVisible={ this.state.instructionsVisible } onClick={ this.onClick }/>
+					<Display display={this.state.activeCollectionData} />
+					<ApiSandbox />
 				</div>
 			)
 		}
