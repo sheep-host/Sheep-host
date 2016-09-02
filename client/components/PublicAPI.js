@@ -12,8 +12,8 @@ const PublicAPI = React.createClass({
               &lt;script&gt;{'\n'}
                   {'  '}// Initialize Sheep.host{'\n'}
                   {'  '}var config = &#123;{'\n'}
-                      {'    '}id: {this.props.devId},{'\n'}
-                      {'    '}authorization: {this.props.authKey},{'\n'}
+                      {'    '}id: {'\''}{this.props.devId}{'\''},{'\n'}
+                      {'    '}authKey: {'\''}{this.props.authKey}{'\''},{'\n'}
                       {'    '}url: "https://sheep.host/api/"{'\n'}
                   {'  '}&#125;{'\n'}
                   {'  '}sheep.dontSleep(config);{'\n'}

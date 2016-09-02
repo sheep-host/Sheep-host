@@ -11,8 +11,9 @@ var sheep = {
     axios({
       method: 'POST',
       url: user.url + user.id + '/' + dbName + '/' + colName,
-      data: data
-    }).then(() => console.log('success'));
+      data: data,
+      headers: { authorization: user.authKey }
+    })
   },
 
   get: function(cb) {
