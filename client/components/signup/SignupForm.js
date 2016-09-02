@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 import{ userSignupRequest } from '../../actions/signupActions'
-import  SignupInput  from './SignupInput'
+import  SignupInput  from './SignupInput';
+import cookie from 'react-cookie';
 
 
 
@@ -30,7 +31,8 @@ class SignupForm extends React.Component {
 		var _this = this.state
 		
 		this.props.userSignupRequest(_this).then(function(response) {
-			if(response.data) { 
+			if(response.data) {
+				localStorage.sheepToken = cookie.load('token');
 				browserHistory.push('dashboard/' + _this.userName)
 			} 
 			}).catch(function(error) {
