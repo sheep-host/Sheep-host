@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import cookie from 'react-cookie';
 import { browserHistory } from 'react-router';
-import InstructionsClick from './instructionsClick';
+import InstructionsClick from './InstructionsClick';
 import ReactDOM from 'react-dom';
 import DatabaseForm from './DBInputComponent';
 import CollectionForm from './CollectionInputComponent'
@@ -19,6 +19,7 @@ import Display from './Dashboard2.0/Display';
 import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
 import UserProfile from './Dashboard2.0/UserProfileInfo.js';
 import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
+import PublicAPI from './PublicAPI';
 import ApiSandbox from './Dashboard2.0/apiSandbox';
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
@@ -38,45 +39,20 @@ const Dashboard = React.createClass({
 			infoDisplayed: 'dashboard',
 			schema:'',
 			dbName: '',
-			collectionName: ''
+			collectionName: '',
+      fetchInterval: 0
 		}
-	},  
+	},
 
 	componentDidMount() {
 		let token = jwtDecode(localStorage.sheepToken);
 		console.log('token with keys', token);
 		let authKey = token.authKey;
 		this.setState({authKey});
-		this.getData();
+		this.getData()
 	},
 
-	componentDidUpdate(){
-		console.log('fetch',auth.loggedIn(), this.state.database);
-		if(auth.loggedIn() && this.state.DBkeys.length > 0 && this.state.infoDisplayed === 'dashboard'){
-			setInterval(this.fetchData, 20000);
-		}
-	}, 
-
-	fetchData(){
-		let that = this;
-		const _id = that.state._id;
-		const _dbName = that.state.DBkeys[that.state.activeDBLink];
-		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
-		const link = _id + '/' + _dbName + '/' + _collectionName;
-		console.log('link', link);
-		axios({
-			method: 'get',
-			baseURL: 'http://localhost:3000/api/',
-			url: link,
-			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
-		}).then(function(response){
-			console.log('fetch', response);
-			that.state.database[_dbName][_collectionName] = response.data;
-			that.setState({activeCollectionData: response.data, database: that.state.database})
-		})
-	},
-
-	getData() {
+  getData() {
 		let that = this;
 		console.log('getdata token', jwtDecode(localStorage.sheepToken).devID)
 		let _id = jwtDecode(localStorage.sheepToken).devID;
@@ -84,7 +60,7 @@ const Dashboard = React.createClass({
 		axios.get('/getDBs/'+_id).then(function(response) {
 			console.log('response', response)
 			if(response.data.length> 0){
-				let info = {};	
+				let info = {};
 				let data = response.data;
 				for(let i = 0; i < data.length; i++) {
 					let currentCollection = (data[i].pop());
@@ -103,8 +79,43 @@ const Dashboard = React.createClass({
 			}
 			console.log('state after getdata', that.state);
 		}).catch(function(error) {
-			console.log('error on .catch', error) 
-		}); 
+			console.log('error on .catch', error)
+		});
+	},
+
+  componentDidUpdate(){
+        console.log('fetch',auth.loggedIn(), this.state.database);
+        if(!auth.loggedIn()){
+            clearInterval(fetchInterval);
+            fetchInterval = 0;
+        }
+        if(auth.loggedIn() && this.state.DBkeys.length > 0 ){
+            if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 1000);
+            else{
+                clearInterval(this.state.fetchInterval);
+                this.state.fetchInterval = 0;
+                this.state.fetchInterval = setInterval(this.fetchData, 1000);
+            }
+        }
+    },
+
+	fetchData(){
+		let that = this;
+		const _id = that.state._id;
+		const _dbName = that.state.DBkeys[that.state.activeDBLink];
+		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
+		const link = _id + '/' + _dbName + '/' + _collectionName;
+		console.log('link', link);
+		axios({
+			method: 'get',
+			baseURL: 'http://sheep.host/api/',
+			url: link,
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
+		}).then(function(response){
+			console.log('fetch', response);
+			that.state.database[_dbName][_collectionName] = response.data;
+			that.setState({activeCollectionData: response.data, database: that.state.database})
+		})
 	},
 
 	toggleInfoDisplayed(e) {
@@ -139,9 +150,9 @@ const Dashboard = React.createClass({
 	onCollectionNameChange(e) {
 		this.setState({collectionName: e.target.value });
 	},
-	
+
 	onDbNameChange(e) {
-		this.setState({dbName: e.target.value });		
+		this.setState({dbName: e.target.value });
 	},
 
 	onSchemaChange(e) {
@@ -186,7 +197,6 @@ const Dashboard = React.createClass({
 			console.log('error on create submit', error);
 		})
 	},
- 
 
 	render() {
 		let profileInfo = {};
@@ -201,13 +211,14 @@ const Dashboard = React.createClass({
 		else{let collectionData = this.state.activeCollectionData;}
 		if(this.state.infoDisplayed ==='dashboard') {
 			return (
+
 				<div>
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
 					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
-					<Display display={this.state.activeCollectionData} />
-					<ApiSandbox />
+          <Display display={this.state.activeCollectionData} />
+          <PublicAPI devId={this.state._id} authKey={this.state.authKey} />
 				</div>
 			)
 		}
@@ -237,10 +248,5 @@ const Dashboard = React.createClass({
 	}
 })
 
-
-
 export default Dashboard;
-
-
-
 

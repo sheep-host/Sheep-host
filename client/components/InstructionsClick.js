@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Instructions from './instructions';
+import Instructions from './Instructions';
 
 export default class InstructionsClick extends Component {
 
