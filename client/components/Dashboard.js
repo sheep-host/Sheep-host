@@ -38,7 +38,8 @@ const Dashboard = React.createClass({
 			infoDisplayed: 'dashboard',
 			schema:'',
 			dbName: '',
-			collectionName: ''
+			collectionName: '',
+			fetchInterval: 0
 		}
 	},  
 
@@ -52,8 +53,21 @@ const Dashboard = React.createClass({
 
 	componentDidUpdate(){
 		console.log('fetch',auth.loggedIn(), this.state.database);
-		if(auth.loggedIn() && this.state.DBkeys.length > 0 && this.state.infoDisplayed === 'dashboard'){
-			setInterval(this.fetchData, 20000);
+		if(!auth.loggedIn()){
+			clearInterval(fetchInterval);
+			fetchInterval = 0;
+		}
+		if(auth.loggedIn() && this.state.DBkeys.length > 0 ){
+			// console.log('fetchInterval check', fetchInterval);
+			if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 1000);
+			else{
+				// console.log('fetchinterval going', fetchInterval)
+				clearInterval(this.state.fetchInterval);
+				this.state.fetchInterval = 0;
+				// console.log('fetchInterval stopped',fetchInterval)
+				this.state.fetchInterval = setInterval(this.fetchData, 1000);
+				// console.log('fetchInterval restart', fetchInterval);
+			}
 		}
 	}, 
 
