@@ -2,41 +2,75 @@
 var Models = require('../models/devModel');
 var uri = 'mongodb://localhost/';
 var sheepDB = require('../SheepDB');
+var sendMail = require('../../server/verify.js');
+var randomstring = require('randomstring');
+var verModel = require('../models/verModel');
 var Promise = require("bluebird");
 var mongoose = Promise.promisifyAll(require("mongoose"));
-var apiKey = require('./devAPI/api-key-controller');
 var schemaParser = require('./schemaParser') 
+var jwt = require ('jsonwebtoken');
+var apiKey = require('./devAPI/api-key-controller');
+
+function verify(req, res, next) {
+  verModel.findOne({ key: req.params.key }, function(err, result) {
+    if (err) throw err;
+    else {
+      req.body.userName = result.userName;
+      req.body.password = result.password;
+      req.body.email = result.email;
+      next();
+    }
+  });
+}
+
+function sendVerification(req, res, next) {
+  var randomKey = randomstring.generate();
+  verModel.create({
+    userName: req.body.userName,
+    password: req.body.password,
+    email: req.body.email,
+    key: randomKey
+  }, function(err, result) {
+    if (err) throw err;
+    else {
+      sendMail(req.body.email, randomKey, function(err, message) {
+        if (err) throw err;
+        else res.status(200).send(message);
+      });
+    }
+  });
+}
 
 // returns all databases names/_id (NO ACTUAL DATA) for a dev
 function getAllDatabases(req, res, next){
-var data = [];
-    return Models.DB.find({_creator: req.params.devID}).execAsync()
-    .then(function(results){
-        console.log('results', results);
-        return Promise.each(results, function(database){
-            console.log('before nested promise',database._creator, database.name);
-            var devDB = sheepDB.useDb(database._creator + '_' + database.name);
-            return Promise.each(database.collections, function(collection){
-                console.log('nested promise',collection.name, collection.devSchema);
-                var devModel = devDB.model(collection.name, new mongoose.Schema(JSON.parse(collection.devSchema)));
-                return devModel.find({}).execAsync()
-                .then(function(result){
-                    console.log('result', result);
-                    result.push({
-                        'database': database.name,
-                        'collection': collection.name
-                    });
-                    data.push(result);
-                });
-            }).then(function(){
-            });
-        }).then(function(database){
-        });
-    }).then(function(){
-        res.send(data);
-    }).catch(function(err){
-        console.log('error', err);
-    });
+	var data = [];
+	return Models.DB.find({_creator: req.params.devID}).execAsync()
+	.then(function(results){
+		console.log('results', results);
+		return Promise.each(results, function(database){
+			console.log('before nested promise',database._creator, database.name);
+			var devDB = sheepDB.useDb(database._creator + '_' + database.name);
+			return Promise.each(database.collections, function(collection){
+				console.log('nested promise',collection.name, collection.devSchema);
+				var devModel = devDB.model(collection.name, new mongoose.Schema(JSON.parse(collection.devSchema)));
+				return devModel.find({}).execAsync()
+				.then(function(result){
+					console.log('result', result);
+					result.push({
+						'database': database.name,
+						'collection': collection.name
+					});
+					data.push(result);
+				});
+			}).then(function(){
+				});
+			}).then(function(database){
+			});
+		}).then(function(){
+				res.send(data);
+		}).catch(function(err){
+				console.log('error', err);
+		});
 }
 
 // returns an array of all collection names/schema (NO ACTUAL DATA) for a dev's database
@@ -61,6 +95,7 @@ function addDev(req, res, next){
   var newDev ={
     userName: req.body.userName,
     password: req.body.password,
+    // email: req.body.email,
     api: {
       apiKey: apiKey.generateKey(),
       secretKey: apiKey.generateKey(),
@@ -68,11 +103,16 @@ function addDev(req, res, next){
     }
   };
 
-  Models.Dev.create(newDev, function(err, result){
-    if(err) throw err;
-    req.body.dev = result;
-    next();
-  });
+	Models.Dev.create(newDev, function(err, result){
+		if(err) throw err;
+		console.log('add dev result', result);
+		req.body.dev = result;
+		var authKey = new Buffer(result.api.apiKey + ':' + result.api.clientKey).toString('base64');
+		var sheepToken = jwt.sign({authKey: authKey, userName: result.userName, devID: result._id}, 'sheep host', { expiresIn: 120000});
+		console.log('server side token', sheepToken);
+		req.body.token = sheepToken;
+		next();
+	});
 }
 
 // login middleware
@@ -90,7 +130,7 @@ function usernameExist(req, res, next){
 	})
 }
 
-// create DB button middleware that adds to DB collection 
+// create DB button middleware that adds to DB collection
 function addDB(req, res, next){
 	var dev = req.body.dev;
 	var db = new Models.DB({
@@ -106,9 +146,12 @@ function addDB(req, res, next){
 	db.save(function(err){
 		if (err) throw err;
 		console.log('db after saved', db);
-		req.body.db = db;
-		req.body.dev = dev;
-		next();
+		dev.database.push(db);
+		dev.save(function(err){
+			req.body.db = db;
+			req.body.dev = dev;
+			next();
+		})
 	});
 }
 
@@ -124,9 +167,13 @@ function createDevDB(req, res, next) {
 		createdBy: req.body.dev.userName
 	}).save(function(err, results){
 		if (err) throw err;
-		req.body.results = results;
-		res.json(results);
-	})
+		Models.DB.findOne({_creator: req.body._id, name: req.body.database}, function(err, db){
+			if (err) throw err;
+			console.log('db', db);
+			req.body.db = db;
+			res.json(db);
+		});
+	});
 }
 
 // saves collection and schema name to devs record of DBs (does not actually instantiate)
@@ -143,4 +190,14 @@ function addCollection(req, res, next){
 	});
 }
 
-module.exports = { getAllDatabases, getAllCollections, addDev, usernameExist, addDB, createDevDB, addCollection };
+module.exports = {
+  getAllDatabases,
+  getAllCollections,
+  addDev,
+  usernameExist,
+  addDB,
+  createDevDB,
+  addCollection,
+  sendVerification,
+  verify
+};

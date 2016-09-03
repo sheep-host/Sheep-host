@@ -6,48 +6,48 @@ var sharedMethods = require('../../database/methods/shared/sharedMethods');
 var router = express.Router()
 
 // post to existing collection
-router.post('/:devID/:dbName/:colID',
+router.post('/:devID/:dbName/:colName',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
 	apiController.keyPermissions,
 	apiMethods.storePost,
 	sharedMethods.checkDevID,
-	sharedMethods.openDB,	
+	sharedMethods.openDB,
 	apiMethods.postToCollection
 );
 
 // get entire collection
-router.get('/:devID/:dbName/:colID',
+router.get('/:devID/:dbName/:colName',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
 	apiController.keyPermissions,
 	sharedMethods.checkDevID,
-	sharedMethods.openDB,		
+	sharedMethods.openDB,
 	apiMethods.getCollection
 );
 
 // modify existing document
-router.put('/:devID/:dbName/:colID/:docID',
+router.put('/:devID/:dbName/:colName/:docID',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
 	apiController.keyPermissions,
 	apiMethods.storePut,
 	sharedMethods.checkDevID,
-	sharedMethods.openDB,	
+	sharedMethods.openDB,
 	apiMethods.putToCollection
 );
 
 // delete existing document
-router.delete('/:devID/:dbName/:colID/:docID',
+router.delete('/:devID/:dbName/:colName/:docID',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
 	apiController.keyPermissions,
 	sharedMethods.checkDevID,
-	sharedMethods.openDB,	
+	sharedMethods.openDB,
 	apiMethods.removeFromCollection
 );
 

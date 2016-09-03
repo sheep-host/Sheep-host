@@ -15,14 +15,18 @@ function checkPassword(req, res, next){
 		res.status(400).send('Password required');
 		return;
 	}
-	Models.Dev.findOne({userName: req.body.userName},function(err, dev){
+	Models.Dev.findOne({userName: req.body.userName}).
+	populate('database').
+	exec(function(err, dev){
+		console.log('dev in checkpassword', dev);
 		dev.comparePassword(req.body.password, function(err, isMatch){
 			if (err) throw err;
 			if(!isMatch){
 				res.status(401).send('Invalid Password');
 			}
 			else{
-				var sheepToken = jwt.sign({userName: dev.userName, devID: dev._id}, 'sheep host', { expiresIn: 120000});
+				var authKey = new Buffer(dev.api.apiKey + ':' + dev.api.clientKey).toString('base64')
+				var sheepToken = jwt.sign({authKey: authKey, userName: dev.userName, devID: dev._id}, 'sheep host', { expiresIn: 120000});
 				console.log('server side token', sheepToken);
 				req.body.token = sheepToken;
 				req.body.dev = dev;
@@ -55,10 +59,11 @@ function checkDevID(req,res,next){
 function openDB(req, res, next){
 	var devID = req.params.devID;
 	var dbName = req.params.dbName;
-	var colID = req.params.colID;
-	Models.DB.findOne({name: dbName}, function(err, result){
+	var colName = req.params.colName;
+	console.log(colName);
+	Models.DB.findOne({name: dbName, 'collections.name': colName}, {"collections.$":1}, function(err, result){
 		console.log('openDB', result);
-		var col = result.collections.id(colID);
+		var col = result.collections[0];
 		var colName = col.name;
 		var schema = JSON.parse(col.devSchema);
 		var devDB = sheepDB.useDb(devID + '_' + dbName);

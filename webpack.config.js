@@ -1,5 +1,6 @@
 var path = require('path');
 var env = require('./.env');
+
 if (env.NODE_ENV === 'development') {
   var webpack = require('webpack');
 
