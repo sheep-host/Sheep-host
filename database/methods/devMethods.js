@@ -2,10 +2,43 @@
 var Models = require('../models/devModel');
 var uri = 'mongodb://localhost/';
 var sheepDB = require('../SheepDB');
+var sendMail = require('../../server/verify.js');
+var randomstring = require('randomstring');
+var verModel = require('../models/verModel');
 var Promise = require("bluebird");
 var mongoose = Promise.promisifyAll(require("mongoose"));
-var apiKey = require('./devAPI/api-key-controller'); 
 var jwt = require ('jsonwebtoken');
+var apiKey = require('./devAPI/api-key-controller');
+
+function verify(req, res, next) {
+  verModel.findOne({ key: req.params.key }, function(err, result) {
+    if (err) throw err;
+    else {
+      req.body.userName = result.userName;
+      req.body.password = result.password;
+      req.body.email = result.email;
+      next();
+    }
+  });
+}
+
+function sendVerification(req, res, next) {
+  var randomKey = randomstring.generate();
+  verModel.create({
+    userName: req.body.userName,
+    password: req.body.password,
+    email: req.body.email,
+    key: randomKey
+  }, function(err, result) {
+    if (err) throw err;
+    else {
+      sendMail(req.body.email, randomKey, function(err, message) {
+        if (err) throw err;
+        else res.status(200).send(message);
+      });
+    }
+  });
+}
 
 // returns all databases names/_id (NO ACTUAL DATA) for a dev
 function getAllDatabases(req, res, next){
@@ -58,15 +91,16 @@ function getAllCollections(req, res, next){
 
 //Signup middleware. If addDev function is changed, need to change function in test file.
 function addDev(req, res, next){
-	var newDev ={
-		userName: req.body.userName,
-		password: req.body.password,
-		api: {
-			apiKey: apiKey.generateKey(),
-			secretKey: apiKey.generateKey(),
-			clientKey: apiKey.generateKey()
-		}
-	};
+  var newDev ={
+    userName: req.body.userName,
+    password: req.body.password,
+    // email: req.body.email,
+    api: {
+      apiKey: apiKey.generateKey(),
+      secretKey: apiKey.generateKey(),
+      clientKey: apiKey.generateKey()
+    }
+  };
 
 	Models.Dev.create(newDev, function(err, result){
 		if(err) throw err;
@@ -95,7 +129,7 @@ function usernameExist(req, res, next){
 	})
 }
 
-// create DB button middleware that adds to DB collection 
+// create DB button middleware that adds to DB collection
 function addDB(req, res, next){
 	var dev = req.body.dev;
 	var db = new Models.DB({
@@ -115,7 +149,7 @@ function addDB(req, res, next){
 		dev.save(function(err){
 			req.body.db = db;
 			req.body.dev = dev;
-			next();	
+			next();
 		})
 	});
 }
@@ -155,4 +189,14 @@ function addCollection(req, res, next){
 	});
 }
 
-module.exports = { getAllDatabases, getAllCollections, addDev, usernameExist, addDB, createDevDB, addCollection };
+module.exports = {
+  getAllDatabases,
+  getAllCollections,
+  addDev,
+  usernameExist,
+  addDB,
+  createDevDB,
+  addCollection,
+  sendVerification,
+  verify
+};

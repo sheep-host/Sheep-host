@@ -4,7 +4,7 @@
   "description": "< description goes here >",
   "main": "server.js",
   "scripts": {
-    "start-prod": "node server/server.js",
+    "start-backend": "nodemon server/server.js",
     "start": "nodemon --watch server --exec babel-node -- server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,9 +26,11 @@
     "material-ui": "^0.15.4",
     "mongodb": "^2.2.4",
     "mongoose": "^4.5.7",
+    "nodemailer": "^0.7.1",
     "node-uuid": "^1.4.7",
     "passport": "^0.3.2",
     "passport-localapikey": "0.0.3",
+    "randomstring": "^1.1.5",
     "react": "^15.1.0",
     "react-cookie": "^0.4.8",
     "react-dom": "^15.1.0",
@@ -36,13 +38,11 @@
     "react-router": "^2.5.0",
     "react-toolbox": "^1.1.2",
     "redux": "^3.5.2",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "xoauth2": "^1.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.10.1",
-    "react-hot-loader": "^1.3.0",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.10.0",
     "babel-core": "^6.11.4",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
@@ -57,8 +57,11 @@
     "mocha": "^2.5.3",
     "node-sass": "^3.8.0",
     "nodemon": "^1.10.0",
+    "react-hot-loader": "^1.3.0",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.2",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.10.0"
   }
 }

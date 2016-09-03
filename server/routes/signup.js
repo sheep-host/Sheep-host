@@ -9,10 +9,20 @@ var router = express.Router()
 //and password confirmation
 
 router.post('/',
-	devMethods.usernameExist,
-	devMethods.addDev,
-	cookieMethods.setCookie
+  devMethods.usernameExist,
+  devMethods.addDev,
+  cookieMethods.setCookie
 );
 
+// router.post('/',
+//   devMethods.usernameExist,
+//   devMethods.sendVerification
+// );
+//
+// router.get('/verify/:key',
+//   devMethods.verify,
+//   devMethods.addDev,
+//   cookieMethods.setCookie
+// );
 
 module.exports = router;
