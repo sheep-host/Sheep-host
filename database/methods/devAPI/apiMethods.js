@@ -4,6 +4,7 @@ var Devs = require('../../models/devModel');
 
 function storePost(req, res, next){
 	var post = {};
+	console.log('req.body inside storePost api route: ', req.body);
 	for(var key in req.body){
 		post[key] = req.body[key];
 	}

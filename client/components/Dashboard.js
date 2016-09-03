@@ -109,7 +109,7 @@ const Dashboard = React.createClass({
 		console.log('link', link);
 		axios({
 			method: 'get',
-			baseURL: 'http://sheep.host/api/',
+			baseURL: 'https://sheep.host/api/',
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
 		}).then(function(response){
