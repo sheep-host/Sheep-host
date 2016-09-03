@@ -1,4 +1,4 @@
-import React from 'react';		
+import React from 'react';
 
 const SignupInput = React.createClass({
 
@@ -8,7 +8,7 @@ const SignupInput = React.createClass({
 			<form onSubmit={this.props.onSubmit}>
 				<h1> Create Account </h1>
 
-				<div className="form-group">
+				  <div className="form-group">
 					<label className="control-label"> Username</label>
 					<input
 						onChange={this.props.onChange}
@@ -18,7 +18,17 @@ const SignupInput = React.createClass({
 					/>
 					</div>
 
-				<div className="form-group">
+          <div className="form-group">
+					<label className="control-label"> E-mail</label>
+					<input
+						onChange={this.props.onChange}
+						type="text"
+						name="email"
+						className="form-control"
+					/>
+					</div>
+
+				  <div className="form-group">
 					<label className="control-label">Password</label>
 					<input
 						onChange={this.props.onChange}
@@ -32,7 +42,7 @@ const SignupInput = React.createClass({
 						<button className="btn btn-primary btn-lg">Sign Up
 						</button>
 					</div>
-				
+
 			</form>
 		</div>
 		)
@@ -40,3 +50,4 @@ const SignupInput = React.createClass({
 })
 
 export default SignupInput;
+

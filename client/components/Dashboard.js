@@ -45,6 +45,7 @@ const Dashboard = React.createClass({
 	},
 
 	componentDidMount() {
+		localStorage.sheepToken = cookie.load('token');
 		let token = jwtDecode(localStorage.sheepToken);
 		console.log('token with keys', token);
 		let authKey = token.authKey;

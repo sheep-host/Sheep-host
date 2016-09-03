@@ -28,8 +28,8 @@ app.use(bodyParser.json());
 
 app.use('/api', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Method", "GET, POST, OPTIONS, HEAD, PUT");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Method", "GET, POST, HEAD");
+  res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Authorization");
   next();
 });
 
@@ -101,7 +101,7 @@ if (env.NODE_ENV === 'development') {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/dashboard',expressJwt({secret: 'sheep host'}).unless({ path: ['/','/signup','/login']}));
+// app.use('/dashboard',expressJwt({secret: 'sheep host'}).unless({ path: ['/','/signup','/login']}));
 
 app.use(cookieParser());
 

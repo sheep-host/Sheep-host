@@ -95,7 +95,7 @@ function addDev(req, res, next){
   var newDev ={
     userName: req.body.userName,
     password: req.body.password,
-    // email: req.body.email,
+    email: req.body.email,
     api: {
       apiKey: apiKey.generateKey(),
       secretKey: apiKey.generateKey(),
