@@ -14,8 +14,14 @@ var sheep = {
     }).then(() => console.log('success'));
   },
 
-  get: function(cb) {
-    axios.get(user.url + user.id + '/' + dbName + '/' + colName).then(cb);
+  get: function(dbName, colName, cb) {
+    axios({
+      method: 'GET',
+      url: user.url + user.id + '/' + dbName + '/' + colName,
+      headers: {
+        authorization: user.authKey
+      }
+    }).then(cb);
   },
 
   put: function(query, data) {

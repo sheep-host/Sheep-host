@@ -19,11 +19,8 @@ import Display from './Dashboard2.0/Display';
 import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
 import UserProfile from './Dashboard2.0/UserProfileInfo.js';
 import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
-<<<<<<< HEAD
 import PublicAPI from './PublicAPI';
-=======
 import ApiSandbox from './Dashboard2.0/apiSandbox';
->>>>>>> b16c5543a887e4ce9a306211104a98edfa1e1f47
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
@@ -42,7 +39,8 @@ const Dashboard = React.createClass({
 			infoDisplayed: 'dashboard',
 			schema:'',
 			dbName: '',
-			collectionName: ''
+			collectionName: '',
+      fetchInterval: 0
 		}
 	},
 
@@ -85,12 +83,21 @@ const Dashboard = React.createClass({
 		});
 	},
 
-	componentDidUpdate(){
-		console.log('fetch',auth.loggedIn(), this.state.database);
-		if(auth.loggedIn() && this.state.DBkeys.length > 0 && this.state.infoDisplayed === 'dashboard'){
-			setInterval(this.fetchData, 20000);
-		}
-	},
+  componentDidUpdate(){
+        console.log('fetch',auth.loggedIn(), this.state.database);
+        if(!auth.loggedIn()){
+            clearInterval(fetchInterval);
+            fetchInterval = 0;
+        }
+        if(auth.loggedIn() && this.state.DBkeys.length > 0 ){
+            if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 1000);
+            else{
+                clearInterval(this.state.fetchInterval);
+                this.state.fetchInterval = 0;
+                this.state.fetchInterval = setInterval(this.fetchData, 1000);
+            }
+        }
+    },
 
 	fetchData(){
 		let that = this;
@@ -101,7 +108,7 @@ const Dashboard = React.createClass({
 		console.log('link', link);
 		axios({
 			method: 'get',
-			baseURL: 'http://localhost:3000/api/',
+			baseURL: 'http://sheep.host/api/',
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
 		}).then(function(response){
@@ -242,3 +249,4 @@ const Dashboard = React.createClass({
 })
 
 export default Dashboard;
+

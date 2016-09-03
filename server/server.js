@@ -24,6 +24,7 @@ app.use('/public_api', express.static(__dirname + '/../public/public_api.js'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
+
 app.use('/api', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Method", "GET, POST, OPTIONS, HEAD, PUT");
@@ -32,22 +33,32 @@ app.use('/api', function(req, res, next) {
 });
 
 if (env.NODE_ENV === 'production') {
-  app.listen(port, function() {
-   console.log('listening on port 3000');
-  });
-  // var fs = require('fs');
-  // var https = require('https');
-  // var certificate = fs.readFileSync('./certs/www_sheep_host.crt');
-  // var privateKey = fs.readFileSync('./certs/sheep-host.pem');
-  // var caBundle = fs.readFileSync('./certs/COMODO_DV_SHA-256_bundle.crt');
-
-  // https.createServer({
-  //   ca: caBundle,
-  //   key: privateKey,
-  //   cert: certificate
-  // }, app).listen(port, function() {
-  //   console.log('listening to port ', port);
+  // app.listen(port, function() {
+  //  console.log('listening on port: ', port);
   // });
+
+  var fs = require('fs');
+  var https = require('https');
+  var certificate = fs.readFileSync(dirname + 'certs/sheep_host.crt');
+  var privateKey = fs.readFileSync(dirname + 'certs/sheep-host.key');
+  var caBundle = fs.readFileSync(dirname + 'certs/COMODO_DV_SHA-256_bundle.crt');
+
+  https.createServer({
+    ca: caBundle,
+    key: privateKey,
+    cert: certificate
+  }, app).listen(port, function() {
+    console.log('listening to port ', port);
+  });
+
+  var http = express();
+  http.get('*', function(req, res) {
+    res.redirect('https://sheep.host');
+  });
+
+  http.listen(80, function() {
+    console.log('redirecting port 80 to 443');
+  });
 }
 
 if (env.NODE_ENV === 'backend') {

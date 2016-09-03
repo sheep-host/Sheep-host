@@ -26,6 +26,10 @@
 	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg')
 }
 
+.row {
+	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg')
+}
+
 .tabTitle{
 	margin-right:10px;
 	font-weight: bold;
@@ -77,7 +81,7 @@
 	margin-top: 20px;
 	margin-left: 10px;
 
-	color: #001DFA;
+	color: #286090;
 	background-color: white;
 	font-size: 17px;
 	font-style: Sans-Serif;
