@@ -14,6 +14,7 @@ class SignupForm extends React.Component {
 		this.state = {
 			userName:'',
 			password:'',
+      email:''
 			//passwordConfirmation:''
 		}
 
@@ -23,18 +24,19 @@ class SignupForm extends React.Component {
 	}
 	onChange(e) {
 		this.setState({[e.target.name] : e.target.value })
-	}  
+	}
 
 	onSubmit(e) {
 		e.preventDefault();
 		console.log('THIS.STATE ON SUBMIT', this.state);
 		var _this = this.state
-		
+
 		this.props.userSignupRequest(_this).then(function(response) {
+      console.log('response in signup form: ', response);
 			if(response.data) {
-				localStorage.sheepToken = cookie.load('token');
-				browserHistory.push('dashboard/' + _this.userName)
-			} 
+				// localStorage.sheepToken = cookie.load('token');
+				browserHistory.push('wait/');
+			}
 			}).catch(function(error) {
 			console.log('ERROR ON PROMISE SIGNUP FORM', error)
 		})
@@ -46,9 +48,10 @@ class SignupForm extends React.Component {
 		return (
 			<div>
 				<SignupInput onSubmit={this.onSubmit}
-							 onChange={this.onChange} 
+							 onChange={this.onChange}
 							 userName={this.state.userName}
-							 password={this.state.password} />			
+               email={this.state.email}
+							 password={this.state.password} />
 			</div>
 			)
 	}
@@ -65,3 +68,4 @@ SignupForm.contextTypes = {
 
 
 export default SignupForm
+

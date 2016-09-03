@@ -16,7 +16,7 @@ var sendMail = function(address, string, cb) {
     from: 'administrator@sheep.host',
     to: address,
     subject: 'Verification required',
-    html: 'click the following link to verify your email address: <a href="http://localhost:3000/signup/verify/' + string + '">http://localhost:3000/signup/verify/' + string + '</a>',
+    html: 'click the following link to verify your email address: <a href="https://sheep.host/signup/verify/' + string + '">https://sheep.host/signup/verify/' + string + '</a>',
   };
 
   transporter.sendMail(message, function(error, info){
