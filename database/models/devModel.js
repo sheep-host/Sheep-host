@@ -19,7 +19,7 @@ var Api = new Schema({
 var devSchema = new Schema({
   userName: { type: String, required: true },
   password: { type: String, required: true },
-  // email: { type: String, required: true },
+  email: { type: String, required: true },
   api: Api,
   database: [{type: Schema.Types.ObjectId, ref: 'Database'}],
 });
