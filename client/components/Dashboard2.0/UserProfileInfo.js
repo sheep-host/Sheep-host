@@ -15,7 +15,7 @@ const UserProfile = (props) => {
 	}	
 }
 		return (
-			<div className="well well-lg">
+			<div className="well well-lg col-md-8">
 				{userInfo}
 			  {userDBProfileInfo}
 			</div>

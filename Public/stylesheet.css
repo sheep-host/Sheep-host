@@ -1,10 +1,11 @@
 
 
-.container {
-	background-color: white;
+body {
+	background-color: #FFFFFF;
+
 }
 .navbar {
-	background-color: hsl(206, 59%, 37%) !important;;
+	background-color: hsl(206, 59%, 37%) !important;
 }
 .panel {
 	background-color: #357A5E;
@@ -21,14 +22,23 @@
 	display: none;
 }
 
-
-.h {
-	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg')
+.welcome-info-tag {
+	color: #000000;
+	border-top: 1px solid;
+	padding: 15px;
+	text-align: center;
 }
+
+
+
 
 .tabTitle{
 	margin-right:10px;
 	font-weight: bold;
+}
+
+.text-center {
+	color: #000000;
 }
 
 .tab{
@@ -52,6 +62,10 @@
 	padding-left: 50px;
 	padding-right: 20px;
 }
+.btn-group {
+	margin-bottom: 10px;
+}
+
 
 .btn-default {
 	font-size:20px;
@@ -128,10 +142,7 @@ fieldset[disabled] .tab-button.active {
   border-color: #130269; 
 } 
  
-.tab-button .badge { 
-  color: #611BBD; 
-  background-color: #ffffff; 
-}
+
 
 
 

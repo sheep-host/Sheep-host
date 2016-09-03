@@ -7,7 +7,7 @@ import NavigationBar from './NavigationBar'
 class App extends React.Component {
 	render() {
 		return (
-			<div className="a container">
+			<div className="a container-fluid">
 				<NavigationBar />
 				{this.props.children}
 			</div>

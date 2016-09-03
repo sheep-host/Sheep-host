@@ -7,6 +7,7 @@ import Greetings from './components/Greetings';
 import SignupPage from './components/signup/SignupPage';
 import Dashboard from './components/Dashboard';
 import LogoutComponent from './components/logout/Logout';
+// import NotFound from './components/PageNotFound';
 
 export default (
 	<Route path="/" component={App}>
