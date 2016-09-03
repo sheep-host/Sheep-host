@@ -7,6 +7,7 @@ var randomstring = require('randomstring');
 var verModel = require('../models/verModel');
 var Promise = require("bluebird");
 var mongoose = Promise.promisifyAll(require("mongoose"));
+var schemaParser = require('./schemaParser') 
 var jwt = require ('jsonwebtoken');
 var apiKey = require('./devAPI/api-key-controller');
 
