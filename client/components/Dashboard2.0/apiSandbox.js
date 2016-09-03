@@ -16,7 +16,6 @@ const ApiSandbox = React.createClass({
 							<small id="postHelp" className="form-text text-muted">Add a document to this collection</small>
 								<input 
 									className="form-control"
-									onChange={this.props.onPostChange}
 									placeholder="Enter {<key>: <value>} of new document"
 									type="text"
 									name="post">
@@ -36,14 +35,12 @@ const ApiSandbox = React.createClass({
 							<small id="putHelp" className="form-text text-muted">Update a document in this collection</small>
 								<input 
 									className="form-control"
-									onChange={this.props.onPutChange}
 									placeholder="Copy and paste _id of desired document"
 									type="text"
 									name="putID">
 								</input>
 								<input 
 									className="form-control"
-									onChange={this.props.onPutChange}
 									placeholder="Enter {<key>: <value>} to change"
 									type="text"
 									name="put">
