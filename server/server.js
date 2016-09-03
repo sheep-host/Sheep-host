@@ -12,6 +12,7 @@ var devModel = require('../database/models/devModel');
 var db = require('../database/SheepDB');
 var api = require('./routes/api');
 var create = require('./routes/create');
+var permission = require('./routes/permission');
 var getDBs = require('./routes/getDashboardData');
 var env = require('../.env');
 var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
@@ -117,6 +118,8 @@ app.use('/getDBs', getDBs);
 
 //click 'createDB' button
 app.use('/create', create);
+
+app.use('/permission', create);
 
 app.use('/api', api);
 
