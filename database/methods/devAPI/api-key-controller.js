@@ -18,11 +18,13 @@ function checkJwt(req, res, next){
       console.log('token', token);
       jwt.verify(token, 'sheep host', function(err, decoded){
         if(decoded.exp*1000 < Date.now()) res.json({ error: 'Token out of date' });
-        console.log(decoded);
-        console.log(decoded.exp);
         decoded.exp += (60*60*24);
-        console.log(decoded.exp);
-        req.body.token = token;
+        res.locals.token = token;
+        res.locals.apikey = {
+          key: req.body.apikey,
+          permissions: true,
+          master: true
+        }
         next();
       });
     }
@@ -33,8 +35,8 @@ function checkJwt(req, res, next){
 //Parse keys from req.headers.authorization
 //There may be CORS issues that need to be addressed
 function parseKey(req, res, next){
-  console.log('req.body.token in parsekey', req.body.token);
-  if(req.body.token){
+  console.log('res.locals.token in parsekey', res.locals.token);
+  if(res.locals.token){
     next();
   } else {
     if(!req.headers.authorization){
@@ -57,8 +59,8 @@ function parseKey(req, res, next){
 
 //Query database to confirm api key and secret/client key match and set permissions in res.locals
 function keyCheck(req, res, next){
-  console.log('req.body.token in keycheck', req.body.token);
-  if(req.body.token){
+  console.log('res.locals.token in keycheck', res.locals.token);
+  if(res.locals.token){
     next();
   } else{
     var query = {'api.apiKey' : res.locals.apikey.key};
@@ -79,8 +81,8 @@ function keyCheck(req, res, next){
 
 //Checks client key vs. permissions. Must run parseKey and keyCheck before.
 function keyPermissions(req, res, next){
-  console.log('req.body.token in key permissions', req.body.token);
-  if(req.body.token){
+  console.log('res.locals.token in key permissions', res.locals.token);
+  if(res.locals.token){
     next();
   }
   else if(res.locals.apikey.permissions){
