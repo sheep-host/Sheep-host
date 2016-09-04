@@ -1,30 +1,13 @@
 import React from 'react';
 
 
-// const buttons = React.createClass({
-// 	getInitialState() {
-// 	    return {
-// 	        buttonSelected: null  
-// 	    };
-// 	},
-// 	render() {
-// 		return (
-// 			<div>
-// 				<button type="button" class="btn btn-primary btn-lg">Create Database</button>
-// 				<button type="button" class="btn btn-primary btn-lg">Create Collection</button>
-// 			</div>
-// 		)	
-// 	}
-// })
-
-
 const ClientInput = React.createClass({
 
 	
 
 	render() {
 		return (
-		<div className="jumbotron">
+		<div className="jumbotron col-md-8">
 		<form>
 				<div className="form-group">
 					

@@ -10,8 +10,9 @@ const SettingsNavBar = React.createClass({
 
 
 	render() {
+
 		return (
-			<div className="btn-group btn-group-justified" role="group" aria-label="...">
+			<div className="btn-group btn-group-vertical col-md-2" role="group" aria-label="...">
 			  <div className="btn-group" role="group">
 			    <button name="dashboard" type="button" onClick={this.props.toggle} className="btn btn-default">Dashboard</button>
 			  </div>
