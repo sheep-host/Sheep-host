@@ -21,8 +21,7 @@ import UserProfile from './Dashboard2.0/UserProfileInfo.js';
 import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
 import PublicAPI from './PublicAPI';
 import ApiSandbox from './Dashboard2.0/apiSandbox';
-// import getUserData from '../actions/GetData';
-// setInterval(this.getData, 10000);
+import schemaParser from '../../database/methods/schemaParser';
 
 const Dashboard = React.createClass({
 	getInitialState () {
@@ -40,7 +39,11 @@ const Dashboard = React.createClass({
 			schema:'',
 			dbName: '',
 			collectionName: '',
-			fetchInterval: 0
+			fetchInterval: 0,
+			postInput:'',
+			putInput:'',
+			putID: '',
+			deleteID:''
 		}
 	},
 
@@ -80,15 +83,15 @@ const Dashboard = React.createClass({
 
 	componentDidUpdate(){
 		if(!auth.loggedIn()){
-			clearInterval(fetchInterval);
+			clearInterval(this.state.fetchInterval);
 			fetchInterval = 0;
 		}
 		if(auth.loggedIn() && this.state.DBkeys.length > 0 ){
-			if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 1000);
+			if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 5000);
 			else{
 				clearInterval(this.state.fetchInterval);
 				this.state.fetchInterval = 0;
-				this.state.fetchInterval = setInterval(this.fetchData, 1000);
+				this.state.fetchInterval = setInterval(this.fetchData, 5000);
 			}
 		}
 	}, 
@@ -141,8 +144,8 @@ const Dashboard = React.createClass({
 		else(auth.redirect());
 	},
 
-	onCreateChange(e) {
-		this.setState({e.target.name: e.target.value });
+	onChange(e) {
+		this.setState({[e.target.name]: e.target.value });
 	},
 
 	onCreateClick(e){
@@ -186,15 +189,67 @@ const Dashboard = React.createClass({
 
 	onPostClick(e){
 		e.preventDefault();
-		console.log('post click event', e);
+		let that = this;
+		const _id = that.state._id;
+		const post = JSON.parse(that.state.postInput);
+		console.log('post', post);
+		const _dbName = that.state.DBkeys[that.state.activeDBLink];
+		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
+		const link = _id +'/'+ _dbName +'/'+ _collectionName
+		axios({
+			method: 'post',
+			baseURL: 'http://localhost:3000/api/',
+			url: link,
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
+			data: post
+		}).then(function(response){
+			console.log(response)
+		}).catch(function(error){
+			console.log('error posting to the database', error);
+		})
 	},
 
 	onPutClick(e){
 		e.preventDefault();
+		let that = this;
+		const _id = that.state._id;
+		const put = JSON.parse(that.state.putInput);
+		const _putID = that.state.putID;
+		console.log('put', put);
+		const _dbName = that.state.DBkeys[that.state.activeDBLink];
+		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
+		const link = _id +'/'+ _dbName +'/'+ _collectionName+'/' + _putID;
+		axios({
+			method: 'put',
+			baseURL: 'http://localhost:3000/api/',
+			url: link,
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
+			data: put
+		}).then(function(response){
+			console.log(response)
+		}).catch(function(error){
+			console.log('error posting to the database', error);
+		})
 	},
 
 	onDeleteClick(e){
 		e.preventDefault();
+		let that = this;
+		const _id = that.state._id;
+		const _deleteID = that.state.deleteID;
+		const _dbName = that.state.DBkeys[that.state.activeDBLink];
+		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
+		const link = _id +'/'+ _dbName +'/'+ _collectionName+'/' + _deleteID;
+		axios({
+			method: 'delete',
+			baseURL: 'http://localhost:3000/api/',
+			url: link,
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
+		}).then(function(response){
+			console.log(response)
+		}).catch(function(error){
+			console.log('error posting to the database', error);
+		})
 	},
 
 	render() {
@@ -219,9 +274,9 @@ const Dashboard = React.createClass({
           <ApiSandbox
           	postClick={this.onPostClick}
           	putClick={this.onPutClick}
-          	deteletClick={this.onDeteletClick}
+          	deleteClick={this.onDeleteClick}
+          	onChange={this.onChange}
           />
-          <PublicAPI devId={this.state._id} authKey={this.state.authKey} />
 				</div>
 			)
 		}
@@ -231,7 +286,7 @@ const Dashboard = React.createClass({
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<ClientInput
-						onCreateChange={this.onCreateChange}
+						onChange={this.onChange}
 						onCreateClick={this.onCreateClick}
 					 />
 				</div>
@@ -243,6 +298,7 @@ const Dashboard = React.createClass({
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<UserProfile profileInfo={profileInfo}/>
+					<PublicAPI devId={this.state._id} authKey={this.state.authKey} />
 				</div>
 			)
 		}

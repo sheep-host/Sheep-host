@@ -13,18 +13,19 @@ const ApiSandbox = React.createClass({
 				<div className="form-group">	
 					<div className="input-group input-group-md">
 						<label for="dbName">POST</label><br></br>
-							<small id="postHelp" className="form-text text-muted">Add a document to this collection</small>
-								<input 
-									className="form-control"
-									placeholder="Enter {<key>: <value>} of new document"
-									type="text"
-									name="post">
-								</input>
-								<button
-						className="btn btn-primary btn-lg"
-						onClick={this.props.onPostClick}>
-							POST
-					</button>
+						<small id="postHelp" className="form-text text-muted">Add a document to this collection</small>
+						<input 
+							className="form-control"
+							placeholder="Enter {<key>: <value>} of new document"
+							type="text"
+							name="postInput"
+							onChange={this.props.onChange}>
+						</input>
+						<button
+							className="btn btn-primary btn-lg"
+							onClick={this.props.postClick}>
+								POST
+						</button>
 					</div>
 				</div>
 				</form>
@@ -32,45 +33,48 @@ const ApiSandbox = React.createClass({
 				<div className="form-group">	
 					<div className="input-group input-group-md">
 						<label for="dbName">PUT</label><br></br>
-							<small id="putHelp" className="form-text text-muted">Update a document in this collection</small>
-								<input 
-									className="form-control"
-									placeholder="Copy and paste _id of desired document"
-									type="text"
-									name="putID">
-								</input>
-								<input 
-									className="form-control"
-									placeholder="Enter {<key>: <value>} to change"
-									type="text"
-									name="put">
-								</input>
-								<button
-						className="btn btn-primary btn-lg"
-						onClick={this.props.onputClick}>
-							PUT
-					</button>
+						<small id="putHelp" className="form-text text-muted">Update a document in this collection</small>
+							<input 
+								className="form-control"
+								placeholder="Copy and paste _id of desired document"
+								type="text"
+								name="putID"
+								onChange={this.props.onChange}>
+							</input>
+							<input 
+								className="form-control"
+								placeholder="Enter {<key>: <value>} to change"
+								type="text"
+								name="putInput"
+								onChange={this.props.onChange}>
+							</input>
+							<button
+								className="btn btn-primary btn-lg"
+								onClick={this.props.putClick}>
+									PUT
+							</button>
+						</div>
 					</div>
-				</div>
-				</form><form>
-				<div className="form-group">	
-					<div className="input-group input-group-md">
+				</form>
+				<form>
+					<div className="form-group">	
+						<div className="input-group input-group-md">
 						<label for="dbName">DELETE</label><br></br>
 							<small id="deleteHelp" className="form-text text-muted">Delete a record from this collection</small>
-								<input 
-									className="form-control"
-									onChange={this.props.onDELETEChange}
-									placeholder="Copy and paste _id of desired document"
-									type="text"
-									name="DELETE">
-								</input>
-								<button
-						className="btn btn-primary btn-lg"
-						onClick={this.props.onDELETEClick}>
-							DELETE
-					</button>
+							<input 
+								className="form-control"
+								placeholder="Copy and paste _id of desired document"
+								type="text"
+								name="deleteID"
+								onChange={this.props.onChange}>
+							</input>
+							<button
+								className="btn btn-primary btn-lg"
+								onClick={this.props.deleteClick}>
+									DELETE
+							</button>
+						</div>
 					</div>
-				</div>
 				</form>
 			</div>
 		)
