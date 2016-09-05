@@ -13,7 +13,8 @@ function setCookie(req, res, next) {
   console.log('cookie', req.body);
   res.cookie('token', req.body.token, { maxAge: 600000 });
   res.cookie('database', req.body.dev.database.length > 0, { maxAge: 600000 });
-  res.json(req.body.dev);
+  res.redirect('/dashboard/'+req.body.dev.userName);
+  // res.json(req.body.dev);
 }
 
 function setDatabaseCookieTrue(req, res, next) {

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import cookie from 'react-cookie';
 import { browserHistory } from 'react-router';
-import InstructionsClick from './instructionsClick';
+import InstructionsClick from './InstructionsClick';
 import ReactDOM from 'react-dom';
 import DatabaseForm from './DBInputComponent';
 import CollectionForm from './CollectionInputComponent'
@@ -19,11 +19,8 @@ import Display from './Dashboard2.0/Display';
 import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
 import UserProfile from './Dashboard2.0/UserProfileInfo.js';
 import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
-<<<<<<< HEAD
 import PublicAPI from './PublicAPI';
-=======
 import ApiSandbox from './Dashboard2.0/apiSandbox';
->>>>>>> b16c5543a887e4ce9a306211104a98edfa1e1f47
 // import getUserData from '../actions/GetData';
 // setInterval(this.getData, 10000);
 
@@ -48,6 +45,7 @@ const Dashboard = React.createClass({
 	},
 
 	componentDidMount() {
+		localStorage.sheepToken = cookie.load('token');
 		let token = jwtDecode(localStorage.sheepToken);
 		console.log('token with keys', token);
 		let authKey = token.authKey;
@@ -111,7 +109,7 @@ const Dashboard = React.createClass({
 		console.log('link', link);
 		axios({
 			method: 'get',
-			baseURL: 'http://localhost:3000/api/',
+			baseURL: 'https://sheep.host/api/',
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
 		}).then(function(response){
@@ -252,3 +250,4 @@ const Dashboard = React.createClass({
 })
 
 export default Dashboard;
+
