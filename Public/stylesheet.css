@@ -2,6 +2,7 @@
 
 .container {
 	background-color: white;
+	font-family: Lucida Sans Unicode, Lucida Grande, Sans-Serif;
 }
 .navbar {
 	background-color: hsl(206, 59%, 37%) !important;;
@@ -23,7 +24,15 @@
 
 
 .h {
-	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg')
+	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg');
+	-webkit-text-stroke: 2px black;
+   color: white;
+/*   text-shadow:
+       3px 3px 0 #000,
+     -1px -1px 0 #000,  
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;*/
 }
 
 .row {

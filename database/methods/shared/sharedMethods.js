@@ -30,7 +30,13 @@ function checkPassword(req, res, next){
 			}
 			else{
 				var authKey = new Buffer(dev.api.apiKey + ':' + dev.api.clientKey).toString('base64')
-				var sheepToken = jwt.sign({authKey: authKey, userName: dev.userName, devID: dev._id}, 'sheep host', { expiresIn: 120000});
+				var sheepToken = jwt.sign({
+					secretKey: dev.api.secretKey,
+					authKey: authKey,
+					userName: dev.userName,
+					devID: dev._id,
+					email: dev.email
+				}, 'sheep host', { expiresIn: 120000});
 				console.log('server side token', sheepToken);
 				req.body.token = sheepToken;
 				req.body.dev = dev;

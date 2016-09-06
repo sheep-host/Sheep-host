@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import cookie from 'react-cookie';
 import { browserHistory } from 'react-router';
-import InstructionsClick from './InstructionsClick';
 import ReactDOM from 'react-dom';
 import DatabaseForm from './DBInputComponent';
 import CollectionForm from './CollectionInputComponent'
@@ -18,6 +17,7 @@ import SecondNavBar from './Dashboard2.0/SecondNavBar';
 import Display from './Dashboard2.0/Display';
 import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
 import UserProfile from './Dashboard2.0/UserProfileInfo.js';
+import Docs from './Docs';
 import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
 import PublicAPI from './PublicAPI';
 import ApiSandbox from './Dashboard2.0/apiSandbox';
@@ -29,6 +29,7 @@ const Dashboard = React.createClass({
 			database: [],
 			userName: this.props.params.username,
 			_id: '',
+			email:'jessie@jessie.com',
 			instructionsVisible: false,
 			DBkeys: [],
 			Colkeys: [],
@@ -42,8 +43,9 @@ const Dashboard = React.createClass({
 			fetchInterval: 0,
 			postInput:'',
 			putInput:'',
-			putID: '',
-			deleteID:''
+			putQuery: '',
+			deleteQuery:'',
+			secretKeyVisible: false,
 		}
 	},
 
@@ -81,20 +83,20 @@ const Dashboard = React.createClass({
 		});
 	},
 
-	componentDidUpdate(){
-		if(!auth.loggedIn()){
-			clearInterval(this.state.fetchInterval);
-			fetchInterval = 0;
-		}
-		if(auth.loggedIn() && this.state.DBkeys.length > 0 ){
-			if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 5000);
-			else{
-				clearInterval(this.state.fetchInterval);
-				this.state.fetchInterval = 0;
-				this.state.fetchInterval = setInterval(this.fetchData, 5000);
-			}
-		}
-	}, 
+	// componentDidUpdate(){
+	// 	if(!auth.loggedIn()){
+	// 		clearInterval(this.state.fetchInterval);
+	// 		fetchInterval = 0;
+	// 	}
+	// 	if(auth.loggedIn() && this.state.DBkeys.length > 0 ){
+	// 		if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 5000);
+	// 		else{
+	// 			clearInterval(this.state.fetchInterval);
+	// 			this.state.fetchInterval = 0;
+	// 			this.state.fetchInterval = setInterval(this.fetchData, 5000);
+	// 		}
+	// 	}
+	// }, 
 
 	fetchData(){
 		let that = this;
@@ -214,11 +216,13 @@ const Dashboard = React.createClass({
 		let that = this;
 		const _id = that.state._id;
 		const put = JSON.parse(that.state.putInput);
-		const _putID = that.state.putID;
+		const _putQuery = JSON.parse(that.state.putQuery);
+		const _putKey = Object.keys(_putQuery)[0];
+		const _putValue = _putQuery[_putKey];
 		console.log('put', put);
 		const _dbName = that.state.DBkeys[that.state.activeDBLink];
 		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
-		const link = _id +'/'+ _dbName +'/'+ _collectionName+'/' + _putID;
+		const link = _id +'/'+ _dbName +'/'+ _collectionName  + '/?' + _putKey + '=' + _putValue;
 		axios({
 			method: 'put',
 			baseURL: 'http://localhost:3000/api/',
@@ -236,10 +240,12 @@ const Dashboard = React.createClass({
 		e.preventDefault();
 		let that = this;
 		const _id = that.state._id;
-		const _deleteID = that.state.deleteID;
+		const _deleteQuery = JSON.parse(that.state.deleteQuery);
+		const _deleteKey = Object.keys(_deleteQuery)[0];
+		const _deleteValue = _deleteQuery[_deleteKey];
 		const _dbName = that.state.DBkeys[that.state.activeDBLink];
 		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
-		const link = _id +'/'+ _dbName +'/'+ _collectionName+'/' + _deleteID;
+		const link = _id +'/'+ _dbName +'/'+ _collectionName + '/?' + _deleteKey + '=' + _deleteValue;
 		axios({
 			method: 'delete',
 			baseURL: 'http://localhost:3000/api/',
@@ -252,9 +258,15 @@ const Dashboard = React.createClass({
 		})
 	},
 
+	onSecretClick() {
+    this.setState({secretKeyVisible: !this.state.secretKeyVisible});
+  },
+
 	render() {
 		let profileInfo = {};
-		profileInfo['userName'] = this.state.userName
+		profileInfo['Username'] = this.state.userName;
+		profileInfo['Developer ID'] = this.state._id;
+		profileInfo['E-mail'] = this.state.email;
 		for(let name in this.state.database) {
 			profileInfo[name] = Object.keys(this.state.database[name])
 		}
@@ -297,8 +309,20 @@ const Dashboard = React.createClass({
 				<div>
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
-					<UserProfile profileInfo={profileInfo}/>
+					<UserProfile
+						profileInfo={profileInfo}
+						onClick={this.onSecretClick}
+						secretKeyVisible={this.state.secretKeyVisible}/>
 					<PublicAPI devId={this.state._id} authKey={this.state.authKey} />
+				</div>
+			)
+		}
+		if(this.state.infoDisplayed === 'docs') {
+			return(
+				<div>
+					<WelcomeBanner name={this.state.userName}/>
+					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
+					<Docs />
 				</div>
 			)
 		}

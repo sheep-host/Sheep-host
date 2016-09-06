@@ -36,14 +36,14 @@ const ApiSandbox = React.createClass({
 						<small id="putHelp" className="form-text text-muted">Update a document in this collection</small>
 							<input 
 								className="form-control"
-								placeholder="Copy and paste _id of desired document"
+								placeholder="Enter {<key>: <value>} from one field of document to change"
 								type="text"
-								name="putID"
+								name="putQuery"
 								onChange={this.props.onChange}>
 							</input>
 							<input 
 								className="form-control"
-								placeholder="Enter {<key>: <value>} to change"
+								placeholder="Enter {<key(s)>: <value(s)>} to change"
 								type="text"
 								name="putInput"
 								onChange={this.props.onChange}>
@@ -63,9 +63,9 @@ const ApiSandbox = React.createClass({
 							<small id="deleteHelp" className="form-text text-muted">Delete a record from this collection</small>
 							<input 
 								className="form-control"
-								placeholder="Copy and paste _id of desired document"
+								placeholder="Enter {<key>: <value>} from one field of document to delete"
 								type="text"
-								name="deleteID"
+								name="deleteQuery"
 								onChange={this.props.onChange}>
 							</input>
 							<button
