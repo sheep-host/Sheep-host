@@ -11,8 +11,8 @@ const Display = React.createClass({
 		})
 		console.log('length', dataArray.length )
 		return (
-			<div className="jumbotron">
-				<ul className="list-group">
+			<div className="jumbotron col-md-8">
+				<ul className="list-group col-md-8">
 
 							{dataArray}	
 				</ul>

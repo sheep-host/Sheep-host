@@ -18,6 +18,7 @@ const UserProfile = React.createClass({
 			}	
 		}
 		return (
+<<<<<<< HEAD
 			<div>
 				<div>
 					<h2>Your Profile</h2>

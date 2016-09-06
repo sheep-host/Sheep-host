@@ -3,15 +3,9 @@ import axios from 'axios';
 import cookie from 'react-cookie';
 import { browserHistory } from 'react-router';
 import ReactDOM from 'react-dom';
-import DatabaseForm from './DBInputComponent';
-import CollectionForm from './CollectionInputComponent'
-import DevInfo from './DisplayDevInfo';
-import Schemaform from './SchemaInput';
-import DevDatabase  from './DevDatabase';
 import auth from '../Auth'
 import jwtDecode from 'jwt-decode';
 import ClientInput from './clientInput'
-import DeveloperNavBar from './DeveloperNavBar';
 import FirstNavBar from './Dashboard2.0/FirstNavBar';
 import SecondNavBar from './Dashboard2.0/SecondNavBar';
 import Display from './Dashboard2.0/Display';
@@ -19,6 +13,7 @@ import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
 import UserProfile from './Dashboard2.0/UserProfileInfo.js';
 import Docs from './Docs';
 import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
+
 import PublicAPI from './PublicAPI';
 import ApiSandbox from './Dashboard2.0/apiSandbox';
 import schemaParser from '../../database/methods/schemaParser';
@@ -276,8 +271,7 @@ const Dashboard = React.createClass({
 		else{let collectionData = this.state.activeCollectionData;}
 		if(this.state.infoDisplayed ==='dashboard') {
 			return (
-
-				<div>
+				<div className="row-fluid">
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
