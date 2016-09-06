@@ -4,25 +4,19 @@ import cookie from 'react-cookie';
 import { browserHistory } from 'react-router';
 import InstructionsClick from './InstructionsClick';
 import ReactDOM from 'react-dom';
-import DatabaseForm from './DBInputComponent';
-import CollectionForm from './CollectionInputComponent'
-import DevInfo from './DisplayDevInfo';
-import Schemaform from './SchemaInput';
-import DevDatabase  from './DevDatabase';
 import auth from '../Auth'
 import jwtDecode from 'jwt-decode';
 import ClientInput from './clientInput'
-import DeveloperNavBar from './DeveloperNavBar';
 import FirstNavBar from './Dashboard2.0/FirstNavBar';
 import SecondNavBar from './Dashboard2.0/SecondNavBar';
 import Display from './Dashboard2.0/Display';
 import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
 import UserProfile from './Dashboard2.0/UserProfileInfo.js';
 import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
+
 import PublicAPI from './PublicAPI';
 import ApiSandbox from './Dashboard2.0/apiSandbox';
-// import getUserData from '../actions/GetData';
-// setInterval(this.getData, 10000);
+import schemaParser from '../../database/methods/schemaParser';
 
 const Dashboard = React.createClass({
 	getInitialState () {
@@ -40,26 +34,26 @@ const Dashboard = React.createClass({
 			schema:'',
 			dbName: '',
 			collectionName: '',
-      fetchInterval: 0
+			fetchInterval: 0,
+			postInput:'',
+			putInput:'',
+			putID: '',
+			deleteID:''
 		}
 	},
 
 	componentDidMount() {
 		localStorage.sheepToken = cookie.load('token');
 		let token = jwtDecode(localStorage.sheepToken);
-		console.log('token with keys', token);
 		let authKey = token.authKey;
 		this.setState({authKey});
-		this.getData()
+		this.getData();
 	},
 
   getData() {
 		let that = this;
-		console.log('getdata token', jwtDecode(localStorage.sheepToken).devID)
 		let _id = jwtDecode(localStorage.sheepToken).devID;
-		console.log('_id for axios', _id);
 		axios.get('/getDBs/'+_id).then(function(response) {
-			console.log('response', response)
 			if(response.data.length> 0){
 				let info = {};
 				let data = response.data;
@@ -75,30 +69,27 @@ const Dashboard = React.createClass({
 				that.setState({_id, database: info, DBkeys, Colkeys, activeCollectionData});
 			}
 			else{
-				console.log('no data')
 				that.setState({_id})
 			}
-			console.log('state after getdata', that.state);
 		}).catch(function(error) {
 			console.log('error on .catch', error)
 		});
 	},
 
-  componentDidUpdate(){
-        console.log('fetch',auth.loggedIn(), this.state.database);
-        if(!auth.loggedIn()){
-            clearInterval(fetchInterval);
-            fetchInterval = 0;
-        }
-        if(auth.loggedIn() && this.state.DBkeys.length > 0 ){
-            if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 1000);
-            else{
-                clearInterval(this.state.fetchInterval);
-                this.state.fetchInterval = 0;
-                this.state.fetchInterval = setInterval(this.fetchData, 1000);
-            }
-        }
-    },
+	componentDidUpdate(){
+		if(!auth.loggedIn()){
+			clearInterval(this.state.fetchInterval);
+			fetchInterval = 0;
+		}
+		if(auth.loggedIn() && this.state.DBkeys.length > 0 ){
+			if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 5000);
+			else{
+				clearInterval(this.state.fetchInterval);
+				this.state.fetchInterval = 0;
+				this.state.fetchInterval = setInterval(this.fetchData, 5000);
+			}
+		}
+	},
 
 	fetchData(){
 		let that = this;
@@ -148,16 +139,8 @@ const Dashboard = React.createClass({
 		else(auth.redirect());
 	},
 
-	onCollectionNameChange(e) {
-		this.setState({collectionName: e.target.value });
-	},
-
-	onDbNameChange(e) {
-		this.setState({dbName: e.target.value });
-	},
-
-	onSchemaChange(e) {
-		this.setState({schema: e.target.value });
+	onChange(e) {
+		this.setState({[e.target.name]: e.target.value });
 	},
 
 	onCreateClick(e){
@@ -199,27 +182,95 @@ const Dashboard = React.createClass({
 		})
 	},
 
+	onPostClick(e){
+		e.preventDefault();
+		let that = this;
+		const _id = that.state._id;
+		const post = JSON.parse(that.state.postInput);
+		console.log('post', post);
+		const _dbName = that.state.DBkeys[that.state.activeDBLink];
+		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
+		const link = _id +'/'+ _dbName +'/'+ _collectionName
+		axios({
+			method: 'post',
+			baseURL: 'http://localhost:3000/api/',
+			url: link,
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
+			data: post
+		}).then(function(response){
+			console.log(response)
+		}).catch(function(error){
+			console.log('error posting to the database', error);
+		})
+	},
+
+	onPutClick(e){
+		e.preventDefault();
+		let that = this;
+		const _id = that.state._id;
+		const put = JSON.parse(that.state.putInput);
+		const _putID = that.state.putID;
+		console.log('put', put);
+		const _dbName = that.state.DBkeys[that.state.activeDBLink];
+		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
+		const link = _id +'/'+ _dbName +'/'+ _collectionName+'/' + _putID;
+		axios({
+			method: 'put',
+			baseURL: 'http://localhost:3000/api/',
+			url: link,
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
+			data: put
+		}).then(function(response){
+			console.log(response)
+		}).catch(function(error){
+			console.log('error posting to the database', error);
+		})
+	},
+
+	onDeleteClick(e){
+		e.preventDefault();
+		let that = this;
+		const _id = that.state._id;
+		const _deleteID = that.state.deleteID;
+		const _dbName = that.state.DBkeys[that.state.activeDBLink];
+		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
+		const link = _id +'/'+ _dbName +'/'+ _collectionName+'/' + _deleteID;
+		axios({
+			method: 'delete',
+			baseURL: 'http://localhost:3000/api/',
+			url: link,
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
+		}).then(function(response){
+			console.log(response)
+		}).catch(function(error){
+			console.log('error posting to the database', error);
+		})
+	},
+
 	render() {
 		let profileInfo = {};
 		profileInfo['userName'] = this.state.userName
 		for(let name in this.state.database) {
 			profileInfo[name] = Object.keys(this.state.database[name])
 		}
-		console.log('STATE', this.state)
 		if(!this.state.activeCollectionData){
 			let collectionData = "This collection is empty."
 		}
 		else{let collectionData = this.state.activeCollectionData;}
 		if(this.state.infoDisplayed ==='dashboard') {
 			return (
-
-				<div>
+				<div className="row-fluid">
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
 					<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
           <Display display={this.state.activeCollectionData} />
-          <PublicAPI devId={this.state._id} authKey={this.state.authKey} />
+          <ApiSandbox
+          	postClick={this.onPostClick}
+          	putClick={this.onPutClick}
+          	deleteClick={this.onDeleteClick}
+          	onChange={this.onChange}
+          />
 				</div>
 			)
 		}
@@ -229,9 +280,7 @@ const Dashboard = React.createClass({
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<ClientInput
-						onDbNameChange={this.onDbNameChange}
-						onCollectionNameChange={this.onCollectionNameChange}
-						onSchemaChange={this.onSchemaChange}
+						onChange={this.onChange}
 						onCreateClick={this.onCreateClick}
 					 />
 				</div>
@@ -243,6 +292,7 @@ const Dashboard = React.createClass({
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<UserProfile profileInfo={profileInfo}/>
+					<PublicAPI devId={this.state._id} authKey={this.state.authKey} />
 				</div>
 			)
 		}
@@ -250,4 +300,3 @@ const Dashboard = React.createClass({
 })
 
 export default Dashboard;
-

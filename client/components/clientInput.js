@@ -1,30 +1,13 @@
 import React from 'react';
 
 
-// const buttons = React.createClass({
-// 	getInitialState() {
-// 	    return {
-// 	        buttonSelected: null  
-// 	    };
-// 	},
-// 	render() {
-// 		return (
-// 			<div>
-// 				<button type="button" class="btn btn-primary btn-lg">Create Database</button>
-// 				<button type="button" class="btn btn-primary btn-lg">Create Collection</button>
-// 			</div>
-// 		)	
-// 	}
-// })
-
-
 const ClientInput = React.createClass({
 
 	
 
 	render() {
 		return (
-		<div className="jumbotron">
+		<div className="jumbotron col-md-8">
 		<form>
 				<div className="form-group">
 					
@@ -34,7 +17,7 @@ const ClientInput = React.createClass({
 							<small id="databaseHelp" className="form-text text-muted">If you would like to create a new database, enter a new database name. Otherwise, enter the name of an existing database you would like to add a collection to</small>
 								<input 
 									className="form-control"
-									onChange={this.props.onDbNameChange}
+									onChange={this.props.onChange}
 									placeholder="Database Name"
 									type="text"
 									name="dbName">
@@ -48,7 +31,7 @@ const ClientInput = React.createClass({
 					<small id="collectionHelp" className="form-text text-muted">Enter name of collection you are creating</small>
 						<input 
 							className="form-control"
-							onChange={this.props.onCollectionNameChange}
+							onChange={this.props.onChange}
 							placeholder="Collection Name"
 							type="text"
 							name="collectionName">
@@ -62,7 +45,7 @@ const ClientInput = React.createClass({
 						<textarea 
 							rows="5"
 							className="form-control form-control-md"
-							onChange={this.props.onSchemaChange}
+							onChange={this.props.onChange}
 							placeholder="Schema"
 							type="text"
 							name="schema">
@@ -71,7 +54,7 @@ const ClientInput = React.createClass({
 				<div>
 					<button
 						className="btn btn-primary btn-lg"
-						onClick={this.props.onCreateClick}>
+						onClick={this.props.onClick}>
 							ADD
 					</button>
 				</div>

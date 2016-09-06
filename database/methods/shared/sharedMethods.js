@@ -18,11 +18,15 @@ function checkPassword(req, res, next){
 	Models.Dev.findOne({userName: req.body.userName}).
 	populate('database').
 	exec(function(err, dev){
+		if(dev === null){
+		  res.status(401).send('Invalid Username or Password');
+		  return;
+		}
 		console.log('dev in checkpassword', dev);
 		dev.comparePassword(req.body.password, function(err, isMatch){
 			if (err) throw err;
 			if(!isMatch){
-				res.status(401).send('Invalid Password');
+				res.status(401).send('Invalid Username or Password');
 			}
 			else{
 				var authKey = new Buffer(dev.api.apiKey + ':' + dev.api.clientKey).toString('base64')

@@ -7,6 +7,7 @@ var randomstring = require('randomstring');
 var verModel = require('../models/verModel');
 var Promise = require("bluebird");
 var mongoose = Promise.promisifyAll(require("mongoose"));
+var schemaParser = require('./schemaParser') 
 var jwt = require ('jsonwebtoken');
 var apiKey = require('./devAPI/api-key-controller');
 
@@ -116,7 +117,7 @@ function addDev(req, res, next){
 
 // login middleware
 function usernameExist(req, res, next){
-	Models.Dev.findOne({'userName': req.body.userName}, 'userName', function(err, dev) {
+	Models.Dev.findOne({'userName': req.body.userName, 'email': req.body.email}, 'userName', function(err, dev) {
 		console.log('inside usernameExist')
 		console.log('dev username exist',dev);
 			if(dev === null) {
@@ -124,7 +125,7 @@ function usernameExist(req, res, next){
 				next();
 			} else {
 				console.log('name exists!');
-				res.status(422).send('User exists, please choose another username');
+				res.status(422).send('Username/email exists, please choose another username');
 			}
 	})
 }
@@ -132,6 +133,9 @@ function usernameExist(req, res, next){
 // create DB button middleware that adds to DB collection
 function addDB(req, res, next){
 	var dev = req.body.dev;
+	if (dev.database.length === 3){
+		res.status(422).send('You have reached your database limit of 3');
+	}
 	var db = new Models.DB({
 		name: req.body.database,
 		_creator: dev._id
