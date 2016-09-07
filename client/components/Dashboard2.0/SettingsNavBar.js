@@ -12,9 +12,9 @@ const SettingsNavBar = React.createClass({
 	render() {
 
 		return (
-			<div className="btn-group btn-group-vertical col-md-2" role="group" aria-label="...">
+			<div className="btn-group btn-group-justified" role="group" aria-label="...">
 			  <div className="btn-group" role="group">
-			    <button name="dashboard" type="button" onClick={this.props.toggle} className="btn btn-default">Dashboard</button>
+			    <button name="dashboard" type="button" onClick={this.props.toggle} className="btn btn-default">Data</button>
 			  </div>
 			  <div className="btn-group" role="group">
 			    <button name="create" type="button" onClick={this.props.toggle} className="btn btn-default">Create</button>
@@ -23,7 +23,7 @@ const SettingsNavBar = React.createClass({
 			    <button name="profile" type="button" onClick={this.props.toggle} className="btn btn-default">Profile</button>
 			  </div>
 			    <div className="btn-group" role="group">
-			    <button type="button" className="btn btn-default">Docs</button>
+			    <button name="docs" type="button" onClick={this.props.toggle} className="btn btn-default">Docs</button>
 			  </div>
 			</div>
 		)

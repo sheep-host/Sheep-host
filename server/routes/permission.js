@@ -13,5 +13,4 @@ router.post('/',
   apiController.updatePermissions
 );
 
-
 module.exports = router;

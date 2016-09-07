@@ -8,6 +8,7 @@ function generateKey(){
 }
 
 function checkJwt(req, res, next){
+  console.log('req body permissions', req.body)
   if(!req.headers.authorization){
     res.json({ error: 'Credentials missing' });
   } else {
@@ -110,17 +111,15 @@ function masterKey(req, res, next){
 
 //Set client key specific permissions - CRUD true/false
 function updatePermissions(req, res, next){
+  console.log('updatepermissions', req.body);
+  console.log(res.locals.apikey.key);
   if(res.locals.apikey.master){
     var query = {'api.apiKey' : res.locals.apikey.key};
-    var client = {
-      GET: req.body.get,
-      POST: req.body.post,
-      PUT: req.body.put,
-      DELETE: req.body.del
-    }
-    
+    console.log('query', query);
+    var client = req.body.permissions;
     Models.Dev.findOneAndUpdate(query, { $set: {"api.clientPermissions": client}}, {new: true}, function(err, dev) {
       if (err) throw err;
+      console.log('permissionsupdated', dev);
       res.json('updated');
     });
   } else {
