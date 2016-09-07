@@ -35,7 +35,8 @@ function checkPassword(req, res, next){
 					authKey: authKey,
 					userName: dev.userName,
 					devID: dev._id,
-					email: dev.email
+					email: dev.email,
+					permissions: dev.api.clientPermissions
 				}, 'sheep host', { expiresIn: 120000});
 				console.log('server side token', sheepToken);
 				req.body.token = sheepToken;

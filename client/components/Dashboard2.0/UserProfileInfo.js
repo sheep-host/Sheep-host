@@ -18,7 +18,6 @@ const UserProfile = React.createClass({
 			}	
 		}
 		return (
-<<<<<<< HEAD
 			<div>
 				<div>
 					<h2>Your Profile</h2>
@@ -26,9 +25,10 @@ const UserProfile = React.createClass({
 				<div className="well well-lg">
 					
 					{userInfo}
+					<SecretClick onClick={this.props.onClick} secretKeyVisible={this.props.secretKeyVisible}/>
 				  {userDBProfileInfo}
 				  <br></br>
-				  <SecretClick onClick={this.props.onClick} secretKeyVisible={this.props.secretKeyVisible}/>
+				  
 				</div>
 			</div>
 		)

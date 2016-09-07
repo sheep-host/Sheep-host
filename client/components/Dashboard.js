@@ -13,18 +13,18 @@ import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
 import UserProfile from './Dashboard2.0/UserProfileInfo.js';
 import Docs from './Docs';
 import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
-
 import PublicAPI from './PublicAPI';
 import ApiSandbox from './Dashboard2.0/apiSandbox';
 import schemaParser from '../../database/methods/schemaParser';
+import Permissions from './Dashboard2.0/PermissionsForm';
 
 const Dashboard = React.createClass({
 	getInitialState () {
 		return {
 			database: [],
 			userName: this.props.params.username,
-			_id: '',
-			email:'jessie@jessie.com',
+			_id: ' ',
+			email:' ',
 			instructionsVisible: false,
 			DBkeys: [],
 			Colkeys: [],
@@ -41,14 +41,23 @@ const Dashboard = React.createClass({
 			putQuery: '',
 			deleteQuery:'',
 			secretKeyVisible: false,
+			authKey: '',
+			permissions: {}
 		}
 	},
 
-	componentDidMount() {
+	componentWillMount(){
 		localStorage.sheepToken = cookie.load('token');
 		let token = jwtDecode(localStorage.sheepToken);
 		let authKey = token.authKey;
-		this.setState({authKey});
+		let email = token.email;
+		let permissions = token.permissions;
+		console.log('token', token);
+		console.log('permissions',token.permissions, permissions);
+		this.setState({authKey, email, permissions});
+	},
+
+	componentDidMount() {
 		this.getData();
 	},
 
@@ -78,20 +87,21 @@ const Dashboard = React.createClass({
 		});
 	},
 
-	// componentDidUpdate(){
-	// 	if(!auth.loggedIn()){
-	// 		clearInterval(this.state.fetchInterval);
-	// 		fetchInterval = 0;
-	// 	}
-	// 	if(auth.loggedIn() && this.state.DBkeys.length > 0 ){
-	// 		if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 5000);
-	// 		else{
-	// 			clearInterval(this.state.fetchInterval);
-	// 			this.state.fetchInterval = 0;
-	// 			this.state.fetchInterval = setInterval(this.fetchData, 5000);
-	// 		}
-	// 	}
-	// }, 
+	componentDidUpdate(){
+		if(!auth.loggedIn()){
+			clearInterval(this.state.fetchInterval);
+			fetchInterval = 0;
+			console.log('interval stopped');
+		}
+		if(auth.loggedIn() && this.state.DBkeys.length > 0 && this.state.Colkeys.length > 0){
+			if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 10000);
+			else{
+				clearInterval(this.state.fetchInterval);
+				this.state.fetchInterval = 0;
+				this.state.fetchInterval = setInterval(this.fetchData, 10000);
+			}
+		}
+	}, 
 
 	fetchData(){
 		let that = this;
@@ -177,8 +187,8 @@ const Dashboard = React.createClass({
 			dbName = '';
 			collectionName = '';
 			let schema = '';
-			let infoDisplayed = 'dashboard';
-			that.setState({infoDisplayed, database, DBkeys, dbName, collectionName, schema})
+			// let infoDisplayed = 'dashboard';
+			that.setState({database, DBkeys, dbName, collectionName, schema})
 		}).catch(function(error){
 			console.log('error on create submit', error);
 		})
@@ -245,7 +255,7 @@ const Dashboard = React.createClass({
 			method: 'delete',
 			baseURL: 'http://localhost:3000/api/',
 			url: link,
-			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
 		}).then(function(response){
 			console.log(response)
 		}).catch(function(error){
@@ -257,11 +267,47 @@ const Dashboard = React.createClass({
     this.setState({secretKeyVisible: !this.state.secretKeyVisible});
   },
 
+  onPermissionsClick(e) {
+  	e.preventDefault();
+  	let that = this;
+  	console.log('permissionRadioChange', e.target.value);
+  	let permissions = that.state.permissions;
+  	let permission = e.target.value;
+  	permissions[permission] = !permissions[permission]
+  	this.setState({permissions});
+  },
+
+  savePermissions(e){
+  	e.preventDefault();
+  	let data = {};
+  	let encoded = this.state.authKey;
+		let decoded = new Buffer(encoded, 'base64').toString('utf8');
+		let apiKey = decoded.split(':')[0];
+		data['apiKey'] = apiKey;
+  	let permissions = this.state.permissions;
+  	data['permissions'] = permissions;
+		axios({
+			method: 'post',
+			baseURL: 'http://localhost:3000/',
+			url: 'permission/',
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
+			data: data
+		}).then(function(response){
+			console.log(response);
+		})
+  },
+
 	render() {
+		let encoded = this.state.authKey;
+		let decoded = new Buffer(encoded, 'base64').toString('utf8');
+		let apiKey = decoded.split(':')[0];
+		let clientKey = decoded.split(':')[1];
 		let profileInfo = {};
 		profileInfo['Username'] = this.state.userName;
 		profileInfo['Developer ID'] = this.state._id;
-		profileInfo['E-mail'] = this.state.email;
+		// profileInfo['E-mail'] = this.state.email;
+		profileInfo['API Key'] = apiKey;
+		profileInfo['Client Key'] = clientKey;
 		for(let name in this.state.database) {
 			profileInfo[name] = Object.keys(this.state.database[name])
 		}
@@ -271,7 +317,7 @@ const Dashboard = React.createClass({
 		else{let collectionData = this.state.activeCollectionData;}
 		if(this.state.infoDisplayed ==='dashboard') {
 			return (
-				<div className="row-fluid">
+				<div className="outer">
 					<WelcomeBanner name={this.state.userName}/>
 					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 					<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
@@ -301,12 +347,17 @@ const Dashboard = React.createClass({
 		if(this.state.infoDisplayed === 'profile') {
 			return(
 				<div>
-					<WelcomeBanner name={this.state.userName}/>
-					<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
+					<WelcomeBanner name={this.state.userName} />
+					<SettingsNavBar toggle={this.toggleInfoDisplayed} />
 					<UserProfile
+						authKey={this.state.authKey}
 						profileInfo={profileInfo}
 						onClick={this.onSecretClick}
-						secretKeyVisible={this.state.secretKeyVisible}/>
+						secretKeyVisible={this.state.secretKeyVisible} />
+					<Permissions
+						permissions={this.state.permissions}
+						onClick={this.onPermissionsClick}
+						savePermissions={this.savePermissions} />
 					<PublicAPI devId={this.state._id} authKey={this.state.authKey} />
 				</div>
 			)

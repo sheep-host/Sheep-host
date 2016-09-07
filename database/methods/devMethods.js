@@ -113,7 +113,8 @@ function addDev(req, res, next){
 			authKey: authKey,
 			userName: result.userName,
 			devID: result._id,
-			email: result.email
+			email: result.email,
+			permissions: dev.api.clientPermissions
 		}, 'sheep host', { expiresIn: 120000});
 		console.log('server side token', sheepToken);
 		req.body.token = sheepToken;

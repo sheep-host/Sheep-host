@@ -4,7 +4,7 @@ class Greetings extends React.Component {
 	render() {
 	return (
 		<div className="h jumbotron">
-			<h1 className="r text-center">Welcome to Sheep.host</h1>
+				<h1 className="r text-center">Welcome to Sheep.host</h1>
 			<h2 className="text-center">A developer's backend-as-a-service for MongoDB</h2>
 			<hr></hr>
 			<h3 className="text-center">Sheep.host gives front-end developers <b>out-of-the-box access</b> to multiple MongoDB databases with just <b>a few</b> keystrokes and <b>one</b> click of a button.</h3>
