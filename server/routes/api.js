@@ -29,7 +29,7 @@ router.get('/:devID/:dbName/:colName',
 );
 
 // modify existing document
-router.put('/:devID/:dbName/:colName/:docID',
+router.put('/:devID/:dbName/:colName',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
@@ -41,7 +41,7 @@ router.put('/:devID/:dbName/:colName/:docID',
 );
 
 // delete existing document
-router.delete('/:devID/:dbName/:colName/:docID',
+router.delete('/:devID/:dbName/:colName',
 	apiController.checkJwt,
 	apiController.parseKey,
 	apiController.keyCheck,
