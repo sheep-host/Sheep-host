@@ -350,14 +350,14 @@ const Dashboard = React.createClass({
 					<WelcomeBanner name={this.state.userName} />
 					<SettingsNavBar toggle={this.toggleInfoDisplayed} />
 					<UserProfile
-						authKey={this.state.authKey}
-						profileInfo={profileInfo}
-						onClick={this.onSecretClick}
-						secretKeyVisible={this.state.secretKeyVisible} />
+											authKey={this.state.authKey}
+											profileInfo={profileInfo}
+											onClick={this.onSecretClick}
+											secretKeyVisible={this.state.secretKeyVisible} />
 					<Permissions
-						permissions={this.state.permissions}
-						onClick={this.onPermissionsClick}
-						savePermissions={this.savePermissions} />
+											permissions={this.state.permissions}
+											onClick={this.onPermissionsClick}
+											savePermissions={this.savePermissions} />
 					<PublicAPI devId={this.state._id} authKey={this.state.authKey} />
 				</div>
 			)
