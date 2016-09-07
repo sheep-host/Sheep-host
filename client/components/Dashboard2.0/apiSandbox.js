@@ -5,7 +5,7 @@ const ApiSandbox = React.createClass({
 
 	render(){
 		return(
-			<div className="display jumbotron col-md-8">
+			<div className="display jumbotron	">
 				<h2>Your API Sandbox</h2>
 				<div>Make CRUD requests to this collection to test out your data</div>
 				<br></br>

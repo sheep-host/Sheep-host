@@ -118,7 +118,7 @@ function updatePermissions(req, res, next){
     console.log('query', query);
     var client = req.body.permissions;
     Models.Dev.findOneAndUpdate(query, { $set: {"api.clientPermissions": client}}, {new: true}, function(err, dev) {
-      if (err) res.json({error : 'Error'});
+      if (err) res.status(404).send('Error');
       console.log('permissionsupdated', dev);
       res.json('updated');
     });

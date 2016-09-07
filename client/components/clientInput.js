@@ -7,7 +7,7 @@ const ClientInput = React.createClass({
 
 	render() {
 		return (
-		<div className="jumbotron col-md-8">
+		<div className="jumbotron well well-lg">
 		<form>
 				<div className="form-group">
 					

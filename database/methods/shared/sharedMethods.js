@@ -24,7 +24,7 @@ function checkPassword(req, res, next){
     }
     console.log('dev in checkpassword', dev);
     dev.comparePassword(req.body.password, function(err, isMatch){
-      if (err) res.json({error : 'Error'});
+      if (err) res.status(401).send('error');
       if(!isMatch){
         res.status(401).send('Invalid Username or Password');
       } else{
