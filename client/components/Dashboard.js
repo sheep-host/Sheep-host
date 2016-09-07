@@ -367,7 +367,7 @@ const Dashboard = React.createClass({
 					</div>
 				}
 			</div>
-		)		
+		)	
 	}
 })
 
