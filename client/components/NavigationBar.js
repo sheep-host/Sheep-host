@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import auth from '../Auth';
 
 
 
@@ -7,19 +8,19 @@ import { Link } from 'react-router';
 export default () => {
   let loginButton;
   let signupButton
-  if (localStorage.sheepToken){
-    loginButton = <li><Link to="/logout" activeClassName="active"> <b>Log out</b></Link></li>;
+  if (auth.loggedIn()){
+    loginButton = <li><Link to="/logout" style={{color:'white'}} activeClassName="active"> <b>Log out</b></Link></li>;
   }
   else{
-    loginButton = <li><Link to="/login" activeClassName="active"> <b>Log In </b></Link></li>
-    signupButton = <li><Link to="/signup" activeClassName="active"><b>Sign up </b></Link></li>;
+    loginButton = <li ><Link to="/login" style={{color:'white'}} activeClassName="active"> <b>Log In </b></Link></li>
+    signupButton = <li><Link to="/signup" style={{color:'white'}} activeClassName="active"><b>Sign up </b></Link></li>;
   }
 	return (
 
 	<nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link to="/" className="navbar-brand"><span className="sheep.host">Sheep.host</span></Link>
+            <Link to="/" className="navbar-brand"><span style={{color:'white'}} className="sheep.host">Sheep.host</span></Link>
           </div>
 
           <div className="collapse navbar-collapse">

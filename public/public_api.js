@@ -3,6 +3,7 @@ var sheep = {
   dontSleep: function(obj) {
     user = obj;
   },
+
   post: function(dbName, colName, data) {
     axios({
       method: 'POST',
@@ -24,12 +25,30 @@ var sheep = {
     }).then(cb);
   },
 
-  put: function(query, data) {
-    // put request goes here
+  put: function(dbName, colName, query, data) {
+    let key = Object.keys(query)[0];
+    let value = query[key];
+    axios({
+      method: 'POST',
+      url: user.url + user.id + '/' + dbName + '/' + colName + '/?' + key + '=' + value,
+      data: data,
+      headers: {
+        authorization: user.authKey
+      }
+    }).then(() => console.log('success'));
   },
 
-  delete: function(query) {
-    // delete request goes here
+  delete: function(dbName, colName, query) {
+    let key = Object.keys(query)[0];
+    let value = query[key];
+    axios({
+      method: 'DELETE',
+      url: user.url + user.id + '/' + dbName + '/' + colName + '/?' + key + '=' + value,
+      data: data,
+      headers: {
+        authorization: user.authKey
+      }
+    }).then(() => console.log('success'));
   }
 }
 

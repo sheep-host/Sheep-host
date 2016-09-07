@@ -18,7 +18,7 @@ const SecondNavBar = React.createClass({
 
 	render() {
 		return (
-			<div>
+			<div className="display">
 				<ul className="nav nav-tabs col-md-8" data-toggle="button">
 					<li><h3>Collections:</h3></li>
 					{this.props.names.map((el, i)=> {
