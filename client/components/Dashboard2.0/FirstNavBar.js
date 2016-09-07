@@ -16,7 +16,7 @@ const FirstNavBar = React.createClass({
 				<ul className="nav nav-tabs col-md-8" data-toggle="button">	
 					<li><h3>Databases:</h3></li>
 					{this.props.names.map((el, i)=> {
-						return <button className="tabs btn btn-primary info span10" aria-pressed="true" role="button" onClick={this.props.click} id={i} key={i} role="presentation">{el}</button>;
+						return <button className="tabs btn btn-primary info" aria-pressed="true" role="button" onClick={this.props.click} id={i} key={i} role="presentation">{el}</button>;
 					})}
 				</ul>
 			</div>

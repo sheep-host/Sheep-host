@@ -123,9 +123,7 @@ const Dashboard = React.createClass({
 	},
 
 	toggleInfoDisplayed(e) {
-		console.log('e toggle info', e)
 		this.setState({infoDisplayed: e.target.name})
-		console.log('dashboard toggle info state', this.state)
 	},
 
 	onColClick(e) {
@@ -187,7 +185,7 @@ const Dashboard = React.createClass({
 			dbName = '';
 			collectionName = '';
 			let schema = '';
-			// let infoDisplayed = 'dashboard';
+			alert('Created Successfully')
 			that.setState({database, DBkeys, dbName, collectionName, schema})
 		}).catch(function(error){
 			console.log('error on create submit', error);
@@ -303,9 +301,9 @@ const Dashboard = React.createClass({
 		let apiKey = decoded.split(':')[0];
 		let clientKey = decoded.split(':')[1];
 		let profileInfo = {};
+
 		profileInfo['Username'] = this.state.userName;
 		profileInfo['Developer ID'] = this.state._id;
-		// profileInfo['E-mail'] = this.state.email;
 		profileInfo['API Key'] = apiKey;
 		profileInfo['Client Key'] = clientKey;
 		for(let name in this.state.database) {

@@ -4,15 +4,14 @@ import React from 'react';
 const SecondNavBar = React.createClass({
 	getInitialState() {
 	    return {
-	          activeIndex: null
+	          color: 'red'
 	    };
 	},
 
 	toggleColorAndDisplay(e) {
-		console.log('this', e.target)
+		console.log('eeeee', e.target)
+		e.target.style=this.state.color
 		this.props.click(e)
-		
-		console.log('E', e.target)
 		
 },
 
