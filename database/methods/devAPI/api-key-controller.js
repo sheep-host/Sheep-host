@@ -17,15 +17,20 @@ function checkJwt(req, res, next){
       var token = req.headers.authorization.split(' ')[1];
       console.log('token', token);
       jwt.verify(token, 'sheep host', function(err, decoded){
-        if(decoded.exp*1000 < Date.now()) res.json({ error: 'Token out of date' });
-        decoded.exp += (60*60*24);
-        res.locals.token = token;
-        res.locals.apikey = {
-          key: req.body.apikey,
-          permissions: true,
-          master: true
+        if(err){
+          console.log('Token Not Authorized')
+          res.json({ error: 'Not authorized' });
+        } else {
+          if(decoded.exp*1000 < Date.now()) res.json({ error: 'Token out of date' });
+          decoded.exp += (60*60*24);
+          res.locals.token = token;
+          res.locals.apikey = {
+            key: req.body.apikey,
+            permissions: true,
+            master: true
+          }
+          next();
         }
-        next();
       });
     }
     else next();

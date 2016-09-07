@@ -34,8 +34,11 @@ class SignupForm extends React.Component {
 		this.props.userSignupRequest(_this).then(function(response) {
       console.log('response in signup form: ', response);
 			if(response.data) {
-				// localStorage.sheepToken = cookie.load('token');
-				browserHistory.push('wait/');
+				localStorage.sheepToken = cookie.load('token');
+				let token = jwt.decode(localStorage.sheepToken);
+				let userName = token.userName;
+				//browserHistory.push('wait/');
+				browserHistory.push('dashboard/'+userName);
 			}
 			}).catch(function(error) {
 			console.log('ERROR ON PROMISE SIGNUP FORM', error)

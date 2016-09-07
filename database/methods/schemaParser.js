@@ -58,11 +58,13 @@
 // checks if schema is valid
 //add middleware to /database post route in create.js file
 function schemaCheck(req, res, next){
+  console.log('schemaCheck req', req.body)
   var schema = req.body.schema;
   var schemaDoubleQuote = singleToDoubleQuote(schema);
   if(validatedParsedJSON(schemaDoubleQuote)){
   	req.body.schema = schemaDoubleQuote;
-  	next();
+  	console.log('validatedSchema')
+    next();
   } else {
   	res.json({error : 'Incorrect schema format'})
   }

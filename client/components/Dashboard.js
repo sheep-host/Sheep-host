@@ -53,6 +53,7 @@ const Dashboard = React.createClass({
   getData() {
 		let that = this;
 		let _id = jwtDecode(localStorage.sheepToken).devID;
+		console.log('getData _id',_id);
 		axios.get('/getDBs/'+_id).then(function(response) {
 			if(response.data.length> 0){
 				let info = {};
@@ -81,7 +82,7 @@ const Dashboard = React.createClass({
 			clearInterval(this.state.fetchInterval);
 			fetchInterval = 0;
 		}
-		if(auth.loggedIn() && this.state.DBkeys.length > 0 ){
+		if(auth.loggedIn() && this.state.DBkeys.length > 0 && this.state.Colkeys.length > 0){
 			if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 5000);
 			else{
 				clearInterval(this.state.fetchInterval);

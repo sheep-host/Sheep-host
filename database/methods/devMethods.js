@@ -46,7 +46,7 @@ function getAllDatabases(req, res, next){
 	var data = [];
 	return Models.DB.find({_creator: req.params.devID}).execAsync()
 	.then(function(results){
-		console.log('results', results);
+		console.log('results getAllDatabases', results);
 		return Promise.each(results, function(database){
 			console.log('before nested promise',database._creator, database.name);
 			var devDB = sheepDB.useDb(database._creator + '_' + database.name);
