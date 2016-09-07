@@ -8,8 +8,9 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="a container-fluid">
-				<NavigationBar />
+				
 				{this.props.children}
+				<div style={{textAlign:'center'}}>Sheep.host is in BETA, contact us at <a href="mailto:administrator@sheep.host">administrator@sheep.host</a> with feedback!</div>
 			</div>
 		)
 	} 
