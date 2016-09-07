@@ -17,7 +17,8 @@ const Permissions = React.createClass({
 			<div className="jumbotron">
 				{radioArray.map(function(permission){
 					return(
-						<div>{Object.keys(permission)[0]} 
+						<div>{Object.keys(permission)[0]}
+							<br></br>
 							<input
 								type="radio"
 								value={Object.keys(permission)[0]}
@@ -25,11 +26,13 @@ const Permissions = React.createClass({
 								checked={true === permission[Object.keys(permission)[0]]}
 							/> True     
 							<input
+								style={{marginBottom:'20px', marginLeft:'10px'}}
 								type="radio"
 								value={Object.keys(permission)[0]} 
 								onChange={that.props.onClick}
 								checked={false === permission[Object.keys(permission)[0]]}
 							/> False 
+							<br></br>
 						</div>
 					)
 				})

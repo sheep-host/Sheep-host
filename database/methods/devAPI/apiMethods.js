@@ -26,7 +26,7 @@ function postToCollection(req, res, next){
 function getCollection(req, res, next){
 	var devModel = req.body.devModel;
 	devModel.find({}, function(err, data){
-		if (err) throw err;
+		if (err) res.status(401).send(err);
 		res.json(data);
 	});
 }
