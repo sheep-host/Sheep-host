@@ -1,6 +1,7 @@
 .container {
 	background-color: white;
 	font-family: Lucida Sans Unicode, Lucida Grande, Sans-Serif;
+}
 body {
 	background-color: #FFFFFF;
 
@@ -16,6 +17,7 @@ body {
 
 	color: gray;
 }
+
 .Collection-Input {
 	float: left;
 }
@@ -37,6 +39,7 @@ body {
 
 .row {
 	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg')
+}
 
 .welcome-info-tag {
 	color: #000000;
