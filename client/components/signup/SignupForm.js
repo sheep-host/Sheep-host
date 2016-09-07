@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import{ userSignupRequest } from '../../actions/signupActions'
 import  SignupInput  from './SignupInput';
 import cookie from 'react-cookie';
+import ValidateSignupInputForm from './SignupFormValidation';
 
 
 
@@ -15,7 +16,6 @@ class SignupForm extends React.Component {
 			userName:'',
 			password:'',
       email:''
-			//passwordConfirmation:''
 		}
 
 		this.onChange = this.onChange.bind(this)
@@ -26,21 +26,34 @@ class SignupForm extends React.Component {
 		this.setState({[e.target.name] : e.target.value })
 	}
 
+	isValid() {
+		const {errors, isValid } = ValidateSignupInputForm(this.state)
+		let errorArray = []
+		if(!isValid) {
+			for(var value in errors) {
+				errorArray.push(errors[value] + " ")
+			}
+			alert(errorArray)
+		}
+		return isValid
+	}
+
 	onSubmit(e) {
 		e.preventDefault();
-		console.log('THIS.STATE ON SUBMIT', this.state);
-		var _this = this.state
+		if(this.isValid()){
+			console.log('THIS.STATE ON SUBMIT', this.state);
+			var _this = this.state
 
-		this.props.userSignupRequest(_this).then(function(response) {
-      console.log('response in signup form: ', response);
-			if(response.data) {
-				// localStorage.sheepToken = cookie.load('token');
-				browserHistory.push('wait/');
-			}
-			}).catch(function(error) {
-			console.log('ERROR ON PROMISE SIGNUP FORM', error)
-		})
-
+			this.props.userSignupRequest(_this).then(function(response) {
+	      console.log('response in signup form: ', response);
+				if(response.data) {
+					// localStorage.sheepToken = cookie.load('token');
+					browserHistory.push('wait/');
+				}
+				}).catch(function(error) {
+				console.log('ERROR ON PROMISE SIGNUP FORM', error)
+			})
+		}
 	}
 
 
