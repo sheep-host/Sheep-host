@@ -15,6 +15,9 @@ const ValidateSignupInputForm = (data) => {
 	if(Validator.isNull(data.email)) {
 		errors.email = "Email field is required"
 	}
+	if(!Validator.isEmail(data.email)) {
+		errors.email = "Please enter valid email address"
+	}
 	return {
 		errors,
 		isValid: isEmpty(errors)
