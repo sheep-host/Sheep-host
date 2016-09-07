@@ -54,7 +54,7 @@ const ClientInput = React.createClass({
 				<div>
 					<button
 						className="btn btn-primary btn-lg"
-						onClick={this.props.onClick}>
+						onClick={this.props.onCreateClick}>
 							ADD
 					</button>
 				</div>

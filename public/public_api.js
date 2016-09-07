@@ -31,5 +31,31 @@ var sheep = {
       }
     }
     httpReq.send();
+  },
+
+  put: function(dbName, colName, query, data) {
+    let key = Object.keys(query)[0];
+    let value = query[key];
+    axios({
+      method: 'POST',
+      url: user.url + user.id + '/' + dbName + '/' + colName + '/?' + key + '=' + value,
+      data: data,
+      headers: {
+        authorization: user.authKey
+      }
+    }).then(() => console.log('success'));
+  },
+
+  delete: function(dbName, colName, query) {
+    let key = Object.keys(query)[0];
+    let value = query[key];
+    axios({
+      method: 'DELETE',
+      url: user.url + user.id + '/' + dbName + '/' + colName + '/?' + key + '=' + value,
+      data: data,
+      headers: {
+        authorization: user.authKey
+      }
+    }).then(() => console.log('success'));
   }
 }

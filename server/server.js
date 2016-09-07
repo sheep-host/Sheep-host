@@ -119,7 +119,7 @@ app.use('/getDBs', getDBs);
 //click 'createDB' button
 app.use('/create', create);
 
-app.use('/permission', create);
+app.use('/permission', permission);
 
 app.use('/api', api);
 

@@ -1,4 +1,7 @@
-
+.container {
+	background-color: white;
+	font-family: Lucida Sans Unicode, Lucida Grande, Sans-Serif;
+}
 
 body {
 	background-color: #FFFFFF;
@@ -20,6 +23,22 @@ body {
 }
 .hide-true {
 	display: none;
+}
+
+.h {
+	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg');
+	-webkit-text-stroke: 2px black;
+   color: white;
+/*   text-shadow:
+       3px 3px 0 #000,
+     -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+       1px 1px 0 #000;*/
+}
+
+.row {
+	background: url('http://pre08.deviantart.net/fa36/th/pre/i/2013/239/5/a/misty_mountains_by_tavenerscholar-d5opl3e.jpg')
 }
 
 .welcome-info-tag {
@@ -98,54 +117,43 @@ body {
 	color: black;
 }
 
-.tab-button { 
-  color: #ffffff; 
-  background-color: #611BBD; 
-  border-color: #130269; 
-} 
- 
-.tab-button:hover, 
-.tab-button:focus, 
-.tab-button:active, 
-.tab-button.active, 
-.open .dropdown-toggle.tab-button { 
-  color: #ffffff; 
-  background-color: #49247A; 
-  border-color: #130269; 
-} 
- 
-.tab-button:active, 
-.tab-button.active, 
-.open .dropdown-toggle.tab-button { 
-  background-image: none; 
-} 
- 
-.tab-button.disabled, 
-.tab-button[disabled], 
-fieldset[disabled] .tab-button, 
-.tab-button.disabled:hover, 
-.tab-button[disabled]:hover, 
-fieldset[disabled] .tab-button:hover, 
-.tab-button.disabled:focus, 
-.tab-button[disabled]:focus, 
-fieldset[disabled] .tab-button:focus, 
-.tab-button.disabled:active, 
-.tab-button[disabled]:active, 
-fieldset[disabled] .tab-button:active, 
-.tab-button.disabled.active, 
-.tab-button[disabled].active, 
-fieldset[disabled] .tab-button.active { 
-  background-color: #611BBD; 
-  border-color: #130269; 
-} 
- 
+.tab-button {
+  color: #ffffff;
+  background-color: #611BBD;
+  border-color: #130269;
+}
 
+.tab-button:hover,
+.tab-button:focus,
+.tab-button:active,
+.tab-button.active,
+.open .dropdown-toggle.tab-button {
+  color: #ffffff;
+  background-color: #49247A;
+  border-color: #130269;
+}
 
+.tab-button:active,
+.tab-button.active,
+.open .dropdown-toggle.tab-button {
+  background-image: none;
+}
 
-
-
-
-
-
-
-
+.tab-button.disabled,
+.tab-button[disabled],
+fieldset[disabled] .tab-button,
+.tab-button.disabled:hover,
+.tab-button[disabled]:hover,
+fieldset[disabled] .tab-button:hover,
+.tab-button.disabled:focus,
+.tab-button[disabled]:focus,
+fieldset[disabled] .tab-button:focus,
+.tab-button.disabled:active,
+.tab-button[disabled]:active,
+fieldset[disabled] .tab-button:active,
+.tab-button.disabled.active,
+.tab-button[disabled].active,
+fieldset[disabled] .tab-button.active {
+  background-color: #611BBD;
+  border-color: #130269;
+}

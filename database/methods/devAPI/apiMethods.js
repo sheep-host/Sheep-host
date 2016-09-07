@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
-
 var Devs = require('../../models/devModel');
 
 function storePost(req, res, next){
+	console.log('post req body', req.body);
 	var post = {};
 	console.log('req.body inside storePost api route: ', req.body);
 	for(var key in req.body){
@@ -46,7 +46,7 @@ function putToCollection(req, res, next){
 	var put = res.locals.put;
 	var devModel = req.body.devModel;
 	var docID = req.params.docID;
-	devModel.findByIdAndUpdate(docID, put, { new: true }, function(err, result){
+	devModel.findOneAndUpdate(req.query, put, { new: true }, function(err, result){
 		if (err) res.sendStatus(400,'Invalid input');
 		console.log('result after put', result);
 		res.json(result);
@@ -57,7 +57,7 @@ function removeFromCollection(req, res, next){
 	console.log('in remove');
 	var devModel = req.body.devModel;
 	var docID = req.params.docID;
-	devModel.findByIdAndRemove(docID, function(err, result){
+	devModel.findOneAndRemove(req.query, function(err, result){
 		if (err) res.sendsStatus(400,'Invalid input');
 		res.sendStatus(200, 'Document removed');
 	})
