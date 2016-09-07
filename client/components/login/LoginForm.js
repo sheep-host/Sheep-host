@@ -10,6 +10,7 @@ import ValidateInputForm from './LoginFormValidation';
 
 //is route component for this route
 //ValidateInputForm not setting state properly, use alert for now
+//using setTimeout for alert due to interferance of microtask
 class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
@@ -53,11 +54,12 @@ class LoginForm extends React.Component {
 				browserHistory.push('dashboard/' + _this.userName)
 			}
 		}).catch(function(error) {
-			console.log(error)
+			return setTimeout(function() {
+				console.log(error)
+				alert(error.data)
+			}, 0)
 		})
-		} else {
-			console.log('EERRROOORRRRR')
-		}
+		} 
 	}
 
 	componentDidMount(){
