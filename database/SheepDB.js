@@ -1,6 +1,6 @@
 "use strict";
 
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/sheep', {server: {poolSize: 100}});
 

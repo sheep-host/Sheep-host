@@ -26,7 +26,7 @@ function checkJwt(req, res, next){
           decoded.exp += (60*60*24);
           res.locals.token = token;
           res.locals.apikey = {
-            key: req.body.apikey,
+            key: req.body.apiKey,
             permissions: true,
             master: true
           }
@@ -118,7 +118,7 @@ function updatePermissions(req, res, next){
     console.log('query', query);
     var client = req.body.permissions;
     Models.Dev.findOneAndUpdate(query, { $set: {"api.clientPermissions": client}}, {new: true}, function(err, dev) {
-      if (err) throw err;
+      if (err) res.json({error : 'Error'});
       console.log('permissionsupdated', dev);
       res.json('updated');
     });
