@@ -205,7 +205,7 @@ const Dashboard = React.createClass({
 		const link = _id +'/'+ _dbName +'/'+ _collectionName
 		axios({
 			method: 'post',
-			baseURL: 'http://localhost:3000/api/',
+			baseURL: 'http://sheep.host/api/',
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
 			data: post
@@ -230,7 +230,7 @@ const Dashboard = React.createClass({
 		const link = _id +'/'+ _dbName +'/'+ _collectionName  + '/?' + _putKey + '=' + _putValue;
 		axios({
 			method: 'put',
-			baseURL: 'http://localhost:3000/api/',
+			baseURL: 'http://sheep.host/api/',
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
 			data: put
@@ -253,7 +253,7 @@ const Dashboard = React.createClass({
 		const link = _id +'/'+ _dbName +'/'+ _collectionName + '/?' + _deleteKey + '=' + _deleteValue;
 		axios({
 			method: 'delete',
-			baseURL: 'http://localhost:3000/api/',
+			baseURL: 'http://sheep.host/api/',
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
 		}).then(function(response){
@@ -288,8 +288,8 @@ const Dashboard = React.createClass({
   	data['permissions'] = permissions;
 		axios({
 			method: 'post',
-			baseURL: 'http://localhost:3000/',
-			url: 'permission/',
+      baseURL: 'http://sheep.host/',
+			url: 'permission',
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
 			data: data
 		}).then(function(response){
