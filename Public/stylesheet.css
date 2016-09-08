@@ -23,7 +23,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 }
 
 .data-key {
-
+	font-size: 20px;
 	color: gray;
 }
 .Collection-Input {
@@ -110,9 +110,9 @@ font-size: 100px;
 
 
 .btn-default {
-	font-size:20px;
-	font-weight: 900;
-	color: #F2F2F2;
+font-size:20px;
+font-weight: 900;
+color: #F2F2F2;
 background: #1e5799; /* Old browsers */
 background: -moz-linear-gradient(top,  #1e5799 0%, #207cca 16%, #207cca 16%, #2989d8 50%, #3c89c9 72%, #7db9e8 100%); /* FF3.6-15 */
 background: -webkit-linear-gradient(top,  #1e5799 0%,#207cca 16%,#207cca 16%,#2989d8 50%,#3c89c9 72%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */

@@ -5,7 +5,7 @@ const SettingsNavBar = (props) => {
 	return (
 		<div className="btn-group btn-group-justified" role="group" aria-label="...">
 		  <div className="btn-group" role="group">
-		    <button name="dashboard" type="button" onClick={props.toggle} className="btn btn-default">Dat</button>
+		    <button name="dashboard" type="button" onClick={props.toggle} className="btn btn-default">Data</button>
 		  </div>
 		  <div className="btn-group" role="group">
 		    <button name="create" type="button" onClick={props.toggle} className="btn btn-default">Create</button>

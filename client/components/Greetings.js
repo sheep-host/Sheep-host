@@ -1,7 +1,6 @@
 import React from 'react';
 
-class Greetings extends React.Component {
-	render() {
+const Greetings = () =>{
 	return (
 		<div className="h jumbotron">
 				<h1 className="r text-center welcome">Welcome to Sheep.host</h1>
@@ -11,8 +10,8 @@ class Greetings extends React.Component {
 			<h3 className="text-center welcome">Rest easy knowing your app's data is <b>secure</b> with <b>two-tier</b> API key security, yet <b>readily accessible</b> on our live-updating dashboard.</h3>
 			<h3 className="text-center welcome">Read from and write to all of your MongoDB collections with our <b>simple, straightforward</b> SDK.</h3>
 		</div>
-		)
-	}
+	)
 }
+
 
 export default Greetings;
