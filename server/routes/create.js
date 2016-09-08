@@ -9,16 +9,16 @@ var router = express.Router();
 
 // create new database and collection
 router.post('/database',
-	schemaParser.schemaCheck,
-	sharedMethods.checkDevID,
-	devMethods.addDB,
-	devMethods.createDevDB
+  schemaParser.schemaCheck,
+  sharedMethods.checkDevID,
+  devMethods.addDB,
+  devMethods.createDevDB
 );
 
 // create new collection to existing database
 router.post('/:devID/:dbName',
-	sharedMethods.checkDevID,
-	devMethods.addCollection
+  sharedMethods.checkDevID,
+  devMethods.addCollection
 )
 
 module.exports = router;

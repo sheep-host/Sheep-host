@@ -26,6 +26,7 @@ class SignupForm extends React.Component {
 		this.setState({[e.target.name] : e.target.value })
 	}
 
+
 	isValid() {
 		const {errors, isValid } = ValidateSignupInputForm(this.state)
 		let errorArray = []

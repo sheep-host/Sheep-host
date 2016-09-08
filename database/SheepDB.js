@@ -1,8 +1,8 @@
 "use strict";
 
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/sheep');
+mongoose.connect('mongodb://localhost/sheep', {server: {poolSize: 100}});
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

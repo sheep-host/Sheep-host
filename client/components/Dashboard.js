@@ -65,6 +65,7 @@ const Dashboard = React.createClass({
   getData() {
 		let that = this;
 		let _id = jwtDecode(localStorage.sheepToken).devID;
+		console.log('getData _id',_id);
 		axios.get('/getDBs/'+_id).then(function(response) {
 			if(response.data.length> 0){
 				let info = {};
