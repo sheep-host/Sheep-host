@@ -5,12 +5,9 @@ var db = require('../../database/SheepDB');
 
 var router = express.Router()
 
-//VALIDATION / AUTHENTICATION GOES HERE!!!!!!!~~~~~~~~~~~~~~~
-//and password confirmation
-
 router.post('/',
-	sharedMethods.checkPassword,
-	cookieMethods.setCookie
+  sharedMethods.checkPassword,
+  cookieMethods.setCookie
 );
 
 
