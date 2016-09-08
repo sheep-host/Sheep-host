@@ -3,6 +3,7 @@ import LoginForm from './LoginForm';
 import { connect } from 'react-redux';
 import { userLogin } from '../../actions/loginAction';
 import  Dashboard  from '../Dashboard';
+import NavigationBar from '../NavigationBar';
 //is route component for this route
 
 
@@ -10,13 +11,16 @@ class LoginPage extends React.Component {
 	render() {
 	const { userLogin } = this.props
 		return (
-			<div className="row">
-				<div className="col-md-4 col-md-offset-4">
+			<div>
+			<NavigationBar />
+				<div className="row">
+					<div className="col-md-4 col-md-offset-4">
 					<LoginForm 
 						userLogin={userLogin} 
 					/>
+					</div>
 				</div>
-			</div>	
+			</div>
 		)
 	}
 }

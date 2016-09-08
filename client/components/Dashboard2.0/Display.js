@@ -9,11 +9,11 @@ const Display = (props) => {
 	})
 	return (
 		<div className="display jumbotron col-md-10">
-			<ul className="list-group col-md-10">
+			<ul className="list-group col-md-10" style={{marginTop:'100px'}}>
 					{dataArray}	
 			</ul>
 		</div>
-	);
+	)
 }
 
 

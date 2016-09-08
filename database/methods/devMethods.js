@@ -154,7 +154,7 @@ function addDB(req, res, next){
 	db.collections.push(collection);
 	console.log('db before saved', db);
 	db.save(function(err){
-		if (err) throw err;
+		if (err) res.status(409).send(err);
 		console.log('db after saved', db);
 		dev.database.push(db);
 		dev.save(function(err){
@@ -176,9 +176,9 @@ function createDevDB(req, res, next) {
 	devModel({
 		createdBy: req.body.dev.userName
 	}).save(function(err, results){
-		if (err) throw err;
+		if (err) res.status(409).send(err);
 		Models.DB.findOne({_creator: req.body._id, name: req.body.database}, function(err, db){
-			if (err) throw err;
+			if (err) res.status(409).send(err);
 			console.log('db', db);
 			req.body.db = db;
 			res.json(db);
@@ -193,7 +193,7 @@ function addCollection(req, res, next){
 		devSchema: req.body.schema
 	}
 	Models.DB.findOneAndUpdate({name: req.params.dbName}, { $push: { 'collections': collection } }, { new: true }, function(err, db){
-		if (err) throw err;
+		if (err) res.status(409).send(err);
 		console.log(db);
 		req.body.db = db;
 		res.json(db);
