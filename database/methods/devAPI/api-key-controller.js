@@ -18,16 +18,20 @@ function checkJwt(req, res, next){
       var token = req.headers.authorization.split(' ')[1];
       console.log('token', token);
       jwt.verify(token, 'sheep host', function(err, decoded){
-        if(decoded.exp*1000 < Date.now()) res.json({ error: 'Token out of date' });
-        decoded.exp += (60*60*24);
-        res.locals.token = token;
-        res.locals.apikey = {
-          key: req.body.apiKey,
-          permissions: true,
-          master: true
+        if(err){
+          console.log('Token Not Authorized')
+          res.json({ error: 'Not authorized' });
+        } else {
+          if(decoded.exp*1000 < Date.now()) res.json({ error: 'Token out of date' });
+          decoded.exp += (60*60*24);
+          res.locals.token = token;
+          res.locals.apikey = {
+            key: req.body.apiKey,
+            permissions: true,
+            master: true
+          }
+          next();
         }
-        console.log('apikey')
-        next();
       });
     }
     else next();
@@ -114,7 +118,7 @@ function updatePermissions(req, res, next){
     console.log('query', query);
     var client = req.body.permissions;
     Models.Dev.findOneAndUpdate(query, { $set: {"api.clientPermissions": client}}, {new: true}, function(err, dev) {
-      if (err) throw err;
+      if (err) res.status(404).send('Error');
       console.log('permissionsupdated', dev);
       res.json('updated');
     });

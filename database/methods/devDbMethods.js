@@ -22,10 +22,9 @@ function updateDevProfile(req, res, next){
 
   Devs.findOneAndUpdate(query, data, { new: true }, function(err, dev) {
     console.log('findOneAndUpdate dev: ', dev);
-    if (err) throw err;
+    if (err) res.json({error : 'Error'});
     req.body.dev = dev;
     console.log('updated dev profile: ', dev)
-    // res.json(req.body.results); // changed to call next() for cookie updating
     next();
   });
 }
@@ -47,12 +46,12 @@ function createDevDB(req, res, next) {
       devModel({
         createdBy: req.body.userName
     }).save(function (err, results) {
-        if (err) throw err;
+        if (err) res.json({error : 'Error'});
         req.body.results = results;
         next();
       });
     }
-    else (res.json({nah: 'b'}))
+    else (res.json({error: 'db exists'}))
   })
 }
 

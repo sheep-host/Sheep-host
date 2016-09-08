@@ -20,7 +20,7 @@ export default () => {
 	<nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <Link to="/" className="navbar-brand"><span style={{color:'white'}} className="sheep.host">Sheep.host</span></Link>
+            <Link to="/" className="navbar-brand"><span className="sheep.host login-signup-words">Sheep.host</span></Link>
           </div>
 
           <div className="collapse navbar-collapse">

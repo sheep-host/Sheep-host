@@ -6,9 +6,9 @@ const LoginInput = React.createClass({
 		return (
 			<div>
 				<form onSubmit={this.props.onSubmit}>
-					<h1> Login </h1>
+					<h1 className="login-signup-words"> Login </h1>
 					<div className="form-group">
-						<label className="control-label"> Username</label>
+						<label className="control-label login-signup-words"> Username</label>
 						<input
 							onChange={this.props.onChange}
 							type="text"
@@ -18,7 +18,7 @@ const LoginInput = React.createClass({
 						</div>
 
 					<div className="form-group">
-						<label className="control-label">Password</label>
+						<label className="control-label login-signup-words">Password</label>
 						<input
 							onChange={this.props.onChange}
 							type="password"
@@ -28,7 +28,7 @@ const LoginInput = React.createClass({
 						</div>
 
 						<div className="form-group">
-							<button className="btn btn-primary btn-lg">Sign Up
+							<button className="btn btn-secondary btn-lg">Login
 							</button>
 						</div>
 					</form>
