@@ -21,6 +21,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 .panel {
 	background-color: #357A5E;
 }
+.welcome-bottom {
+	color: gray;
+}
 
 .data-key {
 	font-size: 20px;
