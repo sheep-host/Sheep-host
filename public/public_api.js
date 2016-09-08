@@ -5,24 +5,32 @@ var sheep = {
   },
 
   post: function(dbName, colName, data) {
-    axios({
-      method: 'POST',
-      url: user.url + user.id + '/' + dbName + '/' + colName,
-      data: data,
-      headers: {
-        authorization: user.authKey
+    const url = user.url + user.id + '/' + dbName + '/' + colName;
+    const httpReq = new XMLHttpRequest();
+    httpReq.open('POST', url, true);
+    httpReq.setRequestHeader('Content-Type', 'application/json');
+    httpReq.setRequestHeader('Authorization', user.authKey);
+    httpReq.onreadystatechange = function() {
+      if (httpReq.readyState === XMLHttpRequest.DONE) {
+        if (httpReq.status === 200) console.log('POST success!');
+        else console.log('Mucha problema!!');
       }
-    }).then(() => console.log('success'));
+    }
+    httpReq.send(JSON.stringify(data));
   },
 
   get: function(dbName, colName, cb) {
-    axios({
-      method: 'GET',
-      url: user.url + user.id + '/' + dbName + '/' + colName,
-      headers: {
-        authorization: user.authKey
+    const url = user.url + user.id + '/' + dbName + '/' + colName;
+    const httpReq = new XMLHttpRequest();
+    httpReq.open('GET', url, true);
+    httpReq.setRequestHeader('Authorization', user.authKey);
+    httpReq.onreadystatechange = function() {
+      if (httpReq.readyState === XMLHttpRequest.DONE) {
+        if (httpReq.status === 200) cb(null, httpReq.responseText);
+        else cb('Mucha problemas!!', null);
       }
-    }).then(cb);
+    }
+    httpReq.send();
   },
 
   put: function(dbName, colName, query, data) {
@@ -51,16 +59,3 @@ var sheep = {
     }).then(() => console.log('success'));
   }
 }
-
-// *********** script to be pasted on client html ************
-// <script src="https://npmcdn.com/axios/dist/axios.min.js"></script>
-// <script src="https://sheep.host/public_api"></script>
-// <script>
-//     // Initialize Sheep.host
-//     var config = {
-//         id: '',
-//         authorization: '',
-//         url: "https://sheep.host/api/"
-//     }
-//     sheep.dontSleep(config);
-// </script>

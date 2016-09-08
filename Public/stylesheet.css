@@ -1,8 +1,9 @@
 .container {
-	
+
 	background-color: white;
 	font-family: Lucida Sans Unicode, Lucida Grande, Sans-Serif;
 }
+
 body {
 	background-color: #FFFFFF;
 
@@ -64,11 +65,11 @@ background: -webkit-linear-gradient(top,  #1e5799 0%,#207cca 16%,#207cca 16%,#29
 background: linear-gradient(to bottom,  #1e5799 0%,#207cca 16%,#207cca 16%,#2989d8 50%,#3c89c9 72%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
 
-	
+
    color: white;
 /*   text-shadow:
        3px 3px 0 #000,
-     -1px -1px 0 #000,  
+     -1px -1px 0 #000,
       1px -1px 0 #000,
       -1px 1px 0 #000,
        1px 1px 0 #000;*/
@@ -151,54 +152,43 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 	color: black;
 }
 
-.tab-button { 
-  color: #ffffff; 
-  background-color: #611BBD; 
-  border-color: #130269; 
-} 
- 
-.tab-button:hover, 
-.tab-button:focus, 
-.tab-button:active, 
-.tab-button.active, 
-.open .dropdown-toggle.tab-button { 
-  color: #ffffff; 
-  background-color: #49247A; 
-  border-color: #130269; 
-} 
- 
-.tab-button:active, 
-.tab-button.active, 
-.open .dropdown-toggle.tab-button { 
-  background-image: none; 
-} 
- 
-.tab-button.disabled, 
-.tab-button[disabled], 
-fieldset[disabled] .tab-button, 
-.tab-button.disabled:hover, 
-.tab-button[disabled]:hover, 
-fieldset[disabled] .tab-button:hover, 
-.tab-button.disabled:focus, 
-.tab-button[disabled]:focus, 
-fieldset[disabled] .tab-button:focus, 
-.tab-button.disabled:active, 
-.tab-button[disabled]:active, 
-fieldset[disabled] .tab-button:active, 
-.tab-button.disabled.active, 
-.tab-button[disabled].active, 
-fieldset[disabled] .tab-button.active { 
-  background-color: #611BBD; 
-  border-color: #130269; 
-} 
- 
+.tab-button {
+  color: #ffffff;
+  background-color: #611BBD;
+  border-color: #130269;
+}
 
+.tab-button:hover,
+.tab-button:focus,
+.tab-button:active,
+.tab-button.active,
+.open .dropdown-toggle.tab-button {
+  color: #ffffff;
+  background-color: #49247A;
+  border-color: #130269;
+}
 
+.tab-button:active,
+.tab-button.active,
+.open .dropdown-toggle.tab-button {
+  background-image: none;
+}
 
-
-
-
-
-
-
-
+.tab-button.disabled,
+.tab-button[disabled],
+fieldset[disabled] .tab-button,
+.tab-button.disabled:hover,
+.tab-button[disabled]:hover,
+fieldset[disabled] .tab-button:hover,
+.tab-button.disabled:focus,
+.tab-button[disabled]:focus,
+fieldset[disabled] .tab-button:focus,
+.tab-button.disabled:active,
+.tab-button[disabled]:active,
+fieldset[disabled] .tab-button:active,
+.tab-button.disabled.active,
+.tab-button[disabled].active,
+fieldset[disabled] .tab-button.active {
+  background-color: #611BBD;
+  border-color: #130269;
+}
