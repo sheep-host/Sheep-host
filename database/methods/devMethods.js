@@ -123,17 +123,17 @@ function addDev(req, res, next){
 
 // login middleware
 function usernameExist(req, res, next){
-  Models.Dev.findOne({'userName': req.body.userName, 'email': req.body.email}, 'userName', function(err, dev) {
-    console.log('inside usernameExist')
-    console.log('dev username exist',dev);
-    if(dev === null) {
-      console.log('name does not exist');
-      next();
-    } else {
-      console.log('name exists!');
-      res.status(422).send('Username/email exists, please choose another username');
-    }
-  })
+	Models.Dev.findOne({ $or: [ {'userName': req.body.userName}, {'email': req.body.email} ] }, 'userName', function(err, dev) {
+		console.log('inside usernameExist')
+		console.log('dev username exist',dev);
+			if(dev === null) {
+				console.log('name does not exist');
+				next();
+			} else {
+				console.log('name exists!');
+				res.status(422).send('Username/email exists, please choose another username');
+			}
+	})
 }
 
 // create DB button middleware that adds to DB collection
