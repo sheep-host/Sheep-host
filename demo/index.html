@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Sheep Demo</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="main">
+    <div class="container" id="title">
+      User Locations
+    </div>
+    <div class="container" id="post">
+      Name:</br>
+      <input type="text" id="name"></br>
+      Email:</br>
+      <input type="text" id="email"></br>
+      City:</br>
+      <input type="text" id="city"></br>
+      <button id="btn-post">POST</button>
+    </div>
+
+    <div class="container" id="get">
+      <button id="btn-get">GET</button>
+      <div class="display"></div>
+    </div>
+
+    <!-- <div class="container" id="put">
+      Find username:</br>
+      <input type="text" id="findUsername"></br></br>
+      Change favorite food to:</br>
+      <input type="text" id="changeFavFood"></br>
+      <button id="btn-put">PUT</button>
+      <div class="display"></div>
+    </div>
+
+    <div class="container" id="delete">
+      Delete username:</br>
+      <input type="text" id="username"></br></br>
+      <button id="btn-delete">DELETE</button>
+      <div class="display"></div>
+    </div> -->
+  </div>
+
+<!-- I wish I had a database right about now!! ZzzZzZzZ -->
+
+<script src="https://sheep.host/public_api"></script>
+<script>
+  // Initialize Sheep.host
+  var config = {
+    id: '57d090f19a5026bf13ae272c',
+    authKey: 'Basic: OTE1MjI1OTMtODVlMy00YjUwLWJkNjItOWUwYzMwMDdjMzBlOjBiZjdhMDlkLTljMmEtNGUxNS05ZTBkLTEyY2ZlMGE5NDFjYw==',
+    url: "https://sheep.host/api/"
+  }
+  sheep.dontSleep(config);
+</script>
+
+  <script>
+    $(document).ready(function() {
+      const dbName = 'sheep3';
+      const collectionName = 'location';
+
+      $('#btn-post').click(function() {                    // handle POST
+        const name = $('#name').val();
+        const email = $('#email').val();
+        const city = $('#city').val();
+        const data = { name, email, city };
+        $('#name').val('');
+        $('#email').val('');
+        $('#city').val('');
+        sheep.post(dbName, collectionName, data);       // ****** API call to hosted db *******
+      });
+
+      $('#name').keypress(function(e) {
+        if(e.which === 13) {
+          $('#btn-post').click();
+        }
+      });
+
+      $('#email').keypress(function(e) {
+        if(e.which === 13) {
+          $('#btn-post').click();
+        }
+      });
+
+      $('#city').keypress(function(e) {
+        if(e.which === 13) {
+          $('#btn-post').click();
+        }
+      });
+
+      $('#btn-get').on('click', function() {                      // handle GET
+        sheep.get(
+          dbName,
+          collectionName,
+          (error, results) => {   // ***** API call to hosted db *****
+            if (error) console.log(error);
+            else {
+              results = JSON.parse(results);
+              results.forEach((obj) => {
+                const result = $(document.createElement('div')).addClass('display')
+                .html('name:    ' + obj.name + '</br>' + 'email:    ' + obj.email + '</br>' + 'city:    ' + obj.city + '<hr>');
+
+                $('#get').append(result);
+              });
+            }
+          });
+      });
+
+      $().on('click', function() {
+        //code goes here
+      });
+    });
+  </script>
+</body>
+
+</html>
+
+
+<!-- {"username":"String", "favoriteFood":"String"} -->
