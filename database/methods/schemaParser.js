@@ -12,15 +12,15 @@
     try {
       var parsedString = JSON.parse(jsonString);
 
-      // If statement handle JSON.parse cases that doesn't throw errors:
-      // Neither JSON.parse(false) or JSON.parse(1234) throw errors
-      // JSON.parse(null) returns null and typeof null === "object"
+      // If statement handles JSON.parse cases that doesn't cause errors:
+      // Neither JSON.parse(false) nor JSON.parse(1234) cause errors
+      // JSON.parse(null) returns false and typeof JSON.parse(1234) === "object" returns fals to account for that
       if (parsedString && typeof parsedString === "object") {
         return parsedString;
       }
     }
     catch (parsedString) { 
-      //throw new Error('Not valid parsed JSON');
+      console.log(parsedString);
     }
       return false;
   };
@@ -58,11 +58,13 @@
 // checks if schema is valid
 //add middleware to /database post route in create.js file
 function schemaCheck(req, res, next){
+  console.log('schemaCheck req', req.body)
   var schema = req.body.schema;
   var schemaDoubleQuote = singleToDoubleQuote(schema);
   if(validatedParsedJSON(schemaDoubleQuote)){
-  	req.body.schema = schemaDoubleQuote;
-  	next();
+    req.body.schema = schemaDoubleQuote;
+  	console.log('validatedSchema')
+    next();
   } else {
   	res.json({error : 'Incorrect schema format'})
   }

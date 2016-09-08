@@ -4,11 +4,11 @@ var router = express.Router();
 var devMethods = require('../../database/methods/devMethods');
 
 router.get('/:devID',
-	devMethods.getAllDatabases
+  devMethods.getAllDatabases
 )
 
 router.get('/:devID/:dbID',
-	devMethods.getAllCollections
+  devMethods.getAllCollections
 )
 
 

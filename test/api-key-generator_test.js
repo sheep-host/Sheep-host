@@ -266,13 +266,14 @@ describe('API DB Tests', function() {
 });
 
 //Hardcoded API key info for future testing
-// var apiKeyHC = '95d3af06-19ed-4564-91a9-bd6330b4519f'
-// var apiSecretHC = '391f6b21-e12f-4697-81ad-5f9fa0ef9bb1'
+// var apiKeyHC = '90f35633-7e99-4c30-a2d4-011a911305e6'
+// var apiSecretHC = 'a19458e8-1ebc-4979-9f97-06e5e99dab19'
 // var apiKey = apiKeyHC
 // var secretKey = apiSecretHC
 // var combinedKey = apiKey+':'+secretKey;
 // var encodedData = new Buffer(combinedKey).toString('base64');
 // var authorizationHeader = 'Basic: ' + encodedData;
+// var authHeaderHC = 'Basic: OTBmMzU2MzMtN2U5OS00YzMwLWEyZDQtMDExYTkxMTMwNWU2OmExOTQ1OGU4LTFlYmMtNDk3OS05Zjk3LTA2ZTVlOTlkYWIxOQ=='
 // var authorizationSplit = authorizationHeader.split(' ')[1];
 // var decoded = new Buffer(authorizationSplit, 'base64').toString('utf8');
 // var decodedApiKey = decoded.split(':')[0]
