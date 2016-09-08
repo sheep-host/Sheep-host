@@ -124,7 +124,7 @@ function addDev(req, res, next){
 
 // login middleware
 function usernameExist(req, res, next){
-	Models.Dev.findOne({'userName': req.body.userName, 'email': req.body.email}, 'userName', function(err, dev) {
+	Models.Dev.findOne({ $or: [ {'userName': req.body.userName}, {'email': req.body.email} ] }, 'userName', function(err, dev) {
 		console.log('inside usernameExist')
 		console.log('dev username exist',dev);
 			if(dev === null) {
