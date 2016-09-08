@@ -13,7 +13,7 @@ const LoginInput = (props) =>{
 						name="userName"
 						className="form-control"	
 					/>
-			</div>
+					</div>
 
 				<div className="form-group">
 					<label className="control-label login-signup-words">Password</label>
@@ -23,13 +23,13 @@ const LoginInput = (props) =>{
 						name="password"
 						className="form-control"
 					/>
-				</div>
+					</div>
 
-				<div className="form-group">
+					<div className="form-group">
 						<button className="btn btn-secondary btn-lg">Login
 						</button>
-				</div>
-			</form>
+					</div>
+				</form>
 		</div>
 	)
 }

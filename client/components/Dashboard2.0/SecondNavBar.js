@@ -9,9 +9,8 @@ const SecondNavBar = React.createClass({
 	},
 
 	toggleColorAndDisplay(e) {
-		console.log('eeeee', e.target)
-		e.target.style=this.state.color
 		this.props.click(e)
+		console.log('eeeee', e.target)
 		
 },
 
