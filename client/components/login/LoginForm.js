@@ -71,7 +71,7 @@ class LoginForm extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="login-input-outer">
 				<LoginInput onSubmit={this.onSubmit}
 									  onChange={this.onChange} 
 									  userName={this.state.userName}

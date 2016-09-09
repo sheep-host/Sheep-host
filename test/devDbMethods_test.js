@@ -39,7 +39,7 @@ describe('devDB middleware functions testing', function() {
       mongoose.connection.db.dropDatabase();
     });
 
-    it('update function should update correct user\'s database information', (done) => {
+    xit('update function should update correct user\'s database information', (done) => {
       const Devs = mdl; // set to match the variable used within update to hold the model
       methods.updateDevProfile( // call function with expected data
         {
@@ -89,7 +89,7 @@ describe('devDB middleware functions testing', function() {
       );
     });
 
-    it('create function should create a database with the correct name', (done) => {
+    xit('create function should create a database with the correct name', (done) => {
       const con = mongoose.connection;
       const devDB = con.useDb('1234_fluffy');
       const devModel = devDB.model('label', new mongoose.Schema({
