@@ -30,16 +30,16 @@ class Greetings extends React.Component {
 
 								<button className="landing-button text-center">Signup Now</button>
 					
-				<div className="landing-page-left-snippet lead">
+				<div className="landing-page-left-snippet lead text-center">
 
-					<h1 className="landing-page-left-snippet-header">Build fast</h1>
-						Do some other stuff <br></br>
-						Then do some other really <br></br>
-						cool stuff And even more <br></br>
+					<h1 className="landing-page-left-snippet-header text-center">Build fast</h1>
+						Do some other stuff 
+						Then do some other really 
+						cool stuff And even more 
 						really cool stuff 			
-						if youre up for it <br></br>
+						if youre up <br></br>for it 
 						Maybe if you be feeling funky, 
-						try <br></br>more
+						try more
 						and more really really cool stuff dude
 
 					</div>						

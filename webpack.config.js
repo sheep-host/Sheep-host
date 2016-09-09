@@ -22,11 +22,11 @@ if (env.NODE_ENV === 'development') {
     ],
     module: {
       loaders: [
-          {
-            test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-            loader: 'url-loader?limit=20000',
-            inclue:'/Public/graph-databases.png','Public/HowSheepWorks.png', 'Public/BuildFlow.png','Public/RapidPrototyping.png'
-            },
+        {
+          test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+          loader: 'url-loader?limit=20000',
+          include:[path.join(__dirname, 'Public')]
+        },
         {
           test: /\.js$/,
           include: [
@@ -35,7 +35,7 @@ if (env.NODE_ENV === 'development') {
           ],
           loaders: [ 'react-hot', 'babel' ]
         },
-         {
+        {
           test: /\.css$/,
           inclue: [path.join(__dirname, 'Public')],
           loaders: ['style', 'css']

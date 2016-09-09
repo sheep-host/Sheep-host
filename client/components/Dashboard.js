@@ -48,6 +48,7 @@ const Dashboard = React.createClass({
 	},
 
 	componentWillMount(){
+		document.body.style.background = "white";
 		localStorage.sheepToken = cookie.load('token');
 		let token = jwtDecode(localStorage.sheepToken);
 		let authKey = token.authKey;
@@ -59,6 +60,7 @@ const Dashboard = React.createClass({
 	},
 
 	componentDidMount() {
+		document.body.style.background = "white";
 		this.getData();
 	},
 

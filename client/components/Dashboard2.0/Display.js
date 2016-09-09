@@ -8,8 +8,8 @@ const Display = (props) => {
 		dataArray.push(<DataItem className="list-item" key={i} info={el} />)
 	})
 	return (
-		<div className="display jumbotron col-md-10">
-			<ul className="list-group col-md-10" style={{marginTop:'100px'}}>
+		<div className="display jumbotron">
+			<ul className="list-group" style={{marginTop:'100px'}}>
 					{dataArray}	
 			</ul>
 		</div>
