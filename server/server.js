@@ -34,10 +34,6 @@ app.use('/api', function(req, res, next) {
 });
 
 if (env.NODE_ENV === 'production') {
-  // app.listen(port, function() {
-  //  console.log('listening on port: ', port);
-  // });
-
   var fs = require('fs');
   var https = require('https');
   var certificate = fs.readFileSync(dirname + 'certs/sheep_host.crt');
@@ -63,7 +59,7 @@ if (env.NODE_ENV === 'production') {
 }
 
 if (env.NODE_ENV === 'backend') {
-  app.listen(port, function() {
+  var server = app.listen(port, function() {
    console.log('listening on port 3000');
   });
 }
@@ -90,24 +86,11 @@ if (env.NODE_ENV === 'development') {
   app.use(webpackHotMiddleware(compiler));
 }
 
-//node-restful consider post-MVP
-// app.use(morgan('dev'));
-// app.use(methodOverride());
-
-//node-restful consider post-MVP
-// var methodOverride = 'method-override';
-// var morgan = 'morgan';
-// var restful ='node-restful';
-
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// app.use('/dashboard',expressJwt({secret: 'sheep host'}).unless({ path: ['/','/signup','/login']}));
 
 app.use(cookieParser());
 
 app.use(bodyParser.json());
-
-// app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
 //api for creating account
 app.use('/signup', signup);
@@ -123,10 +106,6 @@ app.use('/permission', permission);
 
 app.use('/api', api);
 
-// app.get('/public_api', (req, res) => {
-//   res.sendFile('/public/public_api.js');
-// });
-
 app.get('/', (req, res) => {
 	res.sendFile(dirname + 'public/index.html');
 });
@@ -136,8 +115,4 @@ app.get('*', (req, res) => {
 	res.sendFile(dirname + 'public/index.html');
 });
 
-// xoauth2
-// clientID: 192992451771-ehl3dhf01t1g6bo7rrpd6207t1041ive.apps.googleusercontent.com
-// clientSecret: wSFF_2RiQIsOHKuGimMMr52L
-// refreshToken: 1/sAly6SN151A12pXQu5ta8iC1Oh8jo19YTSuHF-Zdxm8
-
+module.exports = server;
