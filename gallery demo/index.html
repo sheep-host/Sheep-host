@@ -9,12 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Thumbnail Gallery - Start Bootstrap Template</title>
+    <title>My Gallery</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
+    <!-- <link rel="stylesheet" type="text/css" href="./css/style.css"> -->
     <link href="css/thumbnail-gallery.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,16 +40,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="#">My Photo Gallery</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="#">Galleries</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="#">About</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>
@@ -66,8 +67,14 @@
         <div class="row">
 
             <div class="col-lg-12">
-                <h1 class="page-header">Thumbnail Gallery</h1>
+                <h1 class="page-header">Landscape Gallery</h1>
             </div>
+
+            <div class="col-lg-12 buttons" id="get">
+              <button id="btn btn-post">Save Image</button>
+              <button id="btn btn-get">Load Images</button>
+<!--               <div class="display"></div>
+ -->            </div>
 
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="#">
@@ -137,7 +144,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Powered by &copy; Sheep.host 2016</p>
                 </div>
             </div>
         </footer>
@@ -150,6 +157,76 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    <!-- I wish I had a database right about now!! ZzzZzZzZ -->
+
+    <script src="https://sheep.host/public_api"></script>
+    <script>
+      // Initialize Sheep.host
+      var config = {
+        id: '57d090f19a5026bf13ae272c',
+        authKey: 'Basic: OTE1MjI1OTMtODVlMy00YjUwLWJkNjItOWUwYzMwMDdjMzBlOjBiZjdhMDlkLTljMmEtNGUxNS05ZTBkLTEyY2ZlMGE5NDFjYw==',
+        url: "https://sheep.host/api/"
+      }
+      sheep.dontSleep(config);
+    </script>
+    <script>
+    $(document).ready(function() {
+      const dbName = 'sheep3';
+      const collectionName = 'location';
+
+      // $('#btn-post').click(function() {                    // handle POST
+      //   const name = $('#name').val();
+      //   const email = $('#email').val();
+      //   const city = $('#city').val();
+      //   const data = { name, email, city };
+      //   $('#name').val('');
+      //   $('#email').val('');
+      //   $('#city').val('');
+      //   sheep.post(dbName, collectionName, data);       // ****** API call to hosted db *******
+      // });
+
+      // $('#name').keypress(function(e) {
+      //   if(e.which === 13) {
+      //     $('#btn-post').click();
+      //   }
+      // });
+
+      // $('#email').keypress(function(e) {
+      //   if(e.which === 13) {
+      //     $('#btn-post').click();
+      //   }
+      // });
+
+      // $('#city').keypress(function(e) {
+      //   if(e.which === 13) {
+      //     $('#btn-post').click();
+      //   }
+      // });
+
+      $('#btn-get').on('click', function() {                      // handle GET
+        sheep.get(
+          dbName,
+          collectionName,
+          (error, results) => {   // ***** API call to hosted db *****
+            if (error) console.log(error);
+            else {
+              results = JSON.parse(results);
+              results.forEach((obj) => {
+                const result = $(document.createElement('div')).addClass('display')
+                .html('name:    ' + obj.name + '</br>' + 'email:    ' + obj.email + '</br>' + 'city:    ' + obj.city + '<hr>');
+
+                $('#get').append(result);
+              });
+            }
+          });
+      });
+
+      $().on('click', function() {
+        //code goes here
+      });
+    });
+  </script>
+
 
 </body>
 
