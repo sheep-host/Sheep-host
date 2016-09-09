@@ -44,23 +44,23 @@ function sendVerification(req, res, next) {
 // returns all databases names/_id (NO ACTUAL DATA) for a dev
 function getAllDatabases(req, res, next){
   var data = [];
-	
+  
   return Models.DB.find({_creator: req.params.devID}).execAsync()
   .then(function(results){
     console.log('results getAllDatabases', results);
     return Promise.each(results, function(database){
       console.log('before nested promise',database._creator, database.name);
       var devDB = sheepDB.useDb(database._creator + '_' + database.name);
-      return Promise.each(database.collections, function(collection){	
+      return Promise.each(database.collections, function(collection){ 
         console.log('nested promise',collection.name, collection.devSchema);
         var devModel = devDB.model(collection.name, new mongoose.Schema(JSON.parse(collection.devSchema)));
         return devModel.find({}).execAsync()
         .then(function(result){
-		  console.log('result', result);
-		  result.push({
-		    'database': database.name,
-			'collection': collection.name
-		  });
+      console.log('result', result);
+      result.push({
+        'database': database.name,
+      'collection': collection.name
+      });
           data.push(result);
         });
       }).then(function(){});
@@ -114,7 +114,7 @@ function addDev(req, res, next){
       devID: result._id,
       email: result.email,
       permissions: dev.api.clientPermissions
-	}, 'sheep host', { expiresIn: 120000});
+  }, 'sheep host', { expiresIn: 120000});
     console.log('server side token', sheepToken);
     req.body.token = sheepToken;
     next();
@@ -123,17 +123,17 @@ function addDev(req, res, next){
 
 // login middleware
 function usernameExist(req, res, next){
-	Models.Dev.findOne({ $or: [ {'userName': req.body.userName}, {'email': req.body.email} ] }, 'userName', function(err, dev) {
-		console.log('inside usernameExist')
-		console.log('dev username exist',dev);
-			if(dev === null) {
-				console.log('name does not exist');
-				next();
-			} else {
-				console.log('name exists!');
-				res.status(422).send('Username/email exists, please choose another username');
-			}
-	})
+  Models.Dev.findOne({ $or: [ {'userName': req.body.userName}, {'email': req.body.email} ] }, 'userName', function(err, dev) {
+    console.log('inside usernameExist')
+    console.log('dev username exist',dev);
+      if(dev === null) {
+        console.log('name does not exist');
+        next();
+      } else {
+        console.log('name exists!');
+        res.status(422).send('Username/email exists, please choose another username');
+      }
+  })
 }
 
 // create DB button middleware that adds to DB collection

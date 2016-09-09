@@ -1,5 +1,5 @@
 require('babel-register')();
-require
+
 var jsdom = require('jsdom').jsdom;
 
 var exposedProperties = ['window', 'navigator', 'document'];

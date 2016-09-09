@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>My Gallery</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link href="css/thumbnail-gallery.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">My Photo Gallery</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">Galleries</a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-12">
+              <h1 class="page-header">Landscape Gallery</h1>
+          </div>
+
+          <div class="col-lg-12 buttons">
+            <button class="btn" id="btn-post">Save Image</button>
+            <button class="btn" id="btn-get">Load Images</button>
+          </div>
+          <div id="get">
+            
+        </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Powered by &copy; Sheep.host 2016</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- I wish I had a database right about now!! ZzzZzZzZ -->
+
+    <script src="https://sheep.host/public_api"></script>
+    <script>
+      // Initialize Sheep.host
+      var config = {
+        id: '57d22e166b436ee425817396',
+        authKey: 'Basic: ZDQwNTljYTMtM2Y3My00ZmZiLWJjOTktNWI4NDMyNjJlMjI0OmRmMTEyZDJhLTNlMmMtNDRlZi1iOGRmLWU1YzcwMzQyMWQ1Nw==',
+        url: "https://sheep.host/api/"
+      }
+      sheep.dontSleep(config);
+    </script>
+    <script>
+    $(document).ready(function() {
+      const dbName = 'gallery';
+      const colName = 'landscape1';
+
+      $('#btn-post').on('click', function(){
+        console.log('post clicked');
+        function populateNewDB() {
+          const images = [
+          'http://www.hdwallpaperspulse.com/wp-content/uploads/2015/09/15/plams-in-sunset-beach-image.jpg',
+          'https://c2.staticflickr.com/6/5259/5416139450_43a65838cc.jpg',
+          'http://www.a-w-i-p.com/media/blogs/articles/IRAN_landscape_with_house.JPG',
+          'http://2.bp.blogspot.com/_GC5fcQ8yBQk/S4NB-iCC0hI/AAAAAAAABIA/vTmH7_o37MA/s400/snow-landscape-wallpaper.jpg',
+          'https://d13yacurqjgara.cloudfront.net/users/13449/screenshots/2383362/landscape3_small_1x.jpg',
+          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjmY6aSz040-5V_RJQV9ImTDwd8Pqv5tMLoOxXKdqwrevZ4bVbpA',
+          'http://wallpapers-catalogue.com/tuscan-landscape-at-sunrise-italy-wallpapers.400x300.jpg',        
+           'http://static1.visitfinland.com/wp-content/uploads/Header_sunset_Tampere-400x300.jpg',
+           'http://www.interestingemails.com/wp-content/uploads/2011/12/beautiful-scenery-pictures-400x300.jpg',
+           'http://3.bp.blogspot.com/-5iqaRuw2nps/TouHNAXdXoI/AAAAAAAAAe4/FIgPo0yJEcU/s1600/nature+scenery+wallpaper-2.jpg',
+           'http://www.interestingemails.com/wp-content/uploads/2011/12/beautiful-desert-scenery-400x300.jpg',
+           'https://s-media-cache-ak0.pinimg.com/564x/c1/5e/1e/c15e1e1e5bba2733e555a27eecd28ef3.jpg',
+           'http://static3.businessinsider.com/image/4c1249fe7f8b9aa91fed0100-1190-625/photos-zhangjiajie--the-place-that-inspired-the-beautiful-scenery-in-avatar.jpg',
+           'http://simplegoodandtasty.com/sites/default/files/images/hunting_nature.preview.jpg',
+           'http://www.100steps.info/images/Boardman-SSC-Lone-Ranch-Beach-table-overlooking-beach-400x300.jpg',
+           'https://c2.staticflickr.com/4/3200/3027179851_298dc82f08.jpg',
+           'http://static4.businessinsider.com/image/4dc00aef49e2aec42a1e0000-1190-625/beautiful-abbottabad-actually-bin-laden-was-living-in-a-scenic-tourist-town.jpg',
+           'http://kirstygreenwood.typepad.com/.a/6a010536b33b69970b01a73de9e507970d-pi',
+           'http://2.bp.blogspot.com/_bRxsZ6mMWDw/SMoOrdxcPvI/AAAAAAAAAlw/itjhUD0OdgE/s400/sight+2.jpg',
+           'http://www.americanwhitewater.org/resources/images/contents/32119-2.jpg',
+           'http://1.bp.blogspot.com/_XGnQrL8fEK4/TGvGWdiCmhI/AAAAAAAAAF8/o1WU9epjjac/s400/beautiful-beach-nature-scenery.jpg',
+           'http://questtours.in/wp-content/uploads/2016/02/Scenic_Sri_Lanka1-400x300.jpg',
+           'http://niackery.com/wp-content/uploads/2014/10/yokjido-scenery-dsc00015-400x300.jpg',
+           'http://3.bp.blogspot.com/_UeKpPmoedmk/TAJX7zrHn0I/AAAAAAAAAVU/xG986WhXm4E/s400/Camas+Prairie+Landscape+Idaho+long+goodbye.png'
+          ];
+
+          const captions = [
+            'Palm tree',
+            'Lighthouse',
+            'Castle',
+            'Snow white',
+            'Camel in the desert',
+            'Mountain cabin',
+            'Dirt road',
+            'Amber sunset',
+            'Mountain backdrop',
+            'Mountain reflection',
+            'Long road',
+            'Green nature',
+            'High clif',
+            'Desert sunset',
+            'Misty beach',
+            'Snowy mountain',
+            'Nature cabin',
+            'Ocean side',
+            'Waterfall',
+            'Raging rapids',
+            'Purple sunset',
+            'Flower garden',
+            'Island',
+            'Reflective pond'
+          ];
+
+          for (let i = 0; i < images.length; i++) {
+            sheep.post(dbName, colName, { caption: captions[i], image: images[i] });
+          }
+        }
+        populateNewDB();
+      });
+
+      $('#btn-get').on('click', function() {                      // handle GET
+        sheep.get(
+          dbName,
+          colName,
+          (error, results) => {   // ***** API call to hosted db *****
+            if (error) console.log(error);
+            else {
+              results = JSON.parse(results);
+              results.forEach((obj) => {
+                const result = $(document.createElement('div')).addClass('col-lg-3 col-md-4 col-xs-6 thumb')
+                .html('<a class="thumbnail" href="#"><img class="img-responsive" src="'+obj.image+'" alt=""></a><p class="caption">'+obj.caption+'</p>');
+                $('#get').append(result);
+              });
+            }
+          });
+      });
+    });
+  </script>
+
+
+</body>
+
+</html>
