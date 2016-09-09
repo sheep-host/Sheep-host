@@ -1,14 +1,10 @@
 import React from 'react';
 
 
-const ClientInput = React.createClass({
-
-	
-
-	render() {
+const ClientInput = (props) => {
 		return (
-		<div className="jumbotron well well-lg">
-		<form>
+		<div className="jumbotron col-md-8">
+			<form>
 				<div className="form-group">
 					
 					<div className="input-group input-group-md">
@@ -17,7 +13,7 @@ const ClientInput = React.createClass({
 							<small id="databaseHelp" className="form-text text-muted">If you would like to create a new database, enter a new database name. Otherwise, enter the name of an existing database you would like to add a collection to</small>
 								<input 
 									className="form-control"
-									onChange={this.props.onChange}
+									onChange={props.onChange}
 									placeholder="Database Name"
 									type="text"
 									name="dbName">
@@ -31,7 +27,7 @@ const ClientInput = React.createClass({
 					<small id="collectionHelp" className="form-text text-muted">Enter name of collection you are creating</small>
 						<input 
 							className="form-control"
-							onChange={this.props.onChange}
+							onChange={props.onChange}
 							placeholder="Collection Name"
 							type="text"
 							name="collectionName">
@@ -45,7 +41,7 @@ const ClientInput = React.createClass({
 						<textarea 
 							rows="5"
 							className="form-control form-control-md"
-							onChange={this.props.onChange}
+							onChange={props.onChange}
 							placeholder="Schema"
 							type="text"
 							name="schema">
@@ -54,7 +50,7 @@ const ClientInput = React.createClass({
 				<div>
 					<button
 						className="btn btn-primary btn-lg"
-						onClick={this.props.onCreateClick}>
+						onClick={props.onCreateClick}>
 							ADD
 					</button>
 				</div>
@@ -62,9 +58,7 @@ const ClientInput = React.createClass({
 		</form>
 	</div>
 	)
-
-	}
-})
+}
 
 
 export default ClientInput;

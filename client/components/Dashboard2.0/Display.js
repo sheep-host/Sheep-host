@@ -1,24 +1,20 @@
 import React from 'react';
 import DataItem from '../DataItem'
 
-const Display = React.createClass({
+const Display = (props) => {
+	var dataArray = []
+	console.log('Display component render')
+	props.display.forEach((el, i) => {
+		dataArray.push(<DataItem className="list-item" key={i} info={el} />)
+	})
+	return (
+		<div className="display jumbotron col-md-10">
+			<ul className="list-group col-md-10" style={{marginTop:'100px'}}>
+					{dataArray}	
+			</ul>
+		</div>
+	)
+}
 
-	render() {
-		var dataArray = []
-		console.log('Display component render')
-		this.props.display.forEach((el, i) => {
-			dataArray.push(<DataItem className="list-item" key={i} info={el} />)
-		})
-		console.log('length', dataArray.length )
-		return (
-			<div className="display jumbotron">
-				<ul className="list-group" style={{marginTop:'100px'}}>
-
-							{dataArray}	
-				</ul>
-			</div>
-		);
-	}
-})
 
 export default Display;

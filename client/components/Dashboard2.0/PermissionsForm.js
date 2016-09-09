@@ -1,51 +1,48 @@
 import React from 'react';
 
-const Permissions = React.createClass({
-	render(){
-		let that = this;
-		console.log('permission props', that.props.permissions);
+//this refactoring needs to be tested before merged!!!!!!!!!
+//!!!!!!
+const Permissions = (props) => {
 		let radioArray = [];
-		for(let permission in that.props.permissions){
+		for(let permission in props.permissions){
 			let permissionObj = {};
-			permissionObj[permission] = that.props.permissions[permission];
+			permissionObj[permission] = props.permissions[permission];
 			radioArray.push(permissionObj);
 		}
-		console.log('radioArray', radioArray);
 		return(
 			<div>
-			<h2>Set Client Permissions</h2>
-			<div className="jumbotron">
-				{radioArray.map(function(permission){
-					return(
-						<div>{Object.keys(permission)[0]}
-							<br></br>
-							<input
-								type="radio"
-								value={Object.keys(permission)[0]}
-								onChange={that.props.onClick}
-								checked={true === permission[Object.keys(permission)[0]]}
-							/> True     
-							<input
-								style={{marginBottom:'20px', marginLeft:'10px'}}
-								type="radio"
-								value={Object.keys(permission)[0]} 
-								onChange={that.props.onClick}
-								checked={false === permission[Object.keys(permission)[0]]}
-							/> False 
-							<br></br>
-						</div>
-					)
-				})
+				<h2>Set Client Permissions</h2>
+					<div className="jumbotron">
+						{radioArray.map(function(permission, i){
+						return(
+							<div>{Object.keys(permission)[0]} 
+								<input
+									key={2*i-1}
+									type="radio"
+									value={Object.keys(permission)[0]}
+									onChange={props.onClick}
+									checked={true === permission[Object.keys(permission)[0]]}
+								/> True     
+								<input
+								  key={2*i}
+									type="radio"
+									value={Object.keys(permission)[0]} 
+									onChange={props.onClick}
+									checked={false === permission[Object.keys(permission)[0]]}
+								/> False 
+							</div>
+						)
+					})
 			}
 			<br></br>
 			<button
 				className="btn btn-primary btn-lg"
-				onClick={this.props.savePermissions}
+				onClick={props.savePermissions}
 			>Save</button>
 			</div>
-			</div>
+		</div>
 		)
 	}
-})
+
 
 export default Permissions

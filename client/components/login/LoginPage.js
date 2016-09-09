@@ -9,26 +9,19 @@ import NavigationBar from '../NavigationBar';
 
 class LoginPage extends React.Component {
 	render() {
-
-		
-		const { userLogin } = this.props
+	const { userLogin } = this.props
 		return (
 			<div>
 			<NavigationBar />
-			<div className="row">
-				<div className="col-md-4 col-md-offset-4">
-
+				<div className="row">
+					<div className="col-md-4 col-md-offset-4">
 					<LoginForm 
 						userLogin={userLogin} 
 					/>
+					</div>
 				</div>
-
 			</div>
-			</div>
-
-
-				
-			)
+		)
 	}
 }
 
