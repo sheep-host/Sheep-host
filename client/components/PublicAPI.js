@@ -1,4 +1,5 @@
 import React from 'react';
+import Clipboard from'react-clipboard.js';
 
 const PublicAPI = (props) => {
 	return (
@@ -10,7 +11,7 @@ const PublicAPI = (props) => {
         <h4>Copy the following script tag into your html file to use SDK methods:</h4>
 				<ul className="list-group">
           <pre>
-            <code>
+            <code id="code">
               &lt;script src="https://npmcdn.com/axios/dist/axios.min.js"&gt;&lt;/script&gt;{'\n'}
               &lt;script src="https://sheep.host/public_api"&gt;&lt;/script&gt;{'\n'}
               &lt;script&gt;{'\n'}
@@ -25,6 +26,9 @@ const PublicAPI = (props) => {
             </code>
           </pre>
 				</ul>
+        <Clipboard component="button" className="btn btn-primary btn-lg" button-href="#" data-clipboard-target="#code">
+        Copy script tag
+      </Clipboard>
 			</div>
     </div>
 	);
