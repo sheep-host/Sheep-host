@@ -11,28 +11,23 @@ body {
 .login-signup-words {
 	color: white;
 }
-.navbar {
-	  background-color: hsl(206, 59%, 37%) !important;
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5099d2", endColorstr="#266596");
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#5099d2), to(#266596));
-  background-image: -moz-linear-gradient(top, #5099d2, #266596);
-  background-image: -ms-linear-gradient(top, #5099d2, #266596);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5099d2), color-stop(100%, #266596));
-  background-image: -webkit-linear-gradient(top, #5099d2, #266596);
-  background-image: -o-linear-gradient(top, #5099d2, #266596);
-  background-image: linear-gradient(#5099d2, #266596);
-  border-color: #266596 #266596 hsl(206, 59%, 32%);
-  color: #fff !important;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
-  -webkit-font-smoothing: antialiased;
+.navbar { 
+background: #1e5799; /* Old browsers */
+background: -moz-linear-gradient(top,  #1e5799 0%, #207cca 16%, #207cca 16%, #2989d8 50%, #3c89c9 72%, #7db9e8 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #1e5799 0%,#207cca 16%,#207cca 16%,#2989d8 50%,#3c89c9 72%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #1e5799 0%,#207cca 16%,#207cca 16%,#2989d8 50%,#3c89c9 72%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+
 }
 .panel {
 	background-color: #357A5E;
 }
+.welcome-bottom {
+	color: #9F0705;
+}
 
 .data-key {
-
+	font-size: 20px;
 	color: gray;
 }
 
@@ -59,14 +54,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 
 .h {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,207cca+16,207cca+16,2989d8+50,3c89c9+72,7db9e8+100 */
-background: #1e5799; /* Old browsers */
-background: -moz-linear-gradient(top,  #1e5799 0%, #207cca 16%, #207cca 16%, #2989d8 50%, #3c89c9 72%, #7db9e8 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top,  #1e5799 0%,#207cca 16%,#207cca 16%,#2989d8 50%,#3c89c9 72%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom,  #1e5799 0%,#207cca 16%,#207cca 16%,#2989d8 50%,#3c89c9 72%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
-
-
-   color: white;
+background: url('https://s3.amazonaws.com/dev.assets.neo4j.com/wp-content/uploads/graph-data-technologies-graph-databases-for-beginners.png');
+color: black;
+opacity: .6;
+	
+  
 /*   text-shadow:
        3px 3px 0 #000,
      -1px -1px 0 #000,
@@ -87,9 +79,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 	font-weight: bold;
 }
 
-.text-center .welcome {
-	color: white;
+.text-center {
 	font-size: 30px;
+	font-style: serif;
+	opacity: 1.0;
 }
 
 .tab{
@@ -119,22 +112,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 
 
 .btn-default {
-	font-size:20px;
-	font-weight: 900;
-  background-color: hsl(206, 59%, 37%) !important;
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5099d2", endColorstr="#266596");
-  background-image: -khtml-gradient(linear, left top, left bottom, from(#5099d2), to(#266596));
-  background-image: -moz-linear-gradient(top, #5099d2, #266596);
-  background-image: -ms-linear-gradient(top, #5099d2, #266596);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #5099d2), color-stop(100%, #266596));
-  background-image: -webkit-linear-gradient(top, #5099d2, #266596);
-  background-image: -o-linear-gradient(top, #5099d2, #266596);
-  background-image: linear-gradient(#5099d2, #266596);
-  border-color: #266596 #266596 hsl(206, 59%, 32%);
-  color: #fff !important;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.33);
-  -webkit-font-smoothing: antialiased;
+font-size:20px;
+font-weight: 900;
+color: #F2F2F2;
+background: #1e5799; /* Old browsers */
+background: -moz-linear-gradient(top,  #1e5799 0%, #207cca 16%, #207cca 16%, #2989d8 50%, #3c89c9 72%, #7db9e8 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #1e5799 0%,#207cca 16%,#207cca 16%,#2989d8 50%,#3c89c9 72%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #1e5799 0%,#207cca 16%,#207cca 16%,#2989d8 50%,#3c89c9 72%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
 }
 
 .tabs {

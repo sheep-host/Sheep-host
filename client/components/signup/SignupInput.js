@@ -1,17 +1,15 @@
 import React from 'react';
 
-const SignupInput = React.createClass({
-
-	render() {
-		return (
+const SignupInput =(props) =>{
+	return (
 		<div>
-			<form onSubmit={this.props.onSubmit}>
+			<form onSubmit={props.onSubmit}>
 				<h1 className="login-signup-words"> Create Account </h1>
 
 				  <div className="form-group">
 					<label className="control-label login-signup-words"> Username</label>
 					<input
-						onChange={this.props.onChange}
+						onChange={props.onChange}
 						type="text"
 						name="userName"
 						className="form-control"
@@ -21,7 +19,7 @@ const SignupInput = React.createClass({
           <div className="form-group">
 					<label className="control-label login-signup-words"> E-mail</label>
 					<input
-						onChange={this.props.onChange}
+						onChange={props.onChange}
 						type="text"
 						name="email"
 						className="form-control"
@@ -31,7 +29,7 @@ const SignupInput = React.createClass({
 				  <div className="form-group">
 					<label className="control-label login-signup-words">Password</label>
 					<input
-						onChange={this.props.onChange}
+						onChange={props.onChange}
 						type="password"
 						name="password"
 						className="form-control"
@@ -46,8 +44,8 @@ const SignupInput = React.createClass({
 			</form>
 		</div>
 		)
-}
-})
+	}
+
 
 export default SignupInput;
 

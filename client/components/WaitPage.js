@@ -1,15 +1,13 @@
 import React from 'react';
 
-const WaitPage = React.createClass({
+const WaitPage = () =>{
+  return(
+    <div>
+      <h2>Waiting</h2>
+    </div>
+  )
+}
 
-  render(){
-    return(
-      <div>
-        <h2>Waiting</h2>
-      </div>
-    )
-  }
-})
 
 export default WaitPage
 
