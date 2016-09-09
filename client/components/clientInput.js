@@ -3,7 +3,7 @@ import React from 'react';
 
 const ClientInput = (props) => {
 		return (
-		<div className="jumbotron col-md-8">
+		<div className="well well-lg">
 			<form>
 				<div className="form-group">
 					
