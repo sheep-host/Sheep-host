@@ -16,18 +16,6 @@ const store = createStore(
 
 
 
-store.subscribe(() => {
-	console.log('hey store changed', store.getState());
-})
-
-// actions - storePost, populateDB
-// const postReducer = function(state, action) {
-// 	if(action.type === 'PUT_REQUEST') {
-// 		return state + action.update
-// 	}
-// }
-
-// store.dispatch({type: 'PUT_REQUEST', update:'whatever user wants to update'})
 
 
 

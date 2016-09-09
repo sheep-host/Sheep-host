@@ -25,6 +25,7 @@
     "jwt-decode": "^2.1.0",
     "lodash": "^4.13.1",
     "material-ui": "^0.15.4",
+    "mocha": "^2.5.3",
     "mongodb": "^2.2.4",
     "mongoose": "^4.5.7",
     "node-uuid": "^1.4.7",

@@ -22,7 +22,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 	background-color: #357A5E;
 }
 .welcome-bottom {
-	color: gray;
+	color: #9F0705;
 }
 
 .data-key {
@@ -53,13 +53,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', end
 
 .h {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,207cca+16,207cca+16,2989d8+50,3c89c9+72,7db9e8+100 */
-background: #1e5799; /* Old browsers */
-background: -moz-linear-gradient(top,  #1e5799 0%, #207cca 16%, #207cca 16%, #2989d8 50%, #3c89c9 72%, #7db9e8 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(top,  #1e5799 0%,#207cca 16%,#207cca 16%,#2989d8 50%,#3c89c9 72%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to bottom,  #1e5799 0%,#207cca 16%,#207cca 16%,#2989d8 50%,#3c89c9 72%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
-color: white;
-font-size: 100px;
+background: url('https://s3.amazonaws.com/dev.assets.neo4j.com/wp-content/uploads/graph-data-technologies-graph-databases-for-beginners.png');
+color: black;
+opacity: .6;
 	
   
 /*   text-shadow:
@@ -85,6 +81,7 @@ font-size: 100px;
 .text-center {
 	font-size: 30px;
 	font-style: serif;
+	opacity: 1.0;
 }
 
 .tab{
