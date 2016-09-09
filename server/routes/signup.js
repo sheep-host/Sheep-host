@@ -11,11 +11,6 @@ router.post('/',
   cookieMethods.setCookie
 );
 
-// router.post('/',
-//   devMethods.usernameExist,
-//   devMethods.sendVerification
-// );
-
 router.get('/verify/:key',
   devMethods.verify,
   devMethods.addDev,
