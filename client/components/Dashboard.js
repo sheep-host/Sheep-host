@@ -326,7 +326,6 @@ const Dashboard = React.createClass({
 		return (
 			<div>
 				<NavigationBar />
-				<WelcomeBanner name={this.state.userName}/>
 				<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
 				{this.state.infoDisplayed === 'dashboard' &&
 					<div>

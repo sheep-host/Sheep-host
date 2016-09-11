@@ -8,7 +8,7 @@ const ClientInput = (props) => {
 				<div className="form-group">
 					
 					<div className="input-group input-group-md">
-						<label for="dbName">Database Name</label>
+						<label for="dbName" className="font user-profile">Database Name</label>
 						<br></br>
 							<small id="databaseHelp" className="form-text text-muted">If you would like to create a new database, enter a new database name. Otherwise, enter the name of an existing database you would like to add a collection to</small>
 								<input 
@@ -22,7 +22,7 @@ const ClientInput = (props) => {
 					
 					<p></p>
 				<div className="input-group input-group-md">
-					<label for="collectionName">Collection Name</label>
+					<label for="collectionName" className="font user-profile">Collection Name</label>
 					<br></br>
 					<small id="collectionHelp" className="form-text text-muted">Enter name of collection you are creating</small>
 						<input 
@@ -35,7 +35,7 @@ const ClientInput = (props) => {
 				</div>
 				<p></p>
 				<div className="form-group form-control-md">
-					<label for="collectionName">Schema</label>
+					<label for="collectionName" className="font user-profile">Schema</label>
 					<br></br>
 					<small id="databaseHelp" className="form-text text-muted">Use JSON format and please highlight the type</small>
 						<textarea 
