@@ -58,7 +58,7 @@ class SignupForm extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="login-input-outer">
 				<SignupInput onSubmit={this.onSubmit}
 							 onChange={this.onChange}
 							 userName={this.state.userName}

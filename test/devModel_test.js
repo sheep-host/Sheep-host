@@ -20,7 +20,7 @@ describe('Sheep DB Test', function() {
 	});
 
     describe('Test Database', function() {
-        it('Sheep DB schema saves to Test Database', function(done) {
+        xit('Sheep DB schema saves to Test Database', function(done) {
             var testDev = Dev({
                 userName: 'Sheepy',
                 password: 'Sleepy',
@@ -29,7 +29,7 @@ describe('Sheep DB Test', function() {
             testDev.save(done);
         });
 
-		it('Should not save incorrect object to Test Database', function(done) {
+		xit('Should not save incorrect object to Test Database', function(done) {
 			var wrongSave = Dev({
 				userName: 'Sheepy',
 				xassword: 'Sleepy'
@@ -42,7 +42,7 @@ describe('Sheep DB Test', function() {
         	});
 		});
 
-        it('Should retrieve data from Test Database', function(done) {
+        xit('Should retrieve data from Test Database', function(done) {
         	Dev.find({userName: 'Sheepy'}, (err, sheep) => {
         		if(err) {throw err;} 
         		if(sheep.length === 0) {throw new Error('No data retrieved!');}

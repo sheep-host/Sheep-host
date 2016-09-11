@@ -12,10 +12,10 @@ const Permissions = (props) => {
 		return(
 			<div>
 				<h2>Set Client Permissions</h2>
-					<div className="jumbotron">
+					<div className="user-profile font jumbotron">
 						{radioArray.map(function(permission, i){
 						return(
-							<div>{Object.keys(permission)[0]} 
+							<div><strong>{Object.keys(permission)[0]} : </strong>  
 								<input
 									key={2*i-1}
 									type="radio"

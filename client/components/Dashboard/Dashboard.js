@@ -48,6 +48,7 @@ const Dashboard = React.createClass({
 	},
 
 	componentWillMount(){
+		document.body.style.background = "white";
 		localStorage.sheepToken = cookie.load('token');
 		let token = jwtDecode(localStorage.sheepToken);
 		let authKey = token.authKey;
@@ -58,6 +59,7 @@ const Dashboard = React.createClass({
 	},
 
 	componentDidMount() {
+		document.body.style.background = "white";
 		this.getData();
 	},
 
@@ -307,7 +309,6 @@ const Dashboard = React.createClass({
 		return (
 			<div>
 				<NavigationBar />
-				<WelcomeBanner name={this.state.userName}/>
 				<DashNavBar toggle={this.toggleInfoDisplayed}/>
 				{this.state.infoDisplayed === 'dashboard' &&
 					<div>

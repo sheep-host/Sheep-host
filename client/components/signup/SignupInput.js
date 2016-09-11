@@ -2,7 +2,7 @@ import React from 'react';
 
 const SignupInput =(props) =>{
 	return (
-		<div>
+		<div className="font">
 			<form onSubmit={props.onSubmit}>
 				<h1 className="login-signup-words"> Create Account </h1>
 				  <div className="form-group">

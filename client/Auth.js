@@ -3,7 +3,6 @@ import { browserHistory } from 'react-router';
 
 
 function loggedIn() {
-	console.log('Authoggedin');
 	if(localStorage.sheepToken){
 		let sheepToken = jwtDecode(localStorage.sheepToken);
 		if(sheepToken.exp * 1000 < Date.now()) return false;

@@ -21,7 +21,7 @@ describe('Sheep DB middleware functions testing', function() {
 	});
 
     describe('addDev function test', function() {
-        it('addDev function saves to Test Database', function(done) {
+        xit('addDev function saves to Test Database', function(done) {
             devMethods.addDev( 
             // call function with expected data structure for req.body
                 {
@@ -40,7 +40,7 @@ describe('Sheep DB middleware functions testing', function() {
             
         });
 
-        it('Retrieves data added with addDev from Test Database', function(done) {
+        xit('Retrieves data added with addDev from Test Database', function(done) {
             Dev.find({userName: 'Sheepy'}, (err, dev) => {
                 if(err) {throw err;} 
                 if(dev.length === 0) {throw new Error('No data retrieved!');}
@@ -49,7 +49,7 @@ describe('Sheep DB middleware functions testing', function() {
         });
 
     describe('usernameExist function test', function() {
-    it('usernameExist should flag that a name already exists in database', function(done) {
+    xit('usernameExist should flag that a name already exists in database', function(done) {
         devMethods.usernameExist( 
         // call function with data already saved in Test DB
             {
@@ -68,7 +68,7 @@ describe('Sheep DB middleware functions testing', function() {
         
     });
 
-    it('usernameExist should confirm that a name does not already exists in database', function(done) {
+    xit('usernameExist should confirm that a name does not already exists in database', function(done) {
         devMethods.usernameExist( 
         // call function with data that is not already saved in Test DB
             {
