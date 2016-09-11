@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { browserHistory } from 'react-router';
 import auth from '../Auth';
 import jwtDecode from 'jwt-decode';
 import NavigationBar from './NavigationBar';
 import databaseLogo from '../../Public/database.png'
 import BottomGreetingsButton from './BottomGreetingsButton.js'
+
 
 //some punctuation removed for code readbility during testing styles
 class Greetings extends React.Component {
@@ -22,32 +24,24 @@ class Greetings extends React.Component {
 	render() {
 		return (
 			<div>
-				<NavigationBar/>
-					<div className="h jumbotron">
-							<h1 className="r text-center welcome">Welcome to Sheep.host</h1>
-								<h2 className="text-center welcome">A developers backend-as-a-service for MongoDB</h2>
-								<hr></hr>
-
-								<button className="landing-button text-center">Signup Now</button>
-					
-				<div className="landing-page-left-snippet lead text-center">
-
-					<h1 className="landing-page-left-snippet-header text-center">Build fast</h1>
-						Do some other stuff 
-						Then do some other really 
-						cool stuff And even more 
-						really cool stuff 			
-						if youre up <br></br>for it 
-						Maybe if you be feeling funky, 
-						try more
-						and more really really cool stuff dude
-
-					</div>						
-					<div className="text-right">
-						Im text 
-					</div>
-				</div>
-				<BottomGreetingsButton />
+			  <NavigationBar/>
+			  <div className="h jumbotron">
+			    <h1 className="welcome-to-sheep font">Welcome to Sheep.host</h1>
+			    <h2 className="welcome-to-sheep-tagline font">A developers backend-as-a-service for MongoDB</h2>
+			    <hr>
+			    </hr>
+			    <Link to="/signup"><button className="landing-button font">Signup Now</button></Link>
+			    <div className="landing-page-text-snippet text-center font">
+			      <h4 className="landing-page-text-snippet-header font">Build fast</h4>
+			      <div className="landing-page-text-snippet-buildFast font"> 
+							Sheep.host gives you to multiple MongoDB databases with just a few keystrokes
+			      </div>
+			    <div className="landing-page-text-snippet-buildFast-bullets font"> 
+						Two-tier API security, Easy dashboard data management, straightforward SDK
+			      </div>
+			    </div>
+			  </div>
+			  <BottomGreetingsButton />
 			</div>
 		)
 	}

@@ -6,13 +6,13 @@ const ApiSandbox = React.createClass({
 	render(){
 		return(
 			<div className="display jumbotron">
-				<h2 className="api-sandbox-words">Your API Sandbox</h2>
-				<div>Make CRUD requests to this collection to test out your data</div>
+				<h2 className="api-sandbox-words font">Your API Sandbox</h2>
+				<div className="user-profile">Make CRUD requests to this collection to test out your data</div>
 				<br></br>
 				<form>
 				<div className="form-group">	
 					<div className="input-group input-group-md">
-						<label for="dbName">POST</label><br></br>
+						<label for="dbName" className="post-put-delete font">POST</label><br></br>
 						<small id="postHelp" className="form-text text-muted">Add a document to this collection </small>
 						<input 
 							className="form-control"
@@ -24,7 +24,7 @@ const ApiSandbox = React.createClass({
 						<button
 							className="btn btn-primary btn-lg"
 							onClick={this.props.postClick}>
-								POST
+							POST
 						</button>
 					</div>
 				</div>
@@ -32,7 +32,7 @@ const ApiSandbox = React.createClass({
 				<form>
 				<div className="form-group">	
 					<div className="input-group input-group-md">
-						<label for="dbName">PUT</label><br></br>
+						<label for="dbName" className="post-put-delete font">PUT</label><br></br>
 						<small id="putHelp" className="form-text text-muted">Update a document in this collection </small>
 							<input 
 								className="form-control"
@@ -59,7 +59,7 @@ const ApiSandbox = React.createClass({
 				<form>
 					<div className="form-group">	
 						<div className="input-group input-group-md">
-						<label for="dbName">DELETE</label><br></br>
+						<label for="dbName" className="post-put-delete font">DELETE</label><br></br>
 							<small id="deleteHelp" className="form-text text-muted">Delete a record from this collection </small>
 							<input 
 								className="form-control"
