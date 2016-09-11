@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Devs = require('../../models/devModel');
+var Devs = require('../models/devModel');
 
 function storePost(req, res, next){
   console.log('post req body', req.body);

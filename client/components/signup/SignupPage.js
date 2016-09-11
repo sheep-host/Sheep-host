@@ -1,18 +1,14 @@
 import React from 'react';
-import SignupForm from './SignupForm';
 import { connect } from 'react-redux';
 import { userSignupRequest } from '../../actions/signupActions';
-import  Dashboard  from '../Dashboard';
 import NavigationBar from '../NavigationBar';
+import SignupForm from './SignupForm';
 
 //is route component for this route
 
 //this renders signupform - which is where they login, confirming they're account and rendering to DB
 class SignupPage extends React.Component {
-	 
-	
 	render() {
-
 		const { userSignupRequest } = this.props
 
 		return (
@@ -26,10 +22,8 @@ class SignupPage extends React.Component {
 					/>
 				</div>
 			</div>
-			</div>
-
-				
-			)
+			</div>	
+		)
 	}
 }
 

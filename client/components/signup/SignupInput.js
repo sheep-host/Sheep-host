@@ -5,7 +5,6 @@ const SignupInput =(props) =>{
 		<div>
 			<form onSubmit={props.onSubmit}>
 				<h1 className="login-signup-words"> Create Account </h1>
-
 				  <div className="form-group">
 					<label className="control-label login-signup-words"> Username</label>
 					<input
@@ -40,12 +39,10 @@ const SignupInput =(props) =>{
 						<button className="btn btn-secondary btn-lg">Sign Up
 						</button>
 					</div>
-
 			</form>
 		</div>
 		)
 	}
-
 
 export default SignupInput;
 

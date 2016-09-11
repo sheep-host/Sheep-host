@@ -10,7 +10,6 @@ const UserProfile = (props) => {
 		if(typeof infoProps[i] === 'string') userInfo.push(<p><strong>{i}: </strong> <span>{infoProps[i]}</span></p>)
 		if(infoProps[i].constructor === Array) {
 			userDBProfileInfo.push(<div key={i} className="panel-body">Database: {i}</div>, <li key={i+1}>Collections: {infoProps[i]}</li>)
-			console.log('display', userDBProfileInfo)
 		}	
 	}
 	return (
@@ -28,12 +27,4 @@ const UserProfile = (props) => {
 	)
 }
 
-
-
 export default UserProfile;
-
-//dev ID
-//database names
-	//collection names
-	//Schema for each collection
-//Permissions

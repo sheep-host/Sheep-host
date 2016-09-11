@@ -44,5 +44,4 @@ const Permissions = (props) => {
 		)
 	}
 
-
 export default Permissions

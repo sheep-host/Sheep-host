@@ -3,7 +3,6 @@ import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
 const ValidateSignupInputForm = (data) => {
-	console.log('ValidateInputForm')
 	let errors = {};
 
 	if(Validator.isNull(data.userName)) {
@@ -22,7 +21,6 @@ const ValidateSignupInputForm = (data) => {
 		errors,
 		isValid: isEmpty(errors)
 	}
-
 }
 
 export default ValidateSignupInputForm;

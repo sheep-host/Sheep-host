@@ -1,12 +1,10 @@
 import React from 'react';
-import LoginForm from './LoginForm';
 import { connect } from 'react-redux';
 import { userLogin } from '../../actions/loginAction';
-import  Dashboard  from '../Dashboard';
 import NavigationBar from '../NavigationBar';
+import LoginForm from './LoginForm';
+
 //is route component for this route
-
-
 class LoginPage extends React.Component {
 	render() {
 	const { userLogin } = this.props

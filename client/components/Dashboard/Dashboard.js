@@ -3,21 +3,21 @@ import axios from 'axios';
 import cookie from 'react-cookie';
 import { browserHistory } from 'react-router';
 import ReactDOM from 'react-dom';
-import auth from '../Auth'
+import auth from '../../Auth'
 import jwtDecode from 'jwt-decode';
-import ClientInput from './clientInput'
-import NavigationBar from './NavigationBar';
-import FirstNavBar from './Dashboard2.0/FirstNavBar';
-import SecondNavBar from './Dashboard2.0/SecondNavBar';
-import Display from './Dashboard2.0/Display';
-import SettingsNavBar from './Dashboard2.0/SettingsNavBar';
-import UserProfile from './Dashboard2.0/UserProfileInfo.js';
-import Docs from './Docs';
-import WelcomeBanner from './Dashboard2.0/WelcomeBanner';
-import PublicAPI from './PublicAPI';
-import ApiSandbox from './Dashboard2.0/apiSandbox';
-import schemaParser from '../../database/methods/schemaParser';
-import Permissions from './Dashboard2.0/PermissionsForm';
+import WelcomeBanner from './WelcomeBanner';
+import NavigationBar from '../NavigationBar';
+import DashNavBar from './DashNavBar';
+import schemaParser from '../../../database/methods/schemaParser';
+import DBNavBar from './Data/DBNavBar';
+import ColNavBar from './Data/ColNavBar';
+import Display from './Data/Display';
+import ApiSandbox from './Data/apiSandbox';
+import ClientInput from './Create/clientInput'
+import UserProfile from './Profile/UserProfileInfo.js';
+import PublicAPI from './Profile/PublicAPI';
+import Permissions from './Profile/PermissionsForm';
+import Docs from './Docs/Docs';
 
 const Dashboard = React.createClass({
 	getInitialState () {
@@ -54,7 +54,6 @@ const Dashboard = React.createClass({
 		let email = token.email;
 		let permissions = token.permissions;
 		console.log('token', token);
-		console.log('permissions',token.permissions, permissions);
 		this.setState({authKey, email, permissions});
 	},
 
@@ -65,7 +64,6 @@ const Dashboard = React.createClass({
   getData() {
 		let that = this;
 		let _id = jwtDecode(localStorage.sheepToken).devID;
-		console.log('getData _id',_id);
 		axios.get('/getDBs/'+_id).then(function(response) {
 			if(response.data.length> 0){
 				let info = {};
@@ -93,7 +91,6 @@ const Dashboard = React.createClass({
 		if(!auth.loggedIn()){
 			clearInterval(this.state.fetchInterval);
 			this.state.fetchInterval = 0;
-			console.log('interval stopped');
 		}
 		if(auth.loggedIn() && this.state.DBkeys.length > 0 && this.state.Colkeys.length > 0){
 			if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 10000);
@@ -111,14 +108,12 @@ const Dashboard = React.createClass({
 		const _dbName = that.state.DBkeys[that.state.activeDBLink];
 		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
 		const link = _id + '/' + _dbName + '/' + _collectionName;
-		console.log('link', link);
 		axios({
 			method: 'get',
 			baseURL: 'https://sheep.host/api/',
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
 		}).then(function(response){
-			console.log('fetch', response);
 			that.state.database[_dbName][_collectionName] = response.data;
 			that.setState({activeCollectionData: response.data, database: that.state.database})
 		})
@@ -127,7 +122,6 @@ const Dashboard = React.createClass({
 	componentWillUnmount(){
 		clearInterval(this.state.fetchInterval);
 		this.state.fetchInterval = 0;
-		console.log('interval stopped');
 	},
 
 
@@ -141,7 +135,6 @@ const Dashboard = React.createClass({
 			let activeCollectionLink = parseInt(e.target.id);
 			let activeCollectionData = that.database[that.DBkeys[that.activeDBLink]][that.Colkeys[activeCollectionLink]];
 			this.setState({activeCollectionLink, activeCollectionData });
-			console.log(this.state);
 		}
 		else(auth.redirect());
 	},
@@ -153,7 +146,6 @@ const Dashboard = React.createClass({
 			let Colkeys = Object.keys(that.database[that.DBkeys[activeDBLink]]);
 			let activeCollectionData = that.database[that.DBkeys[activeDBLink]][Colkeys[0]];
 			this.setState({activeDBLink, activeCollectionLink: 0, Colkeys, activeCollectionData });
-			console.log(this.state);
 		}
 		else(auth.redirect());
 	},
@@ -177,9 +169,7 @@ const Dashboard = React.createClass({
 		}
 		data.collectionName = that.state.collectionName;
 		data.schema = that.state.schema;
-		console.log(link, data);
 		axios.post(link, data).then(function(response){
-			console.log(response);
 			let db = response.data;
 			let dbName = db.name;
 			let collectionName = db.collections[db.collections.length-1].name;
@@ -189,7 +179,6 @@ const Dashboard = React.createClass({
 				database[dbName] = {};
 				DBkeys.push(dbName);
 			}
-			console.log(database, db, dbName, collectionName);
 			database[dbName][collectionName] = [];
 			dbName = '';
 			collectionName = '';
@@ -230,7 +219,6 @@ const Dashboard = React.createClass({
 		const _putQuery = JSON.parse(that.state.putQuery);
 		const _putKey = Object.keys(_putQuery)[0];
 		const _putValue = _putQuery[_putKey];
-		console.log('put', put);
 		const _dbName = that.state.DBkeys[that.state.activeDBLink];
 		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
 		const link = _id +'/'+ _dbName +'/'+ _collectionName  + '/?' + _putKey + '=' + _putValue;
@@ -241,7 +229,6 @@ const Dashboard = React.createClass({
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
 			data: put
 		}).then(function(response){
-			console.log(response)
 		}).catch(function(error){
 			console.log('error posting to the database', error);
 		})
@@ -263,7 +250,6 @@ const Dashboard = React.createClass({
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
 		}).then(function(response){
-			console.log(response)
 		}).catch(function(error){
 			console.log('error posting to the database', error);
 		})
@@ -276,7 +262,6 @@ const Dashboard = React.createClass({
   onPermissionsClick(e) {
   	e.preventDefault();
   	let that = this;
-  	console.log('permissionRadioChange', e.target.value);
   	let permissions = that.state.permissions;
   	let permission = e.target.value;
   	permissions[permission] = !permissions[permission]
@@ -299,7 +284,6 @@ const Dashboard = React.createClass({
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
 			data: data
 		}).then(function(response){
-			console.log(response);
 		})
   },
 
@@ -309,7 +293,6 @@ const Dashboard = React.createClass({
 		let apiKey = decoded.split(':')[0];
 		let clientKey = decoded.split(':')[1];
 		let profileInfo = {};
-
 		profileInfo['Username'] = this.state.userName;
 		profileInfo['Developer ID'] = this.state._id;
 		profileInfo['API Key'] = apiKey;
@@ -325,11 +308,11 @@ const Dashboard = React.createClass({
 			<div>
 				<NavigationBar />
 				<WelcomeBanner name={this.state.userName}/>
-				<SettingsNavBar toggle={this.toggleInfoDisplayed}/>
+				<DashNavBar toggle={this.toggleInfoDisplayed}/>
 				{this.state.infoDisplayed === 'dashboard' &&
 					<div>
-						<FirstNavBar click={this.onDBClick} names={this.state.DBkeys} />
-						<SecondNavBar click={this.onColClick} names={this.state.Colkeys} />
+						<DBNavBar click={this.onDBClick} names={this.state.DBkeys} />
+						<ColNavBar click={this.onColClick} names={this.state.Colkeys} />
 			      <Display display={this.state.activeCollectionData} />
 			      <ApiSandbox
 			      	postClick={this.onPostClick}

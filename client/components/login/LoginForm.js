@@ -1,11 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import{ userLogin } from '../../actions/loginAction'
-import LoginInput from './LoginInput';
-import auth from '../../Auth'
-import jwtDecode from 'jwt-decode';
 import cookie from 'react-cookie';
+import jwtDecode from 'jwt-decode';
+import{ userLogin } from '../../actions/loginAction'
+import auth from '../../Auth'
+import LoginInput from './LoginInput';
 import ValidateInputForm from './LoginFormValidation';
 
 //is route component for this route
@@ -31,7 +31,6 @@ class LoginForm extends React.Component {
 
 	isValid() {
 		var that = this
-		console.log('isvalid')
 		const {errors, isValid } = ValidateInputForm(this.state)
 		let errorArray = []
 		if(!isValid) {
@@ -46,10 +45,8 @@ class LoginForm extends React.Component {
 	onSubmit(e) {
 		e.preventDefault();
 		if(this.isValid()) {
-			console.log('LoginForm on submit', this.state)
 			var _this = this.state
 			this.props.userLogin(_this).then(function(response) {
-			console.log('login form on submit response', response)
 			if(response.data){
 				browserHistory.push('dashboard/' + _this.userName)
 			}

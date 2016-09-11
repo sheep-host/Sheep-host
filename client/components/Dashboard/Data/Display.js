@@ -1,5 +1,5 @@
 import React from 'react';
-import DataItem from '../DataItem'
+import DataItem from './DataItem'
 
 const Display = (props) => {
 	var dataArray = []

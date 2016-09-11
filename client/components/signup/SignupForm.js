@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import{ userSignupRequest } from '../../actions/signupActions'
-import  SignupInput  from './SignupInput';
 import cookie from 'react-cookie';
+import { userSignupRequest } from '../../actions/signupActions'
+import SignupInput from './SignupInput';
 import ValidateSignupInputForm from './SignupFormValidation';
 
 
@@ -42,22 +42,19 @@ class SignupForm extends React.Component {
 	onSubmit(e) {
 		e.preventDefault();
 		if(this.isValid()){
-			console.log('THIS.STATE ON SUBMIT', this.state);
 			var _this = this.state
 			this.props.userSignupRequest(_this).then(function(response) {
-	      console.log('response in signup form: ', response);
 				if(response.data) {
 					browserHistory.push('wait/');
 				}
 				}).catch(function(error) {
 					return setTimeout(function(error) {
 						alert(error.data)
-						console.log('ERROR ON PROMISE SIGNUP FORM', error)
+						console.log('ERROR ON SIGNUP FORM', error)
 				}, 0)
 			})
 		}
 	}
-
 
 	render() {
 		return (
@@ -72,7 +69,6 @@ class SignupForm extends React.Component {
 	}
 }
 
-
 SignupForm.propTypes = {
 	userSignupRequest: React.PropTypes.func.isRequired
 }
@@ -80,7 +76,6 @@ SignupForm.propTypes = {
 SignupForm.contextTypes = {
 	router: React.PropTypes.object.isRequired
 }
-
 
 export default SignupForm
 

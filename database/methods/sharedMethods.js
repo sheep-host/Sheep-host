@@ -1,8 +1,7 @@
-
 var mongoose = require('mongoose');
-var Models = require('../../models/devModel');
-var sheepDB = require('../../SheepDB');
 var jwt = require ('jsonwebtoken');
+var Models = require('../models/devModel');
+var sheepDB = require('../SheepDB');
 
 // match password on login
 function checkPassword(req, res, next){
