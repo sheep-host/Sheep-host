@@ -25,7 +25,7 @@ class Greetings extends React.Component {
 		return (
 			<div>
 			  <NavigationBar/>
-			  <div className="h jumbotron">
+			  <div className="top jumbotron">
 			    <h1 className="welcome-to-sheep font">Welcome to Sheep.host</h1>
 			    <h2 className="welcome-to-sheep-tagline font">A developers backend-as-a-service for MongoDB</h2>
 			    <hr>
@@ -37,7 +37,7 @@ class Greetings extends React.Component {
 							Sheep.host gives you to multiple MongoDB databases with just a few keystrokes
 			      </div>
 			    <div className="landing-page-text-snippet-buildFast-bullets font"> 
-						Two-tier API security, Easy dashboard data management, straightforward SDK
+						Two-tier API security  &nbsp; &nbsp; &nbsp; &nbsp;    Easy dashboard data management   &nbsp; &nbsp; &nbsp; &nbsp;   straightforward SDK 
 			      </div>
 			    </div>
 			  </div>
