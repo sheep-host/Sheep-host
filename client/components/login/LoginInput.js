@@ -2,9 +2,9 @@ import React from 'react';
 //Didn't copy signupInput component because we may add additional input fields to that
 const LoginInput = (props) =>{
 	return (
-		<div>
+		<div className="font">
 			<form onSubmit={props.onSubmit}>
-				<h1 className="login-signup-words"> Login </h1>
+				<h1 className="login-signup-words font"> Login </h1>
 				<div className="form-group">
 					<label className="control-label login-signup-words"> Username</label>
 					<input

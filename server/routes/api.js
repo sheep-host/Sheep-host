@@ -1,7 +1,7 @@
 var express = require('express');
-var apiMethods = require('../../database/methods/devAPI/apiMethods');
-var apiController = require('../../database/methods/devAPI/api-key-controller');
-var sharedMethods = require('../../database/methods/shared/sharedMethods');
+var apiMethods = require('../../database/methods/apiMethods');
+var apiController = require('../../database/methods/apiKeyMethods');
+var sharedMethods = require('../../database/methods/sharedMethods');
 
 var router = express.Router()
 

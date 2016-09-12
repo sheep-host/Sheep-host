@@ -3,20 +3,18 @@ var expressJwt = require ('express-jwt');
 var jwt = require ('jsonwebtoken');
 var cookieParser = require('cookie-parser');
 var path = require('path');
-var signup = require('./routes/signup');
-var login = require('./routes/login');
-var userCheck = require('./routes/userCheck');
 var bodyParser = require('body-parser');
 var devMethods = require('../database/methods/devMethods');
 var devModel = require('../database/models/devModel');
 var db = require('../database/SheepDB');
+var signup = require('./routes/signup');
+var login = require('./routes/login');
 var api = require('./routes/api');
 var create = require('./routes/create');
 var permission = require('./routes/permission');
 var getDBs = require('./routes/getDashboardData');
 var env = require('../.env');
 var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
-
 var app = express();
 var dirname = path.join(__dirname, '/../');
 
@@ -92,14 +90,12 @@ app.use(cookieParser());
 
 app.use(bodyParser.json());
 
-//api for creating account
 app.use('/signup', signup);
 
 app.use('/login', login);
 
 app.use('/getDBs', getDBs);
 
-//click 'createDB' button
 app.use('/create', create);
 
 app.use('/permission', permission);

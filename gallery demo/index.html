@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>My Gallery</title>
+    <title>My Galleries</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -40,11 +40,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">My Photo Gallery</a>
+                <a class="navbar-brand" href="#">My Photo Galleries</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="#">Galleries</a>
                     </li>
@@ -64,18 +64,42 @@
     <!-- Page Content -->
     <div class="container">
 
-        <div class="row">
+        <div class="row row-centered">
 
           <div class="col-lg-12">
-              <h1 class="page-header">Landscape Gallery</h1>
+              <h1 class="page-header text-center">Landscapes</h1>
           </div>
 
-          <div class="col-lg-12 buttons">
+          <div class="col-lg-12 buttons text-center">
             <button class="btn" id="btn-post">Save Image</button>
             <button class="btn" id="btn-get">Load Images</button>
           </div>
           <div id="get">
-            
+            <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 col-centered">
+              <h3 class="caption">Photo</h3>
+              <a class="photo thumbnail" href="#">
+                <img class="img-responsive img-rounded" src="http://orig14.deviantart.net/d149/f/2012/329/5/0/wonderland___landscape_calendar__2_by_ivanandreevich-d4u0odw.jpg" alt=""/>
+              </a>
+              <div class="icon-bar">
+                <a href="#">like</a>
+                <a href="#">print</a> 
+                <a href="#">buy</a> 
+                <a href="#">share</a> 
+              </div>
+            </div>
+            <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 col-centered">
+              <h3 class="caption">Photo</h3>
+              <a class="photo thumbnail" href="#">
+                <img class="img-responsive img-rounded" src="http://www.cfau-pd.net/images/landscape-pics/landscape-pics-3.jpg" alt=""/>
+              </a>
+              <div class="icon-bar">
+                <a href="#">like</a>
+                <a href="#">print</a> 
+                <a href="#">buy</a> 
+                <a href="#">share</a> 
+              </div>
+            </div>
+          </div>
         </div>
 
         <hr>
@@ -118,57 +142,29 @@
         console.log('post clicked');
         function populateNewDB() {
           const images = [
-          'http://www.hdwallpaperspulse.com/wp-content/uploads/2015/09/15/plams-in-sunset-beach-image.jpg',
-          'https://c2.staticflickr.com/6/5259/5416139450_43a65838cc.jpg',
-          'http://www.a-w-i-p.com/media/blogs/articles/IRAN_landscape_with_house.JPG',
-          'http://2.bp.blogspot.com/_GC5fcQ8yBQk/S4NB-iCC0hI/AAAAAAAABIA/vTmH7_o37MA/s400/snow-landscape-wallpaper.jpg',
-          'https://d13yacurqjgara.cloudfront.net/users/13449/screenshots/2383362/landscape3_small_1x.jpg',
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjmY6aSz040-5V_RJQV9ImTDwd8Pqv5tMLoOxXKdqwrevZ4bVbpA',
-          'http://wallpapers-catalogue.com/tuscan-landscape-at-sunrise-italy-wallpapers.400x300.jpg',        
-           'http://static1.visitfinland.com/wp-content/uploads/Header_sunset_Tampere-400x300.jpg',
-           'http://www.interestingemails.com/wp-content/uploads/2011/12/beautiful-scenery-pictures-400x300.jpg',
-           'http://3.bp.blogspot.com/-5iqaRuw2nps/TouHNAXdXoI/AAAAAAAAAe4/FIgPo0yJEcU/s1600/nature+scenery+wallpaper-2.jpg',
-           'http://www.interestingemails.com/wp-content/uploads/2011/12/beautiful-desert-scenery-400x300.jpg',
-           'https://s-media-cache-ak0.pinimg.com/564x/c1/5e/1e/c15e1e1e5bba2733e555a27eecd28ef3.jpg',
-           'http://static3.businessinsider.com/image/4c1249fe7f8b9aa91fed0100-1190-625/photos-zhangjiajie--the-place-that-inspired-the-beautiful-scenery-in-avatar.jpg',
-           'http://simplegoodandtasty.com/sites/default/files/images/hunting_nature.preview.jpg',
-           'http://www.100steps.info/images/Boardman-SSC-Lone-Ranch-Beach-table-overlooking-beach-400x300.jpg',
-           'https://c2.staticflickr.com/4/3200/3027179851_298dc82f08.jpg',
-           'http://static4.businessinsider.com/image/4dc00aef49e2aec42a1e0000-1190-625/beautiful-abbottabad-actually-bin-laden-was-living-in-a-scenic-tourist-town.jpg',
-           'http://kirstygreenwood.typepad.com/.a/6a010536b33b69970b01a73de9e507970d-pi',
-           'http://2.bp.blogspot.com/_bRxsZ6mMWDw/SMoOrdxcPvI/AAAAAAAAAlw/itjhUD0OdgE/s400/sight+2.jpg',
-           'http://www.americanwhitewater.org/resources/images/contents/32119-2.jpg',
-           'http://1.bp.blogspot.com/_XGnQrL8fEK4/TGvGWdiCmhI/AAAAAAAAAF8/o1WU9epjjac/s400/beautiful-beach-nature-scenery.jpg',
-           'http://questtours.in/wp-content/uploads/2016/02/Scenic_Sri_Lanka1-400x300.jpg',
-           'http://niackery.com/wp-content/uploads/2014/10/yokjido-scenery-dsc00015-400x300.jpg',
-           'http://3.bp.blogspot.com/_UeKpPmoedmk/TAJX7zrHn0I/AAAAAAAAAVU/xG986WhXm4E/s400/Camas+Prairie+Landscape+Idaho+long+goodbye.png'
+          'http://www.cfau-pd.net/images/landscape-pics/landscape-pics-3.jpg',
+          'http://orig14.deviantart.net/d149/f/2012/329/5/0/wonderland___landscape_calendar__2_by_ivanandreevich-d4u0odw.jpg',
+          'http://walops.com/wp-content/uploads/Landscape-Best-Wallpaper.jpg',
+          'http://naturewp.com/wp-content/uploads/2016/04/Beach-Landscape-HD-Picture-E2O-800x600.jpg',
+          'https://robertfinkelstein.files.wordpress.com/2009/06/desert-landscape.jpg',
+          'http://naturewp.com/wp-content/uploads/2016/04/Nature-Landscape-Wallpaper-M2B8B-1-800x600.jpg',
+          'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTfXC4SmO1MNXXo0EVii8CFcCqwJ3eL4Lp8NzlzaTp8LdD3dBdB',
+           'http://naturewp.com/wp-content/uploads/2016/04/Landscape-Wallpaper-Amazing-Wallpaper-E1O-800x600.jpg',
+           'https://wallpaperscraft.com/image/iceberg_antarctica_ice_floe_ocean_106996_800x600.jpg',
+           'http://anyhdwallpaper.com/wp-content/uploads/2016/03/Natural-View-of-Froset-Waterfall-High-Quality-Wallpaper-800x600.jpg',
           ];
 
           const captions = [
-            'Palm tree',
-            'Lighthouse',
-            'Castle',
-            'Snow white',
-            'Camel in the desert',
-            'Mountain cabin',
-            'Dirt road',
-            'Amber sunset',
-            'Mountain backdrop',
-            'Mountain reflection',
-            'Long road',
-            'Green nature',
-            'High clif',
-            'Desert sunset',
-            'Misty beach',
-            'Snowy mountain',
-            'Nature cabin',
-            'Ocean side',
-            'Waterfall',
-            'Raging rapids',
-            'Purple sunset',
-            'Flower garden',
-            'Island',
-            'Reflective pond'
+            'Mossy bridge',
+            'Reflective lake',
+            'Mountain peak',
+            'El Matador beach',
+            'Desert plateau',
+            'Stream swans',
+            'Willow tree',
+            'Cliffside village',
+            'Arctic iceberg',
+            'Jungle waterfall'
           ];
 
           for (let i = 0; i < images.length; i++) {
@@ -187,8 +183,8 @@
             else {
               results = JSON.parse(results);
               results.forEach((obj) => {
-                const result = $(document.createElement('div')).addClass('col-lg-3 col-md-4 col-xs-6 thumb')
-                .html('<a class="thumbnail" href="#"><img class="img-responsive" src="'+obj.image+'" alt=""></a><p class="caption">'+obj.caption+'</p>');
+                const result = $(document.createElement('div')).addClass('col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-xs-8 col-xs-offset-2 col-centered')
+                .html('<h3 class="caption">'+obj.caption+'</h3><a class="photo thumbnail" href="#"><img class="img-responsive img-rounded" src="'+obj.image+'" alt=""/></a><div class="icon-bar"><a href="#">like</a><a href="#">print</a><a href="#">buy</a><a href="#">share</a></div>');
                 $('#get').append(result);
               });
             }

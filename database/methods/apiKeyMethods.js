@@ -1,5 +1,5 @@
 var uuid = require('node-uuid');
-var Models = require('../../models/devModel');
+var Models = require('../models/devModel');
 var jwt = require ('jsonwebtoken');
 
 //Create an API key using UUID v4 which generates from random (or pseudo-random) id. 

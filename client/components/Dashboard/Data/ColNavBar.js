@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const SecondNavBar = (props) => {
+const ColNavBar = (props) => {
 	return (
 		<div className="display">
 			<ul className="nav nav-tabs col-md-8" data-toggle="button">
@@ -15,4 +15,4 @@ const SecondNavBar = (props) => {
 }
 
 
-export default SecondNavBar;
+export default ColNavBar;

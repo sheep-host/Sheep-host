@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const FirstNavBar = (props) => {
+const DBNavBar = (props) => {
 
 	return (
 		<div className="display ">
@@ -16,4 +16,4 @@ const FirstNavBar = (props) => {
 }
 
 
-export default FirstNavBar;
+export default DBNavBar;
