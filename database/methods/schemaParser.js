@@ -1,7 +1,5 @@
 'use strict';
 
-
-
   //Replace single quotes with double quotes
   function singleToDoubleQuote(str){
     return str.replace(/'/g, '"');

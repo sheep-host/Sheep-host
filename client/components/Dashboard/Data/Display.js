@@ -1,9 +1,8 @@
 import React from 'react';
-import DataItem from '../DataItem'
+import DataItem from './DataItem'
 
 const Display = (props) => {
 	var dataArray = []
-	console.log('Display component render')
 	props.display.forEach((el, i) => {
 		dataArray.push(<DataItem className="list-item" key={i} info={el} />)
 	})

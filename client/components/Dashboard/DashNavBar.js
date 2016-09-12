@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-const SettingsNavBar = (props) => {
+const DashNavBar = (props) => {
 	return (
 		<div className="btn-group btn-group-justified" role="group" aria-label="...">
 		  <div className="btn-group" role="group">
@@ -20,4 +20,4 @@ const SettingsNavBar = (props) => {
 	)
 }
 
-export default SettingsNavBar;
+export default DashNavBar;

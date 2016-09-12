@@ -1,3 +1,12 @@
+body{
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif
+}
+
+.navbar {
+  color: white;
+  background-color: #3A055D;
+}
+
 .buttons {
   margin-bottom: 25px;
 }
@@ -9,4 +18,29 @@
 .caption {
   text-align: center;
   font-weight: bold;
+  margin:10px;
+}
+
+.photo {
+  padding: 20px;
+  margin-bottom: 0px;
+}
+
+.icon-bar {
+    width: 30%;
+    text-align: center;
+    overflow: auto;
+}
+
+.icon-bar a {
+    margin-bottom: 20px;
+    width: 20%;
+    padding: 12px 0;
+    float: left;
+    transition: all 0.3s ease;
+    font-size: 14px;
+}
+
+.icon-bar a:hover {
+    color: blue;
 }

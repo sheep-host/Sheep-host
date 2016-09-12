@@ -1,18 +1,18 @@
 'use strict';
+var Promise = require("bluebird");
+var mongoose = Promise.promisifyAll(require("mongoose"));
+var sendMail = require('../../server/verify.js');
+var randomstring = require('randomstring');
+var jwt = require ('jsonwebtoken');
 var Models = require('../models/devModel');
 var uri = 'mongodb://localhost/';
 var sheepDB = require('../SheepDB');
-var sendMail = require('../../server/verify.js');
-var randomstring = require('randomstring');
-var verModel = require('../models/verModel');
-var Promise = require("bluebird");
-var mongoose = Promise.promisifyAll(require("mongoose"));
+var verifyModel = require('../models/verifyModel');
 var schemaParser = require('./schemaParser') 
-var jwt = require ('jsonwebtoken');
-var apiKey = require('./devAPI/api-key-controller');
+var apiKey = require('./apiKeyMethods');
 
 function verify(req, res, next) {
-  verModel.findOne({ key: req.params.key }, function(err, result) {
+  verifyModel.findOne({ key: req.params.key }, function(err, result) {
     if (err) res.json({error : 'Error'});
     else {
       req.body.userName = result.userName;
@@ -25,7 +25,7 @@ function verify(req, res, next) {
 
 function sendVerification(req, res, next) {
   var randomKey = randomstring.generate();
-  verModel.create({
+  verifyModel.create({
     userName: req.body.userName,
     password: req.body.password,
     email: req.body.email,
@@ -114,7 +114,7 @@ function addDev(req, res, next){
       devID: result._id,
       email: result.email,
       permissions: dev.api.clientPermissions
-  }, 'sheep host', { expiresIn: 120000});
+  }, 'sheep host', { expiresIn: "1 day"});
     console.log('server side token', sheepToken);
     req.body.token = sheepToken;
     next();

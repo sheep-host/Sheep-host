@@ -1,5 +1,5 @@
 var express = require('express');
-var sharedMethods = require('../../database/methods/shared/sharedMethods');
+var sharedMethods = require('../../database/methods/sharedMethods');
 var cookieMethods = require('../../database/methods/cookieMethods');
 var db = require('../../database/SheepDB');
 
