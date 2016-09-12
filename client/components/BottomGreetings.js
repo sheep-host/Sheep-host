@@ -5,7 +5,7 @@ import PrototypeImage from '../../Public/RapidPrototyping.png'
 
 const BottomGreetings = () => {
 	return(
-		<div>
+		<div className="text-center">
 			<span className="how-it-works-title">How it works</span>
 				<div className="how-works bottom font">
     			<div className="step-by-step col-xs-6 col-md-4">

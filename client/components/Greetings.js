@@ -5,7 +5,7 @@ import jwtDecode from 'jwt-decode';
 import auth from '../Auth';
 import NavigationBar from './NavigationBar';
 import databaseLogo from '../../Public/database.png'
-import BottomGreetingsButton from './BottomGreetingsButton.js'
+import BottomGreetings from './BottomGreetings.js'
 
 
 //some punctuation removed for code readbility during testing styles
@@ -41,7 +41,7 @@ class Greetings extends React.Component {
 			      </div>
 			    </div>
 			  </div>
-			  <BottomGreetingsButton />
+			  <BottomGreetings />
 			</div>
 		)
 	}

@@ -5,7 +5,6 @@ import { browserHistory } from 'react-router';
 import ReactDOM from 'react-dom';
 import auth from '../../Auth'
 import jwtDecode from 'jwt-decode';
-import WelcomeBanner from './WelcomeBanner';
 import NavigationBar from '../NavigationBar';
 import DashNavBar from './DashNavBar';
 import schemaParser from '../../../database/methods/schemaParser';
