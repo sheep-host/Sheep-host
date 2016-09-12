@@ -1,11 +1,10 @@
 import React from 'react'
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
-// import App from './components/App';
-import routes from './routes';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
+import routes from './routes';
 import '../Public/stylesheet.css'
 //could use inital state as param - ssr - none here yet
 const store = createStore(
@@ -13,28 +12,9 @@ const store = createStore(
 	applyMiddleware(thunk)
 );
 
-
-
-
-store.subscribe(() => {
-	console.log('hey store changed', store.getState());
-})
-
-// actions - storePost, populateDB
-// const postReducer = function(state, action) {
-// 	if(action.type === 'PUT_REQUEST') {
-// 		return state + action.update
-// 	}
-// }
-
-// store.dispatch({type: 'PUT_REQUEST', update:'whatever user wants to update'})
-
-
-
-
 render(
 	<Provider store={store}>
 
-	<Router history={browserHistory} routes={routes} />
+		<Router history={browserHistory} routes={routes} />
 
 	</Provider>, document.getElementById('app'))

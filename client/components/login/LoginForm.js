@@ -1,19 +1,23 @@
 import React from 'react';
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import{ userLogin } from '../../actions/loginAction'
-import LoginInput from './LoginInput';
-import auth from '../Auth'
+import cookie from 'react-cookie';
 import jwtDecode from 'jwt-decode';
-
+import{ userLogin } from '../../actions/loginAction'
+import auth from '../../Auth'
+import LoginInput from './LoginInput';
+import ValidateInputForm from './LoginFormValidation';
 
 //is route component for this route
+//ValidateInputForm not setting state properly, use alert for now
+//using setTimeout for alert due to interferance of microtask
 class LoginForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			userName:'',
-			password:'',
+			userName: '',
+			password: '',
+			errors: {}
 		}
 
 		this.onChange = this.onChange.bind(this)
@@ -24,41 +28,54 @@ class LoginForm extends React.Component {
 	onChange(e) {
 		this.setState({[e.target.name] : e.target.value })
 	}
+
+	isValid() {
+		var that = this
+		const {errors, isValid } = ValidateInputForm(this.state)
+		let errorArray = []
+		if(!isValid) {
+			for(var value in errors) {
+				errorArray.push(errors[value] + " ")
+			}
+			alert(errorArray)
+		}
+		return isValid
+	}
 	
 	onSubmit(e) {
 		e.preventDefault();
-
-		console.log('LoginForm on submit', this.state)
-		var _this = this.state
-		this.props.userLogin(_this).then(function(response) {
-			console.log('login form on submit response', response)
+		if(this.isValid()) {
+			var _this = this.state
+			this.props.userLogin(_this).then(function(response) {
 			if(response.data){
-				localStorage.sheepToken = response.data.token;
 				browserHistory.push('dashboard/' + _this.userName)
 			}
 		}).catch(function(error) {
-			console.log(error)
+			return setTimeout(function() {
+				console.log(error)
+				alert(error.data)
+			}, 0)
 		})
-
+		} 
 	}
 
 	componentDidMount(){
 		if(auth.loggedIn()){
 			let sheepToken = jwtDecode(localStorage.sheepToken);
-			console.log(sheepToken);
 			browserHistory.push('dashboard/' + sheepToken.userName);
 		}
 	}
 
 	render() {
 		return (
-			<div>
+			<div className="login-input-outer">
 				<LoginInput onSubmit={this.onSubmit}
-							 onChange={this.onChange} 
-							 userName={this.state.userName}
-							 password={this.state.password} />			
+									  onChange={this.onChange} 
+									  userName={this.state.userName}
+									  error={this.state.errors}
+									  password={this.state.password} />			
 			</div>
-			)
+		)
 	}
 }
 

@@ -1,11 +1,368 @@
-.container {
-	background-color: #75ADA9;
+.container{
+	background: url('./graph-databases.png');
+	height: 100%;
 }
-.navbar {
-	background-color: #7FADAA;
+
+body {
+	background-color: #FFFFFF;
+
+}
+
+.font {
+	font-family: "Whitney A", "Whitney B", "Avenir", Helvetica, sans-serif;
+}
+
+.login-signup-words {
+	color: black;
+}
+
+.login-input-outer {
+	background-color: white;
+	border: 1px solid white;
+	padding: 20px;
+	margin: 50px;
+
+box-shadow: 0px 0px 30px #000;
+-moz-box-shadow: 0px 0px 30px #000;
+-webkit-box-shadow: 0px 0px 30px #000;
+}
+
+
+.landing-button {
+	vertical-align: middle;
+	text-align:center;
+	margin-top: 60px;
+	margin-left: 45%;
+  background: #134e75;
+  background-image: -webkit-linear-gradient(top, #134e75, #2980b9);
+  background-image: -moz-linear-gradient(top, #134e75, #2980b9);
+  background-image: -ms-linear-gradient(top, #134e75, #2980b9);
+  background-image: -o-linear-gradient(top, #134e75, #2980b9);
+  background-image: linear-gradient(to bottom, #134e75, #2980b9);
+  -webkit-border-radius: 60;
+  -moz-border-radius: 60;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 1px 3px #666666;
+  -moz-box-shadow: 0px 1px 3px #666666;
+  box-shadow: 0px 1px 3px #666666;
+  color: #ffffff;
+  font-size: 24px;
+  height: 80px;
+  font-weight: 100;
+  padding: 5px 10px 5px 10px;
+  border: solid #1f628d 2px;
+  text-decoration: none;
+}
+
+.landing-button:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;
+}
+
+.welcome-to-sheep {
+	text-align: center;
+	vertical-align: middle;
+
+}
+
+
+.welcome-to-sheep-tagline {
+	text-align: center;
+}
+.how-it-works-title {
+	font-size: 40px;
+}
+/*how it works container */
+.bottom {
+	padding-top: 50px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 300px;
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.step-by-step {
+
+}
+.step-by-step-small {
+
+}
+
+/*image */
+.build-flow {
+	height: 300px;
+	width: 400px;
+}
+/*image */
+.prototype-image {
+	width: 35%;
+	height: 400%;
+	margin-right: 3%;
+}
+
+.navbar { 
+	margin-bottom: 0;
+	height: 80px;
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+	background: #45484d; /* Old browsers */
+	background: -moz-linear-gradient(top,  #45484d 0%, #000000 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top,  #45484d 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom,  #45484d 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+/* header */
+.sheep-host {
+
+	font-size: 50px;
+	color:white;
+	margin-left: 100px;
+}
+/* header */
+.header-action-words {
+	padding-top: 20px;
+	padding-right: 100px;
+
+	font-size: 30px;
+	color: white;
+
+}
+.api-sandbox-words {
+	font-size: 70px;
+}
+
+.docs-text {
+	font-size: 18px;
+}
+
+.docs-code {
+	background-color: white;
+}
+
+
+.landing-page-text-snippet {
+	font-size: 25px;
+	font-family: sans-serif;
+	font-weight: 600;
+
+}
+
+.landing-page-text-snippet-header {
+	vertical-align: middle;
+	margin-top: 100px;
+	font-size: 50px;
+}
+.landing-page-text-snippet-buildFast{
+	font-size:34px;
+}
+.landing-page-text-snippet-buildFast-bullets {
+	padding-top: 20px;
+	font-size: 28px;
+}
+
+.footer {
+
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
+   background:#6cf;
+}
+
+.display {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.database-display-name {
+	font-size: 40px;
+	padding-left: 60px;
+	font-weight: 900;
+}
+.collection-display-name {
+	font-size: 30px;
+	padding-left: 60px;
+	font-weight: 800;
 }
 
 .panel {
 	background-color: #357A5E;
 }
 
+.welcome-bottom {
+	color: black;
+}
+
+.data-key {
+	font-size: 20px;
+	color: gray;
+}
+
+.Collection-Input {
+	float: left;
+}
+
+.hide-true {
+	display: none;
+}
+
+.text-center .banner {
+	background-color: red;
+}
+
+
+.h {
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,207cca+16,207cca+16,2989d8+50,3c89c9+72,7db9e8+100 */
+	background: url('./graph-databases.png');
+	color: black;
+}
+
+.welcome-info-tag {
+	color: #000000;
+	border-top: 1px solid;
+	padding: 15px;
+	text-align: center;
+}
+
+.tabTitle{
+	margin-right:10px;
+	font-weight: bold;
+}
+
+.text-center {
+	font-size: 30px;
+	font-style: serif;
+	opacity: 1.0;
+}
+
+.tab{
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 1px solid #00327A;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.tab #active{
+	border-bottom: none;
+}
+.user-profile {
+	font-size: 24px;
+}
+
+.post-put-delete {
+	font-size: 20px;
+}
+
+input[type=radio] {
+    border: 0px;
+    width: 20px;
+    height: 1em;
+}
+.SDK {
+	font-size: 18px;
+}
+.active {
+	color:red;
+}
+
+.nav-link {
+	display: inline;
+	padding-left: 50px;
+	padding-right: 20px;
+}
+
+.btn-group {
+	margin-bottom: 10px;
+}
+
+.btn-default {
+	font-size:30px;
+	font-family: sans-serif;
+	font-weight: 200;
+	color: #F2F2F2;
+  background: #134e75;
+  background-image: -webkit-linear-gradient(top, #134e75, #2980b9);
+  background-image: -moz-linear-gradient(top, #134e75, #2980b9);
+  background-image: -ms-linear-gradient(top, #134e75, #2980b9);
+  background-image: -o-linear-gradient(top, #134e75, #2980b9);
+  background-image: linear-gradient(to bottom, #134e75, #2980b9);
+}
+
+.tabs {
+	font-weight: 40;
+	margin-top: 20px;
+	margin-left: 10px;
+
+	color: #286090;
+	background-color: white;
+	font-size: 17px;
+	font-style: Sans-Serif;
+}
+
+.tabs .btn .btn-primary .info {
+	color: black;
+}
+
+.tab-button {
+  color: #ffffff;
+  background-color: #611BBD;
+  border-color: #130269;
+}
+
+.tab-button:hover,
+.tab-button:focus,
+.tab-button:active,
+.tab-button.active,
+.open .dropdown-toggle.tab-button {
+  color: #ffffff;
+  background-color: #49247A;
+  border-color: #130269;
+}
+
+.tab-button:active,
+.tab-button.active,
+.open .dropdown-toggle.tab-button {
+  background-image: none;
+}
+
+.tab-button.disabled,
+.tab-button[disabled],
+fieldset[disabled] .tab-button,
+.tab-button.disabled:hover,
+.tab-button[disabled]:hover,
+fieldset[disabled] .tab-button:hover,
+.tab-button.disabled:focus,
+.tab-button[disabled]:focus,
+fieldset[disabled] .tab-button:focus,
+.tab-button.disabled:active,
+.tab-button[disabled]:active,
+fieldset[disabled] .tab-button:active,
+.tab-button.disabled.active,
+.tab-button[disabled].active,
+fieldset[disabled] .tab-button.active {
+  background-color: #611BBD;
+  border-color: #130269;
+}

@@ -1,5 +1,7 @@
 var path = require('path');
 var env = require('./.env');
+
+
 if (env.NODE_ENV === 'development') {
   var webpack = require('webpack');
 
@@ -21,6 +23,11 @@ if (env.NODE_ENV === 'development') {
     module: {
       loaders: [
         {
+          test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+          loader: 'url-loader?limit=20000',
+          include:[path.join(__dirname, 'Public')]
+        },
+        {
           test: /\.js$/,
           include: [
             path.join(__dirname, 'client'),
@@ -28,7 +35,7 @@ if (env.NODE_ENV === 'development') {
           ],
           loaders: [ 'react-hot', 'babel' ]
         },
-         {
+        {
           test: /\.css$/,
           inclue: [path.join(__dirname, 'Public')],
           loaders: ['style', 'css']
@@ -67,8 +74,17 @@ if (env.NODE_ENV === 'development') {
               query: {
                 presets: ['es2015', 'react']
               }
-            }
+          }
         ]
     }
   };
 }
+
+
+
+
+
+
+
+
+

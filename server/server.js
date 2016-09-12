@@ -3,23 +3,64 @@ var expressJwt = require ('express-jwt');
 var jwt = require ('jsonwebtoken');
 var cookieParser = require('cookie-parser');
 var path = require('path');
-var signup = require('./routes/signup');
-var login = require('./routes/login');
-var userCheck = require('./routes/userCheck');
 var bodyParser = require('body-parser');
 var devMethods = require('../database/methods/devMethods');
 var devModel = require('../database/models/devModel');
 var db = require('../database/SheepDB');
+var signup = require('./routes/signup');
+var login = require('./routes/login');
 var api = require('./routes/api');
-var createDevDB = require('./routes/createDevDB');
+var create = require('./routes/create');
+var permission = require('./routes/permission');
+var getDBs = require('./routes/getDashboardData');
 var env = require('../.env');
-
+var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
 var app = express();
+var dirname = path.join(__dirname, '/../');
 
-app.use(express.static(__dirname + '/../public'));
+app.use(express.static(dirname + 'public'));
+app.use('/public_api', express.static(__dirname + '/../public/public_api.js'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(bodyParser.json());
+
+app.use('/api', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Method", "GET, POST, HEAD, OPTIONS, PUT");
+  res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Authorization");
+  next();
+});
+
+if (env.NODE_ENV === 'production') {
+  var fs = require('fs');
+  var https = require('https');
+  var certificate = fs.readFileSync(dirname + 'certs/sheep_host.crt');
+  var privateKey = fs.readFileSync(dirname + 'certs/sheep-host.key');
+  var caBundle = fs.readFileSync(dirname + 'certs/COMODO_DV_SHA-256_bundle.crt');
+
+  https.createServer({
+    ca: caBundle,
+    key: privateKey,
+    cert: certificate
+  }, app).listen(port, function() {
+    console.log('listening to port ', port);
+  });
+
+  var http = express();
+  http.get('*', function(req, res) {
+    res.redirect('https://sheep.host');
+  });
+
+  http.listen(80, function() {
+    console.log('redirecting port 80 to 443');
+  });
+}
+
+if (env.NODE_ENV === 'backend') {
+  var server = app.listen(port, function() {
+   console.log('listening on port 3000');
+  });
+}
 
 if (env.NODE_ENV === 'development') {
   var webpack = require('webpack');
@@ -27,7 +68,11 @@ if (env.NODE_ENV === 'development') {
   var webpackConfig = require('../webpack.config.js');
   var webpackHotMiddleware = require('webpack-hot-middleware');
 
-  const compiler = webpack(webpackConfig);
+  app.listen(port, function() {
+   console.log('listening on port 3000');
+  });
+
+  var compiler = webpack(webpackConfig);
 
   app.use(webpackMiddleware(compiler, {
   	hot: true,
@@ -39,46 +84,31 @@ if (env.NODE_ENV === 'development') {
   app.use(webpackHotMiddleware(compiler));
 }
 
-//node-restful consider post-MVP
-// app.use(morgan('dev'));
-// app.use(methodOverride());
-
-//node-restful consider post-MVP
-// var methodOverride = 'method-override';
-// var morgan = 'morgan';
-// var restful ='node-restful';
-
 app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use('/dashboard',expressJwt({secret: 'sheep host'}).unless({ path: ['/','/signup','/login']}));
 
 app.use(cookieParser());
 
 app.use(bodyParser.json());
 
-// app.use(bodyParser.json({type:'application/vnd.api+json'}));
-
-//api for creating account
 app.use('/signup', signup);
 
 app.use('/login', login);
 
-//click 'createDB' button
-app.use('/createDevDB', createDevDB);
+app.use('/getDBs', getDBs);
+
+app.use('/create', create);
+
+app.use('/permission', permission);
 
 app.use('/api', api);
 
 app.get('/', (req, res) => {
-	res.sendFile('/public/index.html');
+	res.sendFile(dirname + 'public/index.html');
 });
 
 //for react router - will allow back and forth - will render /index.html no matter what
 app.get('*', (req, res) => {
-	res.sendFile('/public/index.html');
+	res.sendFile(dirname + 'public/index.html');
 });
 
-var port = env.NODE_ENV === 'development' ? 3000 : env.PORT;
-
-app.listen(port, () => {
-  console.log('listening on port 3000');
-});
+module.exports = server;

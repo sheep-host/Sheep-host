@@ -1,0 +1,59 @@
+html, body, h1, h2, h3, h4, p, ol, ul, li, a, div, span, button, input[type='button'] {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  font-size: 100%;
+  font: inherit;
+  box-sizing: border-box;
+  list-style: none;
+  background-color: white;
+}
+
+:focus {
+  outline: 0;
+}
+
+body {
+  font-family: cursive;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+input[type="text"] {
+  font-size: 18px;
+  line-height: 1.5;
+  padding-left: 8px;
+  width: 100%
+}
+
+.main {
+  width: 50%;
+  margin: auto;
+  padding-top: 80px;
+}
+
+.container {
+  border-top: solid 1px lightgrey;
+  padding: 15px 30px 15px 30px;
+}
+
+.display {
+  padding: 5px 15px 5px 15px;
+}
+
+hr {
+  border-color: rgba(200, 200, 200, 0.2);
+}
+
+button {
+  color: blue;
+}
+
+#btn-post {
+  margin-top: 10px;
+  margin-left: 610px;
+}
+
+#title {
+  font-size: 30px;
+}
