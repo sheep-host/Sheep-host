@@ -37,7 +37,7 @@ class Greetings extends React.Component {
 							Sheep.host gives you to multiple MongoDB databases with just a few keystrokes
 			      </div>
 			    <div className="landing-page-text-snippet-buildFast-bullets font"> 
-						Two-tier API Security &nbsp;&nbsp;&nbsp;&nbsp; Dashboard Data Management &nbsp;&nbsp;&nbsp;&nbsp; Straightforward SDK
+						Two-tier API Security&nbsp;&nbsp;&nbsp;&nbsp;Dashboard Data Management&nbsp;&nbsp;&nbsp;&nbsp;Straightforward SDK
 			      </div>
 			    </div>
 			  </div>
