@@ -67,9 +67,7 @@ box-shadow: 0px 0px 30px #000;
 .welcome-to-sheep {
 	text-align: center;
 	vertical-align: middle;
-
 }
-
 
 .welcome-to-sheep-tagline {
 	text-align: center;
@@ -77,6 +75,7 @@ box-shadow: 0px 0px 30px #000;
 .how-it-works-title {
 	font-size: 40px;
 }
+
 /*how it works container */
 .bottom {
 	padding-top: 50px;
@@ -101,13 +100,6 @@ box-shadow: 0px 0px 30px #000;
   .container {
     width: 1170px;
   }
-}
-
-.step-by-step {
-
-}
-.step-by-step-small {
-
 }
 
 /*image */
@@ -135,7 +127,6 @@ box-shadow: 0px 0px 30px #000;
 
 /* header */
 .sheep-host {
-
 	font-size: 50px;
 	color:white;
 	margin-left: 100px;
@@ -144,11 +135,10 @@ box-shadow: 0px 0px 30px #000;
 .header-action-words {
 	padding-top: 20px;
 	padding-right: 100px;
-
 	font-size: 30px;
 	color: white;
-
 }
+
 .api-sandbox-words {
 	font-size: 70px;
 }
@@ -160,7 +150,6 @@ box-shadow: 0px 0px 30px #000;
 .docs-code {
 	background-color: white;
 }
-
 
 .landing-page-text-snippet {
 	font-size: 25px;
@@ -174,20 +163,21 @@ box-shadow: 0px 0px 30px #000;
 	margin-top: 100px;
 	font-size: 50px;
 }
+
 .landing-page-text-snippet-buildFast{
 	font-size:34px;
 }
+
 .landing-page-text-snippet-buildFast-bullets {
 	padding-top: 20px;
 	font-size: 28px;
 }
 
 .footer {
-
-   bottom:0;
-   width:100%;
-   height:60px;   /* Height of the footer */
-   background:#6cf;
+	bottom:0;
+  width:100%;
+  height:60px;   /* Height of the footer */
+  background:#6cf;
 }
 
 .display {
@@ -232,7 +222,6 @@ box-shadow: 0px 0px 30px #000;
 	background-color: red;
 }
 
-
 .h {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,207cca+16,207cca+16,2989d8+50,3c89c9+72,7db9e8+100 */
 	background: url('./graph-databases.png');
@@ -268,6 +257,7 @@ box-shadow: 0px 0px 30px #000;
 .tab #active{
 	border-bottom: none;
 }
+
 .user-profile {
 	font-size: 24px;
 }
@@ -281,9 +271,11 @@ input[type=radio] {
     width: 20px;
     height: 1em;
 }
+
 .SDK {
 	font-size: 18px;
 }
+
 .active {
 	color:red;
 }
