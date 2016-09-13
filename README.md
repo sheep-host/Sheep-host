@@ -10,7 +10,7 @@ To get started, a developer simply needs to:
 - Add the script tag that is provided on the profile page to their client side application
 - Interact with the data using Sheep’s SDK
 
-Features:
+## Features:
 
 - Dashboard GUI: View data stored in each database and collection
 - API Sandbox: Developers can make CRUD instructions to their database through their GUI dashboard to create and manipulate data without writing a single line of code.
@@ -20,13 +20,13 @@ Features:
 - JWT: Dashboard sessions are secured using JSON web tokens
 - Bcrypt: All passwords are hashed using Bcrypt
 
-Navigating the Site:
+## Navigating the Site:
 
-CREATE
+### CREATE
 
 The CREATE tab is where you instantiate all of your databases and collections. You are currently limited to three (3) databases. Please email us at administrator@sheep.host if you need to rename a database or delete it or any collections within.
 
-Creating a Database
+#### Creating a Database
 
 Enter the desired name of your database and the name of its first collection.
 
@@ -34,17 +34,17 @@ Enter your desired schema in the form of a JSON object. Incorrect schema input w
 - Correct example: {"firstName": "String", "lastName": "String", "age": "Number"}
 - Inorrect example: firstName: String, lastName: String, age: Number
 
-Creating a Collection
+#### Creating a Collection
 
 To create a new collection within an existing database, simply enter the name of that database in lieu of a new one.
 
-DATA
+### DATA
 
 The Dashboard tab contains all of your data we are hosting. You can navigate between all of your databases and each collection within those databases.
 
 The particular collection displayed on the dashboard at any given moment will display new documents, updates to existing documents and the removel of documents as those changes come in from your apps.
 
-API Sandbox
+#### API Sandbox
 
 Below the data is a sandbox for you to prototype your data performing simple CRUD instructions to the collection you are viewing.
 
@@ -52,19 +52,19 @@ To update or delete documents, enter a JSON object with the {key:value} pair of 
 To update or add documents, enter the desired information in the form of a JSON object the same way you enter your schema on the CREATE page.
 - Example: {"firstName": "John", "lastName": "Doe", "age": "30"}
 
-PROFILE
+### PROFILE
 
 The PROFILE tab contains all of your user information, a list of your databases and collections, as well as your API key information.
 
 Below all of this information is the auto-generated series of script tags to access our SDK...
 
-Using the SDK
+#### Using the SDK
 
 To use the globally exposed sheep object, simply copy the script tags and paste them into the app's HTML file above your Javascript.
 
 Call the SDK methods via the  sheep object, and enter the desired database name and collection as the first two arguments.
 
-GET
+##### GET
 - sheep.get( [database_name], [collection_name], callback )
 
 Returns all of the documents in the collection to the callback in the third argument as an array of objects.
@@ -78,7 +78,7 @@ Example:
       });
     });
   
-POST
+##### POST
 
 - sheep.post( [database_name], [collection_name], {data})
 
@@ -89,7 +89,7 @@ Example:
     // Adds a record with "John Doe" in the "name field" and "Los Angeles" in the "location" field from the Users collection in the MyApp database{{
     sheep.post(MyApp, Users, { name: "John Doe", location: "New York" })
   
-PUT
+##### PUT
 
 - sheep.put(  [database_name], [collection_name], { query }, { data } )
 
@@ -100,7 +100,7 @@ Example:
     // Changes the "location" field of the record with "name" of "John Doe" to "New York" in the Users collection in the MyApp database{{
     sheep.put(MyApp, Users,{ name: "John Doe" }, { location: "New York" })
   
-DELETE
+##### DELETE
 
 - sheep.delete( [database_name], [collection_name], { query } )
 
@@ -111,7 +111,7 @@ Example:
     // Deletes the record with "John Doe" in the "name" field from the Users collection in the MyApp database{{
     sheep.delete(MyApp, Users, { name: "John Doe" })
   
-Setting Client Permissions
+#### Setting Client Permissions
 
 You can modify your API Client Key permissions to your data by setting each CRUD method to TRUE or FALSE and clicking save. Changes will not be made until you click the save button. They can be changed at any time. Once a method is set to false, users on your app cannot access that route. This is helpful if you don't want to let users delete or update own records.
 
