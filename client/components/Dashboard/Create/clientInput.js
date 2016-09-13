@@ -34,7 +34,7 @@ const ClientInput = (props) => {
 						</input>
 				</div>
 				<p></p>
-				<div className="form-group form-control-lg">
+				<div className="form-group input-group form-control-lg col-lg-6">
 					<label for="collectionName" className="font user-profile">Schema</label>
 					<br></br>
 					<small id="databaseHelp" className="form-text text-muted">Use JSON format and please highlight the type</small>
