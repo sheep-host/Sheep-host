@@ -12,41 +12,35 @@ const Permissions = (props) => {
 		console.log(props.permissions['GET'], radioArray);
 		return(
 			<div>
-				<h2>Set Client Permissions</h2>
-					<div className="user-profile well well-lg">
-						<table>
+				<h2 className="display">Set Client Permissions</h2>
+					<div className="display user-profile font jumbotron">
 						{radioArray.map(function(permission, i){
-							return(
-								<tbody key={i+4}>
-								<tr key={i+5}>
-									<td key={i+6}><strong>{Object.keys(permission)[0]}:</strong></td>
-									<td key={2*i-1}><input
-										key={2*i-1}
-										type="radio"
-										value={props.permissions[Object.keys(permission)[0]]}
-										onChange={props.onClick}
-										checked={props.permissions[Object.keys(permission)[0]] === true}
-										name={Object.keys(permission)[0]}
-									/>True</td>
-									<td key={2*i}><input
-									  key={2*i}
-										type="radio"
-										value={props.permissions[Object.keys(permission)[0]]} 
-										onChange={props.onClick}
-										checked={props.permissions[Object.keys(permission)[0]] === false}
-										name={Object.keys(permission)[0]}
-									/>False</td> 
-								</tr>
-								</tbody>
-							)
-						})}
-						</table>
-					<br></br>
-					<button
-						className="btn btn-primary btn-lg"
-						onClick={props.savePermissions}
-					>Save</button>
-				</div>
+						return(
+							<div><strong>{Object.keys(permission)[0]} : </strong>  
+								<input
+									key={2*i-1}
+									type="radio"
+									value={Object.keys(permission)[0]}
+									onChange={props.onClick}
+									checked={true === permission[Object.keys(permission)[0]]}
+								/> True     
+								<input
+								  key={2*i}
+									type="radio"
+									value={Object.keys(permission)[0]} 
+									onChange={props.onClick}
+									checked={false === permission[Object.keys(permission)[0]]}
+								/> False 
+							</div>
+						)
+					})
+			}
+			<br></br>
+			<button
+				className="btn btn-default btn-lg"
+				onClick={props.savePermissions}
+			>Save</button>
+			</div>
 			</div>
 		)
 	}

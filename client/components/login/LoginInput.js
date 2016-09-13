@@ -26,7 +26,7 @@ const LoginInput = (props) =>{
 					</div>
 
 					<div className="form-group">
-						<button className="btn btn-secondary btn-lg">Login
+						<button className="login-button btn btn-default btn-lg">Login
 						</button>
 					</div>
 				</form>
