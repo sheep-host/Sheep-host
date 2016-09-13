@@ -5,9 +5,9 @@ const PublicAPI = (props) => {
 	return (
     <div>
       <div>
-        <h2 className="display">SDK Script Tags</h2>
+        <h2>SDK Script Tags</h2>
       </div>
-			<div className="display jumbotron">
+			<div className="jumbotron">
         <h4 className="user-profile">Copy the following script tag into your html file to use SDK methods:</h4>
 				<ul className="list-group">
           <pre>
@@ -26,7 +26,7 @@ const PublicAPI = (props) => {
             </code>
           </pre>
 				</ul>
-        <Clipboard component="button" className=" btn btn-default btn-lg" button-href="#" data-clipboard-target="#code">
+        <Clipboard component="button" className="btn btn-primary btn-lg" button-href="#" data-clipboard-target="#code">
         Copy script tag
       </Clipboard>
 			</div>

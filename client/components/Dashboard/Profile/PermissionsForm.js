@@ -11,8 +11,8 @@ const Permissions = (props) => {
 		}
 		return(
 			<div>
-				<h2>Set Client Permissions</h2>
-					<div className="user-profile font jumbotron">
+				<h2 className="display">Set Client Permissions</h2>
+					<div className="display user-profile font jumbotron">
 						{radioArray.map(function(permission, i){
 						return(
 							<div><strong>{Object.keys(permission)[0]} : </strong>  
@@ -36,7 +36,7 @@ const Permissions = (props) => {
 			}
 			<br></br>
 			<button
-				className="btn btn-primary btn-lg"
+				className="btn btn-default btn-lg"
 				onClick={props.savePermissions}
 			>Save</button>
 			</div>
