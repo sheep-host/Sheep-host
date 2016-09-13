@@ -24,7 +24,6 @@ class Greetings extends React.Component {
 	render() {
 		return (
 			<div>
-			  <NavigationBar/>
 			  <div className="h jumbotron">
 			    <h1 className="welcome-to-sheep font">Welcome to Sheep.host</h1>
 			    <h2 className="welcome-to-sheep-tagline font">A developers backend-as-a-service for MongoDB</h2>

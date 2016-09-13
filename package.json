@@ -35,8 +35,8 @@
     "passport": "^0.3.2",
     "passport-localapikey": "0.0.3",
     "randomstring": "^1.1.5",
-    "react-addons-test-utils": "^15.3.1",
     "react": "^15.3.1",
+    "react-addons-test-utils": "^15.3.1",
     "react-clipboard.js": "^0.2.5",
     "react-cookie": "^0.4.8",
     "react-copy-to-clipboard": "^4.2.3",
@@ -47,7 +47,7 @@
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "url-loader": "^0.5.7",
-    "validator": "^5.6.0",
+    "validator": "^5.7.0",
     "xoauth2": "^1.2.0"
   },
   "devDependencies": {
