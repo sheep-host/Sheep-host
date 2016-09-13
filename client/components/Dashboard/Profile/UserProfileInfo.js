@@ -15,9 +15,9 @@ const UserProfile = (props) => {
 	return (
 		<div>
 			<div>
-				<h2>Your Profile</h2>
+				<h2 className="display">Your Profile</h2>
 			</div>
-			<div className="user-profile well well-lg">
+			<div className="display user-profile well well-lg font">
 				{userInfo}
 				<SecretClick onClick={props.onClick} secretKeyVisible={props.secretKeyVisible}/>
 			  {userDBProfileInfo}

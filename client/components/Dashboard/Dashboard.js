@@ -185,7 +185,6 @@ const Dashboard = React.createClass({
 			dbName = '';
 			collectionName = '';
 			let schema = '';
-			alert('Created Successfully')
 			that.setState({database, DBkeys, dbName, collectionName, schema})
 		}).catch(function(error){
 			console.log('error on create submit', error);
