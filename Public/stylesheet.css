@@ -5,28 +5,28 @@
 
 body {
 	background-color: #FFFFFF;
-
-}
-
-.font {
 	font-family: "Whitney A", "Whitney B", "Avenir", Helvetica, sans-serif;
 }
 
 .login-signup-words {
 	color: black;
+	font-size: 44px;
 }
 
 .login-input-outer {
 	background-color: white;
 	border: 1px solid white;
-	padding: 20px;
-	margin: 50px;
+	padding: 30px;
+	margin: 20px;
 
-box-shadow: 0px 0px 30px #000;
--moz-box-shadow: 0px 0px 30px #000;
--webkit-box-shadow: 0px 0px 30px #000;
+	box-shadow: 0px 0px 30px #000;
+	-moz-box-shadow: 0px 0px 30px #000;
+	-webkit-box-shadow: 0px 0px 30px #000;
 }
 
+.row {
+
+}
 
 .landing-button {
 	vertical-align: middle;
@@ -116,7 +116,7 @@ box-shadow: 0px 0px 30px #000;
 
 .navbar { 
 	margin-bottom: 0;
-	height: 80px;
+	height: 50px;
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
 	background: #45484d; /* Old browsers */
 	background: -moz-linear-gradient(top,  #45484d 0%, #000000 100%); /* FF3.6-15 */
@@ -133,10 +133,10 @@ box-shadow: 0px 0px 30px #000;
 }
 /* header */
 .header-action-words {
-	padding-top: 20px;
-	padding-right: 100px;
-	font-size: 30px;
+	padding-right: 20px;
+	font-size: 22px;
 	color: white;
+	vertical-align: middle;
 }
 
 .api-sandbox-words {
@@ -147,7 +147,7 @@ box-shadow: 0px 0px 30px #000;
 	font-size: 18px;
 }
 
-.docs-code {
+.code {
 	background-color: white;
 }
 
@@ -225,7 +225,46 @@ box-shadow: 0px 0px 30px #000;
 .h {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,207cca+16,207cca+16,2989d8+50,3c89c9+72,7db9e8+100 */
 	background: url('./graph-databases.png');
-	color: black;
+	background-size: cover;
+	height: 100vh;
+}
+
+.wait {
+	background-size: 100%;
+	background-repeat: no-repeat;
+	height: 550px;
+}
+
+#wait-header {
+	padding-top: 100px;
+	margin: 0;
+}
+
+.logo {
+  height: auto; 
+  width: auto; 
+  max-width: 60px; 
+  max-height: 60px;
+  margin-left: 20px;
+  margin-top: -8px;
+}
+
+#mainHeaderWrapper{
+	position: relative;
+  background: no-repeat url('./graph-databases.png') 50% / 100%;
+}
+
+#mainHeaderWrapper img{
+    vertical-align: top;
+    width: 100%; /* max width */
+    opacity: 0;  /* make it transparent */
+}
+
+#mainHeaderWrapper > div{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .welcome-info-tag {
@@ -264,6 +303,10 @@ box-shadow: 0px 0px 30px #000;
 
 .post-put-delete {
 	font-size: 20px;
+}
+
+td {
+	padding: 5px 15px 5px 0;
 }
 
 input[type=radio] {

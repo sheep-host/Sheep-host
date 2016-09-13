@@ -14,7 +14,7 @@ class SignupPage extends React.Component {
 		return (
 			<div>
 			<NavigationBar />
-			<div className="row">
+			<div className="h jumbotron">
 				<div className="col-md-4 col-md-offset-4">
 
 					<SignupForm 

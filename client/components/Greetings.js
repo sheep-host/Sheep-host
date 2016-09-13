@@ -23,7 +23,7 @@ class Greetings extends React.Component {
 
 	render() {
 		return (
-			<div className="font">
+			<div>
 			  <NavigationBar/>
 			  <div className="h jumbotron">
 			    <h1 className="welcome-to-sheep font">Welcome to Sheep.host</h1>
@@ -40,8 +40,8 @@ class Greetings extends React.Component {
 						Two-tier API Security&nbsp;&nbsp;&nbsp;&nbsp;Dashboard Data Management&nbsp;&nbsp;&nbsp;&nbsp;Straightforward SDK
 			      </div>
 			    </div>
+			    <BottomGreetings />
 			  </div>
-			  <BottomGreetings />
 			</div>
 		)
 	}
