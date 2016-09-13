@@ -28,8 +28,6 @@ class Greetings extends React.Component {
 			  <div className="top jumbotron">
 			    <h1 className="welcome-to-sheep font">Welcome to Sheep.host</h1>
 			    <h2 className="welcome-to-sheep-tagline font">A developers backend-as-a-service for MongoDB</h2>
-			    <hr>
-			    </hr>
 			    <Link to="/signup"><button className="landing-button font text-center">Signup Now</button></Link>
 			    <div className="landing-page-text-snippet text-center font">
 			      <h4 className="landing-page-text-snippet-header font">Build fast</h4>
@@ -42,8 +40,8 @@ class Greetings extends React.Component {
 
 			      </div>
 			    </div>
-			    <BottomGreetings />
 			  </div>
+			  <BottomGreetings />
 			</div>
 		)
 	}

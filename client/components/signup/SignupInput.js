@@ -36,7 +36,7 @@ const SignupInput =(props) => {
 					</div>
 
 					<div className="form-group">
-						<button className="btn btn-secondary btn-lg">Sign Up
+						<button className="submit-button btn btn-default btn-lg">Sign Up
 						</button>
 					</div>
 			</form>

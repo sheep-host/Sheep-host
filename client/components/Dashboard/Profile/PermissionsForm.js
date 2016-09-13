@@ -41,6 +41,7 @@ const Permissions = (props) => {
 				onClick={props.savePermissions}
 			>Save</button>
 			</div>
+			</div>
 		)
 	}
 
