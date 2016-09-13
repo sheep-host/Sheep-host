@@ -1,4 +1,4 @@
-# Sheep-host
+# Sheep.host
 Sheep.host is a backend-as-as-service built on top of MongoDB that gives developers the ability to quickly generate hosted databases with the click of a button.
 
 Sheep was born out of our desire to make full-stack prototyping more nimble. Sheep provides an out-of-the-box backend platform that abstracts away the tedious infrastructure and API tasks required to host, save, and retrieve data.
