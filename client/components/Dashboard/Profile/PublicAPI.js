@@ -10,8 +10,8 @@ const PublicAPI = (props) => {
 			<div className="display jumbotron">
         <h4 className="user-profile">Copy the following script tag into your html file to use SDK methods:</h4>
 				<ul className="list-group">
-          <pre>
-            <code id="code" className="SDK">
+          <pre className="code">
+            <code className="SDK">
               &lt;script src="https://npmcdn.com/axios/dist/axios.min.js"&gt;&lt;/script&gt;{'\n'}
               &lt;script src="https://sheep.host/public_api"&gt;&lt;/script&gt;{'\n'}
               &lt;script&gt;{'\n'}

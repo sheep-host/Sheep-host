@@ -9,6 +9,7 @@ const Permissions = (props) => {
 			permissionObj[permission] = props.permissions[permission];
 			radioArray.push(permissionObj);
 		}
+		console.log(props.permissions['GET'], radioArray);
 		return(
 			<div>
 				<h2 className="display">Set Client Permissions</h2>
@@ -40,7 +41,6 @@ const Permissions = (props) => {
 				onClick={props.savePermissions}
 			>Save</button>
 			</div>
-		</div>
 		)
 	}
 
