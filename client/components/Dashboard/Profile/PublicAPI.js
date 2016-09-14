@@ -4,10 +4,8 @@ import Clipboard from'react-clipboard.js';
 const PublicAPI = (props) => {
 	return (
     <div>
-      <div>
-        <h2 className="display">SDK Script Tags</h2>
-      </div>
 			<div className="display jumbotron">
+        <h2 className="api-sandbox-words font">SDK Script Tags</h2>
         <h4 className="user-profile">Copy the following script tag into your html file to use SDK methods:</h4>
 				<ul className="list-group">
           <pre className="code">

@@ -7,7 +7,6 @@ body {
 	background-color: #FFFFFF;
 	zoom: 67%;
 	font-family: 'Raleway', sans-serif;
-
 }
 
 .top {
@@ -152,14 +151,14 @@ font-family: 'Raleway', sans-serif;
 }
 /* header */
 .header-action-words {
-	padding-right: 20px;
+	padding-right: 15px;
 	font-size: 22px;
 	color: white;
-	vertical-align: middle;
+	margin-top: 4px;
 }
 
 .api-sandbox-words {
-	font-size: 70px;
+	font-size: 40px;
 }
 
 .docs-text {
