@@ -68,7 +68,13 @@ const Dashboard = React.createClass({
   getData() {
 		let that = this;
 		let _id = jwtDecode(localStorage.sheepToken).devID;
-		axios.get('/getDBs/'+_id).then(function(response) {
+		let link = '/getDBs/'+_id
+		axios({
+			method: 'get',
+			baseURL: path,
+			url: link,
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
+		}).then(function(response) {
 			if(response.data.length> 0){
 				let info = {};
 				let data = response.data;
