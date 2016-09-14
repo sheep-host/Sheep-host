@@ -4,7 +4,6 @@ import { browserHistory } from 'react-router';
 import jwtDecode from 'jwt-decode';
 import auth from '../Auth';
 import NavigationBar from './NavigationBar';
-import databaseLogo from '../../Public/database.png'
 import BottomGreetings from './BottomGreetings.js'
 
 

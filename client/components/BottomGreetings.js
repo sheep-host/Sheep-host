@@ -1,7 +1,5 @@
 import React from 'react'
-import SheepFlowDiagram from '../../Public/HowSheepWorks.png'
-import BuildFlow from '../../Public/BuildFlow.png'
-import PrototypeImage from '../../Public/RapidPrototyping.png'
+import GitHubImage from '../../Public/GitHub-Mark.png'
 
 const BottomGreetings = () => {
 	return(
@@ -24,6 +22,8 @@ const BottomGreetings = () => {
       		<small className="step-by-step-small">Read and write to the database using our SDK</small>
   			</div>
   		</div>
+      <h6>GitHub</h6>
+      <a href="https://github.com/sheep-host/Sheep-host" target="_blank"><img src={GitHubImage} /></a>
 		</div>
 
 		)
