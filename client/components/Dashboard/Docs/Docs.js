@@ -2,8 +2,8 @@ import React from 'react';
 
 const Docs = () => {
 	return(
-		<div className="well well-lg">
-			<h1>Docs</h1>
+		<div className="display jumbotron">
+			<h2 className="api-sandbox-words font">Docs</h2>
 
 			<h2>Navigating the Site</h2>
 			<br></br>
@@ -44,7 +44,8 @@ const Docs = () => {
 				<p>The <b>PROFILE</b> tab contains all of your user information, a list of your databases and collections, as well as your API key information.</p>
 				<p>Below all of this information is the auto-generated series of <b>script tags</b> to access our SDK...</p>
 				<br></br>
-				<h4>Using the SDK</h4>
+
+				<h4><strong>Using the SDK</strong></h4>
 				<p>To use the globally exposed <b>sheep</b> object, simply copy the <b>script tags</b> and paste them into the app's HTML file above your Javascript.</p>
 				<p>Call the SDK methods via the  <b>sheep</b> object, and enter the desired database name and collection as the first two arguments.</p>
 				<br></br>
@@ -64,6 +65,7 @@ const Docs = () => {
 	        </code>
 	      </pre>
 				<br></br>
+
 				<h4>POST</h4>
 				<b>sheep.post( [database_name], [collection_name], {String.fromCharCode(123)}data{String.fromCharCode(125)})</b>
 				<p>Adds a record to a given collection. The third argument, <b>data</b> refers to an object with the key:value pairs, that follows the schema you created for that collection. A successful post will receive a response with status code 200.</p>
@@ -75,6 +77,7 @@ const Docs = () => {
 	        </code>
 	      </pre>
 				<br></br>
+
 				<h4>PUT</h4>
 				<b>sheep.put(  [database_name], [collection_name], {String.fromCharCode(123)}query{String.fromCharCode(125)}, {String.fromCharCode(123)}data{String.fromCharCode(125)} )</b>
 				<p>Updates a record in a given collection. The third argument, <b>query</b> refers to an object with the key:value pair of the record you want to change, that follows the schema you created for that collection. The fourth argument, <b>data</b> refers to an object with the key:value pair(s) to change. A successful post will receive a response with status code 200.</p>
@@ -86,6 +89,7 @@ const Docs = () => {
 	        </code>
 	      </pre>
 				<br></br>
+
 				<h4>DELETE</h4>
 				<b>sheep.delete( [database_name], [collection_name], {String.fromCharCode(123)}query{String.fromCharCode(125)} )</b>
 				<p>Deletes a record in a given collection. The third argument, <b>query</b> refers to an object with the key:value pair of the record you want to delete, that follows the schema you created for that collection. A successful post will receive a response with status code 200.</p>

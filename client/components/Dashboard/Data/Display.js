@@ -8,7 +8,7 @@ const Display = (props) => {
 	})
 	return (
 		<div className="display jumbotron">
-			<ul className="list-group" style={{marginTop:'100px'}}>
+			<ul className="list-group" style={{marginTop:'170px'}}>
 					{dataArray}	
 			</ul>
 		</div>

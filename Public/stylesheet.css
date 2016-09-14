@@ -19,8 +19,8 @@ body {
 
 .top {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,207cca+16,207cca+16,2989d8+50,3c89c9+72,7db9e8+100 */
-background: url('./macbook-pro-keyboard.png.jpg');
-background-size: 120% 100% ;
+	background: url('./macbook-pro-keyboard.png.jpg');
+	background-size: 120% 100% ;
 }
 
 
@@ -160,14 +160,14 @@ font-family: 'Raleway', sans-serif;
 }
 /* header */
 .header-action-words {
-	padding-right: 20px;
+	padding-right: 15px;
 	font-size: 22px;
 	color: white;
-	vertical-align: middle;
+	margin-top: 4px;
 }
 
 .api-sandbox-words {
-	font-size: 70px;
+	font-size: 40px;
 }
 
 .docs-text {
