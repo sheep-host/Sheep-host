@@ -40,7 +40,7 @@ const ClientInput = (props) => {
 					<small id="databaseHelp" className="form-text text-muted">Use JSON format and please highlight the type</small>
 						<textarea 
 							rows="5"
-							className="form-control form-control-lg"
+							className="schema-text-area form-control form-control-lg"
 							onChange={props.onChange}
 							placeholder="Schema"
 							type="text"
@@ -49,7 +49,7 @@ const ClientInput = (props) => {
 				</div>
 				<div>
 					<button
-						className="add-db-button btn btn-default btn-lg"
+						className=" api-button btn btn-default btn-lg"
 						onClick={props.onCreateClick}>
 							ADD
 					</button>

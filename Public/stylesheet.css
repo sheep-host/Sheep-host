@@ -1,18 +1,26 @@
 .container{
-	background: url('./graph-databases.png');
+	background: url('./macbook-pro-keyboard.png.jpg');
 	height: 100%;
+}
+html {
+	height: 100%;
+	zoom: 87%;
 }
 
 body {
 	background-color: #FFFFFF;
 	font-family: 'Raleway', sans-serif;
+	height: 100%;
+}
 
+.h {
+	background: url('./macbook-pro-keyboard.png.jpg');
 }
 
 .top {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,207cca+16,207cca+16,2989d8+50,3c89c9+72,7db9e8+100 */
-background: url('./graph-databases.png');
-background-size: cover;
+background: url('./macbook-pro-keyboard.png.jpg');
+background-size: 120% 100% ;
 }
 
 
@@ -30,6 +38,7 @@ font-family: 'Raleway', sans-serif;
 	border: 1px solid white;
 	padding: 30px;
 	margin: 20px;
+	width: 100%;
 
 	box-shadow: 0px 0px 30px #000;
 	-moz-box-shadow: 0px 0px 30px #000;
@@ -250,7 +259,6 @@ font-family: 'Raleway', sans-serif;
 
 .h {
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,207cca+16,207cca+16,2989d8+50,3c89c9+72,7db9e8+100 */
-	background: url('./graph-databases.png');
 	background-size: cover;
 	height: 100vh;
 }
@@ -277,7 +285,6 @@ font-family: 'Raleway', sans-serif;
 
 #mainHeaderWrapper{
 	position: relative;
-  background: no-repeat url('./graph-databases.png') 50% / 100%;
 }
 
 #mainHeaderWrapper img{
@@ -310,6 +317,10 @@ font-family: 'Raleway', sans-serif;
 	font-size: 30px;
 	font-style: serif;
 	opacity: 1.0;
+}
+
+.tab-active {
+	background-color: #fff;
 }
 
 .tab{
@@ -346,6 +357,10 @@ input[type=radio] {
 	font-size: 18px;
 }
 
+.schema-text-area {
+	font-size: 18px;
+}
+
 .active {
 	color:red;
 }
@@ -376,7 +391,9 @@ input[type=radio] {
 	transition: all 0.3s ease-in-out;
 
 }
-.btn-group-justified .btn-group .btn:hover{
+
+
+.btn-group-justified .btn-group .btn-default .active {
 	background:#fff;
 }
 
@@ -397,14 +414,15 @@ input[type=radio] {
 .add-db-button {
 	width: 300px;
 	font-weight: 100;
+	margin-left: 25%;
 }
 
 .login-button {
-	margin-left: 70%;
+	margin-left: 40%;
 	font-weight: 100;
 }
 .submit-button {
-	margin-left: 60%;
+	margin-left: 40%;
 	font-weight: 100;
 }
 
@@ -419,6 +437,7 @@ input[type=radio] {
 	margin-top: 15px;
 	margin-left: 37%;
 	font-weight: 100;
+	padding-bottom: 20px;
 }
 
 footer{
@@ -437,7 +456,7 @@ footer{
 	padding-top: 30px;
 	color: #fff;
 	text-align: center;
-	font-size: 20px;
+	font-size: 16px;
 }
 .tab-button:hover,
 .tab-button:focus,
