@@ -14,7 +14,7 @@ const DashNavBar = (props) => {
 		    <button name="profile" type="button" onClick={props.toggle} className="btn btn-default">Profile</button>
 		  </div>
 		    <div className="btn-group" role="group">
-		    <button name="docs" type="button" onClick={props.toggle} className="btn btn-default">Docs</button>
+		    <button name="docs" type="button" activeClassName="tab-active" onClick={props.toggle} className="btn btn-default">Docs</button>
 		  </div>
 		</div>
 	)
