@@ -11,8 +11,8 @@ class LoginPage extends React.Component {
 		return (
 			<div>
 			<NavigationBar />
-				<div className="row">
-					<div className="col-md-4 col-md-offset-4">
+				<div className="h jumbotron">
+					<div className="col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
 					<LoginForm 
 						userLogin={userLogin} 
 					/>

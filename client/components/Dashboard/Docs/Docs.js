@@ -2,8 +2,8 @@ import React from 'react';
 
 const Docs = () => {
 	return(
-		<div className="well well-lg font">
-			<h1>Docs</h1>
+		<div className="display jumbotron">
+			<h2 className="api-sandbox-words font">Docs</h2>
 
 			<h2>Navigating the Site</h2>
 			<br></br>
@@ -44,7 +44,8 @@ const Docs = () => {
 				<p>The <b>PROFILE</b> tab contains all of your user information, a list of your databases and collections, as well as your API key information.</p>
 				<p>Below all of this information is the auto-generated series of <b>script tags</b> to access our SDK...</p>
 				<br></br>
-				<h4>Using the SDK</h4>
+
+				<h4><strong>Using the SDK</strong></h4>
 				<p>To use the globally exposed <b>sheep</b> object, simply copy the <b>script tags</b> and paste them into the app's HTML file above your Javascript.</p>
 				<p>Call the SDK methods via the  <b>sheep</b> object, and enter the desired database name and collection as the first two arguments.</p>
 				<br></br>
@@ -53,7 +54,7 @@ const Docs = () => {
 				<b>sheep.get( [database_name], [collection_name], callback )</b>
 				<p>Returns all of the documents in the collection to the <b>callback</b> in the third argument as an array of objects.</p>
 				<p><b>Example: </b></p>
-				<pre className='docs-code'>
+				<pre className='code'>
 	        <code>
 	        	// Gets all records from the Users collection in the MyApp database and logs them individually{'\n'}{'\n'}
 	        	sheep.get(MyApp, Users, (results => &#123;{'\n'}
@@ -64,33 +65,36 @@ const Docs = () => {
 	        </code>
 	      </pre>
 				<br></br>
+
 				<h4>POST</h4>
 				<b>sheep.post( [database_name], [collection_name], {String.fromCharCode(123)}data{String.fromCharCode(125)})</b>
 				<p>Adds a record to a given collection. The third argument, <b>data</b> refers to an object with the key:value pairs, that follows the schema you created for that collection. A successful post will receive a response with status code 200.</p>
 				<p><b>Example: </b></p>
-				<pre className='docs-code'>
+				<pre className='code'>
 	        <code>
 	        	// Adds a record with "John Doe" in the "name field" and "Los Angeles" in the "location" field from the Users collection in the MyApp database{'\n'}{'\n'}
 	        	sheep.post(MyApp, Users, &#123; name: "John Doe", location: "New York" &#125;){'\n'}
 	        </code>
 	      </pre>
 				<br></br>
+
 				<h4>PUT</h4>
 				<b>sheep.put(  [database_name], [collection_name], {String.fromCharCode(123)}query{String.fromCharCode(125)}, {String.fromCharCode(123)}data{String.fromCharCode(125)} )</b>
 				<p>Updates a record in a given collection. The third argument, <b>query</b> refers to an object with the key:value pair of the record you want to change, that follows the schema you created for that collection. The fourth argument, <b>data</b> refers to an object with the key:value pair(s) to change. A successful post will receive a response with status code 200.</p>
 				<p><b>Example: </b></p>
-				<pre className='docs-code'>
+				<pre className='code'>
 	        <code>
 	        	// Changes the "location" field of the record with "name" of "John Doe" to "New York" in the Users collection in the MyApp database{'\n'}{'\n'}
 	        	sheep.put(MyApp, Users, &#123; name: "John Doe"&#125;, &#123; location: "New York" &#125;){'\n'}
 	        </code>
 	      </pre>
 				<br></br>
+
 				<h4>DELETE</h4>
 				<b>sheep.delete( [database_name], [collection_name], {String.fromCharCode(123)}query{String.fromCharCode(125)} )</b>
 				<p>Deletes a record in a given collection. The third argument, <b>query</b> refers to an object with the key:value pair of the record you want to delete, that follows the schema you created for that collection. A successful post will receive a response with status code 200.</p>
 				<p><b>Example: </b></p>
-				<pre className='docs-code'>
+				<pre className='code'>
 	        <code>
 	        	// Deletes the record with "John Doe" in the "name" field from the Users collection in the MyApp database{'\n'}{'\n'}
 	        	sheep.delete(MyApp, Users, &#123; name: "John Doe" &#125;){'\n'}
