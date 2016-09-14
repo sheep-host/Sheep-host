@@ -51,10 +51,7 @@ const Dashboard = React.createClass({
 	componentWillMount(){
 		console.log('componentwillmount');
 		document.body.style.background = "white";
-		if(!localStorage.sheepToken ){
-			console.log('no token yet')
-			localStorage.sheepToken = cookie.load('token');
-		}
+		if(!localStorage.sheepToken ) localStorage.sheepToken = cookie.load('token');
 		let token = jwtDecode(localStorage.sheepToken);
 		let authKey = token.authKey;
 		let email = token.email;
