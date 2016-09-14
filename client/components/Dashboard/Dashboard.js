@@ -49,8 +49,12 @@ const Dashboard = React.createClass({
 	},
 
 	componentWillMount(){
+		console.log('componentwillmount');
 		document.body.style.background = "white";
-		localStorage.sheepToken = cookie.load('token');
+		if(!localStorage.sheepToken ){
+			console.log('no token yet')
+			localStorage.sheepToken = cookie.load('token');
+		}
 		let token = jwtDecode(localStorage.sheepToken);
 		let authKey = token.authKey;
 		let email = token.email;
@@ -117,7 +121,6 @@ const Dashboard = React.createClass({
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
 		}).then(function(response){
-			console.log('fetch response', response.data);
 			that.state.database[_dbName][_collectionName] = response.data;
 			that.setState({activeCollectionData: response.data, database: that.state.database})
 		})
@@ -265,13 +268,9 @@ const Dashboard = React.createClass({
   onPermissionsClick(e) {
   	let that = this;
   	let permissions = that.state.permissions;
-  	console.log('perm click name', e.target.name);
-  	console.log('state permissions', that.state.permissions);
   	let permission = e.target.name;
   	permissions[permission] = (e.target.value === 'true') ? false: true;
-  	console.log('permissions click', permissions)
   	that.setState({permissions});
-  	console.log('permissions click', that.state.permissions)
   },
 
   savePermissions(e){
@@ -292,7 +291,6 @@ const Dashboard = React.createClass({
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
 			data: data
 		}).then(function(response){
-			console.log('setstate');
 			that.setState({permissions})
 		})
   },

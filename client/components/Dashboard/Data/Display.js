@@ -4,7 +4,7 @@ import DataItem from './DataItem'
 const Display = (props) => {
 	var dataArray = []
 	props.display.forEach((el, i) => {
-		dataArray.push(<DataItem className="list-item" key={i} info={el} />)
+		dataArray.push(<DataItem className="list-item" key={i} keys={i} info={el} />)
 	})
 	return (
 		<div className="display jumbotron">
