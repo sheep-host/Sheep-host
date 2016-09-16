@@ -7,17 +7,15 @@ const UserProfile = (props) => {
 	let infoProps = props.profileInfo
 
 	for(var i in infoProps) {
-		if(typeof infoProps[i] === 'string') userInfo.push(<p><strong>{i}: </strong> <span>{infoProps[i]}</span></p>)
+		if(typeof infoProps[i] === 'string') userInfo.push(<p key={infoProps[i]+i}><strong>{i}: </strong> <span>{infoProps[i]}</span></p>)
 		if(infoProps[i].constructor === Array) {
 			userDBProfileInfo.push(<div key={i} className="panel-body">Database: {i}</div>, <li key={i+1}>Collections: {infoProps[i]}</li>)
 		}	
 	}
 	return (
 		<div>
-			<div>
-				<h2>Your Profile</h2>
-			</div>
-			<div className="user-profile well well-lg font">
+			<div className="display user-profile well well-lg font">
+			<h2 className="api-sandbox-words font">Your Profile</h2>
 				{userInfo}
 				<SecretClick onClick={props.onClick} secretKeyVisible={props.secretKeyVisible}/>
 			  {userDBProfileInfo}

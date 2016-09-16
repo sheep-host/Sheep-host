@@ -17,6 +17,8 @@ import UserProfile from './Profile/UserProfileInfo.js';
 import PublicAPI from './Profile/PublicAPI';
 import Permissions from './Profile/PermissionsForm';
 import Docs from './Docs/Docs';
+import env from '../../../.env';
+let path = env.NODE_ENV === 'development' ? 'http://localhost:3000/' : 'https://sheep.host/';
 
 const Dashboard = React.createClass({
 	getInitialState () {
@@ -42,13 +44,14 @@ const Dashboard = React.createClass({
 			deleteQuery:'',
 			secretKeyVisible: false,
 			authKey: '',
-			permissions: {}
+			permissions: {},
 		}
 	},
 
 	componentWillMount(){
+		console.log('componentwillmount');
 		document.body.style.background = "white";
-		localStorage.sheepToken = cookie.load('token');
+		if(!localStorage.sheepToken ) localStorage.sheepToken = cookie.load('token');
 		let token = jwtDecode(localStorage.sheepToken);
 		let authKey = token.authKey;
 		let email = token.email;
@@ -65,7 +68,13 @@ const Dashboard = React.createClass({
   getData() {
 		let that = this;
 		let _id = jwtDecode(localStorage.sheepToken).devID;
-		axios.get('/getDBs/'+_id).then(function(response) {
+		let link = '/getDBs/'+_id
+		axios({
+			method: 'get',
+			baseURL: path,
+			url: link,
+			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
+		}).then(function(response) {
 			if(response.data.length> 0){
 				let info = {};
 				let data = response.data;
@@ -94,11 +103,11 @@ const Dashboard = React.createClass({
 			this.state.fetchInterval = 0;
 		}
 		if(auth.loggedIn() && this.state.DBkeys.length > 0 && this.state.Colkeys.length > 0){
-			if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 10000);
+			if(!this.state.fetchInterval) this.state.fetchInterval = setInterval(this.fetchData, 1000);
 			else{
 				clearInterval(this.state.fetchInterval);
 				this.state.fetchInterval = 0;
-				this.state.fetchInterval = setInterval(this.fetchData, 10000);
+				this.state.fetchInterval = setInterval(this.fetchData, 1000);
 			}
 		}
 	},
@@ -108,10 +117,10 @@ const Dashboard = React.createClass({
 		const _id = that.state._id;
 		const _dbName = that.state.DBkeys[that.state.activeDBLink];
 		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
-		const link = _id + '/' + _dbName + '/' + _collectionName;
+		const link = 'api/' + _id + '/' + _dbName + '/' + _collectionName;
 		axios({
 			method: 'get',
-			baseURL: 'https://sheep.host/api/',
+			baseURL: path,
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
 		}).then(function(response){
@@ -184,7 +193,6 @@ const Dashboard = React.createClass({
 			dbName = '';
 			collectionName = '';
 			let schema = '';
-			alert('Created Successfully')
 			that.setState({database, DBkeys, dbName, collectionName, schema})
 		}).catch(function(error){
 			console.log('error on create submit', error);
@@ -198,10 +206,10 @@ const Dashboard = React.createClass({
 		let post = JSON.parse(that.state.postInput);
 		const _dbName = that.state.DBkeys[that.state.activeDBLink];
 		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
-		const link = _id +'/'+ _dbName +'/'+ _collectionName
+		const link = 'api/' + _id +'/'+ _dbName +'/'+ _collectionName
 		axios({
 			method: 'post',
-			baseURL: 'http://sheep.host/api/',
+			baseURL: path,
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
 			data: post
@@ -222,10 +230,10 @@ const Dashboard = React.createClass({
 		const _putValue = _putQuery[_putKey];
 		const _dbName = that.state.DBkeys[that.state.activeDBLink];
 		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
-		const link = _id +'/'+ _dbName +'/'+ _collectionName  + '/?' + _putKey + '=' + _putValue;
+		const link = 'api/' + _id +'/'+ _dbName +'/'+ _collectionName  + '/?' + _putKey + '=' + _putValue;
 		axios({
 			method: 'put',
-			baseURL: 'http://sheep.host/api/',
+			baseURL: path,
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
 			data: put
@@ -244,10 +252,10 @@ const Dashboard = React.createClass({
 		const _deleteValue = _deleteQuery[_deleteKey];
 		const _dbName = that.state.DBkeys[that.state.activeDBLink];
 		const _collectionName = that.state.Colkeys[this.state.activeCollectionLink];
-		const link = _id +'/'+ _dbName +'/'+ _collectionName + '/?' + _deleteKey + '=' + _deleteValue;
+		const link = 'api/' + _id +'/'+ _dbName +'/'+ _collectionName + '/?' + _deleteKey + '=' + _deleteValue;
 		axios({
 			method: 'delete',
-			baseURL: 'http://sheep.host/api/',
+			baseURL: path,
 			url: link,
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken}
 		}).then(function(response){
@@ -261,16 +269,17 @@ const Dashboard = React.createClass({
   },
 
   onPermissionsClick(e) {
-  	e.preventDefault();
   	let that = this;
   	let permissions = that.state.permissions;
-  	let permission = e.target.value;
-  	permissions[permission] = !permissions[permission]
-  	this.setState({permissions});
+  	let permission = e.target.name;
+  	permissions[permission] = (e.target.value === 'true') ? false: true;
+  	that.setState({permissions});
   },
 
   savePermissions(e){
   	e.preventDefault();
+  	console.log('saved');
+  	let that = this;
   	let data = {};
   	let encoded = this.state.authKey;
 		let decoded = new Buffer(encoded, 'base64').toString('utf8');
@@ -280,11 +289,12 @@ const Dashboard = React.createClass({
   	data['permissions'] = permissions;
 		axios({
 			method: 'post',
-      baseURL: 'http://sheep.host/',
+      baseURL: path,
 			url: 'permission',
 			headers: {Authorization: 'Bearer '+ localStorage.sheepToken},
 			data: data
 		}).then(function(response){
+			that.setState({permissions})
 		})
   },
 
@@ -302,7 +312,7 @@ const Dashboard = React.createClass({
 			profileInfo[name] = Object.keys(this.state.database[name])
 		}
 		if(!this.state.activeCollectionData){
-			let collectionData = "This collection is empty."
+			let collectionData = []
 		}
 		else{let collectionData = this.state.activeCollectionData;}
 		return (

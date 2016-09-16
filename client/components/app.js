@@ -6,8 +6,8 @@ class App extends React.Component {
 		return (
 			<div className="a container-fluid">
 				{this.props.children}
-				<div style={{textAlign:'center'}}>Sheep.host is in BETA, contact us at <a href="mailto:administrator@sheep.host">administrator@sheep.host</a> with feedback!</div>
-
+				
+				<footer><div className="footer-contact">Sheep.host is in BETA, contact us at <a href="mailto:administrator@sheep.host">administrator@sheep.host</a> with feedback!</div></footer>
 			</div>
 		)
 	} 
