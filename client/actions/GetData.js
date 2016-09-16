@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-export function getUserData(id) {
-	return dispatch => {
-		return axios.get('/api/' + id)
-	}
+export default function getUserData(id) {
+  return () => axios.get(`/api/ + ${id}`);
 }
