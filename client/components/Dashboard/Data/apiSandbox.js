@@ -80,7 +80,7 @@ const ApiSandbox = (props) => {
         </div>
       </form>
     </div>
-  )
+  );
 };
 
 
