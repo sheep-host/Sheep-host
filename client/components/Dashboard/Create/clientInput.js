@@ -12,7 +12,10 @@ const ClientInput = (props) => {
               <div className="error">{props.error.dbName}</div>
             }
             <br />
-            <small id="databaseHelp" className="form-text text-muted">If you would like to create a new database, enter a new database name. Otherwise, enter the name of an existing database you would like to add a collection to</small>
+            <small
+              id="databaseHelp"
+              className="form-text text-muted"
+            >If you would like to create a new database, enter a new database name. Otherwise, enter the name of an existing database you would like to add a collection to</small>
             <input
               className="form-control"
               onChange={props.onChange}
@@ -28,7 +31,10 @@ const ClientInput = (props) => {
               <div className="error">{props.error.collectionName}</div>
             }
             <br />
-            <small id="collectionHelp" className="form-text text-muted">Enter name of collection you are creating</small>
+            <small
+              id="collectionHelp"
+              className="form-text text-muted"
+            >Enter name of collection you are creating</small>
             <input
               className="form-control"
               onChange={props.onChange}
@@ -44,7 +50,10 @@ const ClientInput = (props) => {
               <div className="error">{props.error.schema}</div>
             }
             <br />
-            <small id="databaseHelp" className="form-text text-muted">Use JSON format and please highlight the type</small>
+            <small
+              id="databaseHelp"
+              className="form-text text-muted"
+            >Use JSON format and please highlight the type</small>
             <textarea
               rows="5"
               className="schema-text-area form-control form-control-lg"
@@ -58,9 +67,7 @@ const ClientInput = (props) => {
             <button
               className=" api-button btn btn-default btn-lg"
               onClick={props.onCreateClick}
-            >
-              ADD
-            </button>
+            >ADD</button>
           </div>
         </div>
       </form>
@@ -73,6 +80,5 @@ ClientInput.propTypes = {
   onChange: React.PropTypes.func,
   onCreateClick: React.PropTypes.func,
 };
-
 
 export default ClientInput;

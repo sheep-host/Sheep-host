@@ -30,7 +30,7 @@ class SignupForm extends React.Component {
           browserHistory.push('wait/');
         }
       }).catch((error) => {
-        that.setState({ error: [error.data.error] });
+        that.setState({ error: { userName: error.data.error } });
       });
     }
   }

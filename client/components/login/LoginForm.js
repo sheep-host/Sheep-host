@@ -16,7 +16,6 @@ class LoginForm extends React.Component {
       password: '',
       error: {},
     };
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -45,7 +44,7 @@ class LoginForm extends React.Component {
         }
       }).catch((error) => {
         console.log('submit error', error);
-        that.setState({ error: [error.data.error] });
+        that.setState({ error: { userName: error.data.error } });
       });
     }
   }
@@ -64,7 +63,6 @@ class LoginForm extends React.Component {
           onSubmit={this.onSubmit}
           onChange={this.onChange}
           userName={this.state.userName}
-          error={this.state.errors}
           password={this.state.password}
           error={this.state.error}
         />
@@ -74,11 +72,11 @@ class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
-  userLogin: React.PropTypes.func.isRequired,
+  userLogin: React.PropTypes.func,
 };
 
 LoginForm.contextTypes = {
-  router: React.PropTypes.object.isRequired,
+  router: React.PropTypes.object,
 };
 
 

@@ -126,7 +126,7 @@ function usernameExist(req, res, next) {
     if (dev === null) {
       next();
     } else {
-      res.status(422).send({ error: 'Username/email exists, please choose another username' });
+      res.status(422).send({ error: 'Username/email exists' });
     }
   });
 }

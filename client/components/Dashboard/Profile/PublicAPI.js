@@ -10,7 +10,7 @@ const PublicAPI = (props) => {
         <ul className="list-group">
           <pre className="code">
             <code className="SDK">
-              &lt;script src="https://npmcdn.com/axios/dist/axios.min.js"&gt;&lt;/script&gt;{'\n'}
+              &lt;script src="https://unpkg.com/axios/dist/axios.min.js"&gt;&lt;/script&gt;{'\n'}
               &lt;script src="https://sheep.host/public_api"&gt;&lt;/script&gt;{'\n'}
               &lt;script&gt;{'\n'}
                   {'  '}// Initialize Sheep.host{'\n'}
