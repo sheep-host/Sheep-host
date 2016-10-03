@@ -1,6 +1,5 @@
 var express = require('express');
 var apiController = require('../../database/methods/apiKeyMethods');
-var db = require('../../database/SheepDB');
 
 var router = express.Router();
 

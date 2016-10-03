@@ -1,13 +1,13 @@
 import React from 'react';
-import Clipboard from'react-clipboard.js';
+import Clipboard from 'react-clipboard.js';
 
 const PublicAPI = (props) => {
-	return (
+  return (
     <div>
-			<div className="display jumbotron">
+      <div className="display jumbotron">
         <h2 className="api-sandbox-words font">SDK Script Tags</h2>
         <h4 className="user-profile">Copy the following script tag into your html file to use SDK methods:</h4>
-				<ul className="list-group">
+        <ul className="list-group">
           <pre className="code">
             <code className="SDK">
               &lt;script src="https://npmcdn.com/axios/dist/axios.min.js"&gt;&lt;/script&gt;{'\n'}
@@ -23,14 +23,18 @@ const PublicAPI = (props) => {
               &lt;/script&gt;{'\n'}
             </code>
           </pre>
-				</ul>
+        </ul>
         <Clipboard component="button" className=" btn btn-default btn-lg" button-href="#" data-clipboard-target="#code">
-        Copy script tag
-      </Clipboard>
-			</div>
+          Copy script tag
+        </Clipboard>
+      </div>
     </div>
-	);
-}
+  );
+};
 
+PublicAPI.propTypes = {
+  authKey: React.PropTypes.string,
+  devId: React.PropTypes.string,
+};
 
 export default PublicAPI;

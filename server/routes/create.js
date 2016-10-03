@@ -1,9 +1,7 @@
 var express = require('express');
 var devMethods = require('../../database/methods/devMethods');
 var sharedMethods = require('../../database/methods/sharedMethods');
-var cookieMethods = require('../../database/methods/cookieMethods');
-var schemaParser = require('../../database/methods/schemaParser')
-var db = require('../../database/SheepDB');
+var schemaParser = require('../../database/methods/schemaParser');
 
 var router = express.Router();
 
@@ -17,8 +15,9 @@ router.post('/database',
 
 // create new collection to existing database
 router.post('/:devID/:dbName',
+	schemaParser.schemaCheck,
   sharedMethods.checkDevID,
   devMethods.addCollection
-)
+);
 
 module.exports = router;

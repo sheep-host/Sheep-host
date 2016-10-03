@@ -45,6 +45,10 @@ font-family: 'Raleway', sans-serif;
 	-webkit-box-shadow: 0px 0px 30px #000;
 }
 
+.error{
+	color: red;
+}
+
 .put-input {
 	padding-bottom: 10px;
 	margin-bottom: 20px;

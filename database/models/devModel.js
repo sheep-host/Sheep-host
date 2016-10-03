@@ -1,19 +1,19 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
-var SALT_WORK_FACTOR = 10;
 
+var SALT_WORK_FACTOR = 10;
 var Schema = mongoose.Schema;
 
 var Api = new Schema({
-  apiKey: {type: String, required: true},
-  secretKey: {type: String, required: true},
-  clientKey: {type: String, required: true},
+  apiKey: { type: String, required: true },
+  secretKey: { type: String, required: true },
+  clientKey: { type: String, required: true },
   clientPermissions: {
-    GET: {type: Boolean, default: 'true'},
-    POST: {type: Boolean, default: 'true'},
-    PUT: {type: Boolean, default: 'false'},
-    DELETE: {type: Boolean, default: 'false'}
-  }
+    GET: { type: Boolean, default: 'true' },
+    POST: { type: Boolean, default: 'true' },
+    PUT: { type: Boolean, default: 'false' },
+    DELETE: { type: Boolean, default: 'false' },
+  },
 });
 
 var devSchema = new Schema({
@@ -21,7 +21,7 @@ var devSchema = new Schema({
   password: { type: String, required: true },
   email: { type: String, required: true },
   api: Api,
-  database: [{type: Schema.Types.ObjectId, ref: 'Database'}],
+  database: [{ type: Schema.Types.ObjectId, ref: 'Database' }],
 });
 
 var Collections = new Schema({
@@ -35,15 +35,15 @@ var databaseSchema = new Schema({
   collections: [Collections],
 });
 
-devSchema.pre('save', function(next){
+devSchema.pre('save', (next) => {
   var dev = this;
-  if(!dev.isModified('password')) return next();
-  bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+  if (!dev.isModified('password')) return next();
+  bcrypt.genSalt(SALT_WORK_FACTOR, (err, salt) => {
     if (err) return next(err);
-    bcrypt.hash(dev.password, salt, function(err, hash){
-      if (err) return next(err);
+    bcrypt.hash(dev.password, salt, (error, hash) => {
+      if (error) return next(error);
       dev.password = hash;
-      next();
+      return next();
     });
   });
 });
@@ -59,5 +59,5 @@ module.exports = {
   Dev: mongoose.model('Dev', devSchema),
   DB: mongoose.model('Database', databaseSchema),
   Col: mongoose.model('Collections', Collections),
-  Api: mongoose.model('Api', Api)
-}
+  Api: mongoose.model('Api', Api),
+};
