@@ -1,9 +1,8 @@
 var express = require('express');
 var devMethods = require('../../database/methods/devMethods');
-var db = require('../../database/SheepDB');
-var cookieMethods = require('../../database/methods/cookieMethods.js');
+var cookieMethods = require('../../database/methods/cookieMethods');
 
-var router = express.Router()
+var router = express.Router();
 
 router.post('/',
   devMethods.usernameExist,

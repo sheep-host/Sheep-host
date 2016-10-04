@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const ApiSandbox = (props) => {
   return (
     <div className="display jumbotron">
@@ -12,7 +11,8 @@ const ApiSandbox = (props) => {
       <form>
         <div className="form-group">
           <div className="input-group input-group-lg col-lg-6">
-            <label className="post-put-delete font">POST</label><br></br>
+            <label className="post-put-delete font">POST</label>
+            <br />
             <small id="postHelp" className="form-text text-muted">
               Add a document to this collection
             </small>
@@ -33,7 +33,8 @@ const ApiSandbox = (props) => {
       <form>
         <div className="form-group">
           <div className="input-group input-group-lg col-lg-6">
-            <label className="post-put-delete font">PUT</label><br></br>
+            <label className="post-put-delete font">PUT</label>
+            <br />
             <small id="putHelp" className="form-text text-muted">
               Update a document in this collection
             </small>
@@ -61,7 +62,8 @@ const ApiSandbox = (props) => {
       <form>
         <div className="form-group">
           <div className="input-group input-group-lg col-lg-6">
-            <label className="post-put-delete font">DELETE</label><br></br>
+            <label className="post-put-delete font">DELETE</label>
+            <br />
             <small id="deleteHelp" className="form-text text-muted">
               Delete a record from this collection
             </small>
@@ -83,5 +85,11 @@ const ApiSandbox = (props) => {
   );
 };
 
+ApiSandbox.propTypes = {
+  onChange: React.PropTypes.func,
+  postClick: React.PropTypes.func,
+  putClick: React.PropTypes.func,
+  deleteClick: React.PropTypes.func,
+};
 
 export default ApiSandbox;

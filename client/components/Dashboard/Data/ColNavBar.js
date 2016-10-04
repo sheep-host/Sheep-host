@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const ColNavBar = (props) => (
   <div className="display">
     <ul className="nav nav-tabs col-md-8" data-toggle="button">
@@ -20,5 +19,9 @@ const ColNavBar = (props) => (
   </div>
 );
 
+ColNavBar.propTypes = {
+  names: React.PropTypes.array,
+  click: React.PropTypes.func,
+};
 
 export default ColNavBar;

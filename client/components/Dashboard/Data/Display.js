@@ -8,12 +8,16 @@ const Display = (props) => {
 	);
   return (
     <div className="display jumbotron">
-      <ul className="list-group" style={{marginTop:'170px'}}>
+      <ul className="list-group" style={{ marginTop: '170px' }}>
         {dataArray}
       </ul>
     </div>
 	);
 };
 
+Display.propTypes = {
+  display: React.PropTypes.array,
+  keys: React.PropTypes.number,
+};
 
 export default Display;

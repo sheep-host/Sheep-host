@@ -33,7 +33,8 @@ if (env.NODE_ENV === 'development') {
             path.join(__dirname, 'client'),
             path.join(__dirname, 'server/shared')
           ],
-          loaders: [ 'react-hot', 'babel' ]
+          exclude: /(node_modules|bower_components)/,
+          loaders: [ 'react-hot', 'babel-loader?presets[]=react' ],
         },
         {
           test: /\.css$/,
@@ -43,7 +44,7 @@ if (env.NODE_ENV === 'development') {
       ]
     },
     resolve: {
-      extentions: [ '', '.js' ]
+      extentions: ['', '.js']
     }
   }
 } else {
@@ -55,7 +56,7 @@ if (env.NODE_ENV === 'development') {
         filename: "bundle.js"
     },
     resolve: {
-      extensions: ['', '.js', '.jsx']
+      extensions: ['', '.js']
     },
     module: {
         loaders: [
@@ -68,7 +69,7 @@ if (env.NODE_ENV === 'development') {
               loaders: ['style', 'css', 'sass']
             },
             {
-              test: /\.jsx?$/,
+              test: /\.js?$/,
               loader: 'babel-loader',
               exclude: /(node_modules)/,
               query: {
@@ -79,12 +80,3 @@ if (env.NODE_ENV === 'development') {
     }
   };
 }
-
-
-
-
-
-
-
-
-

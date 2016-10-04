@@ -3,7 +3,7 @@ var apiMethods = require('../../database/methods/apiMethods');
 var apiController = require('../../database/methods/apiKeyMethods');
 var sharedMethods = require('../../database/methods/sharedMethods');
 
-var router = express.Router()
+var router = express.Router();
 
 // post to existing collection
 router.post('/:devID/:dbName/:colName',

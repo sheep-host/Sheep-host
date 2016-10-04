@@ -1,91 +1,83 @@
 import React from 'react';
-import axios from 'axios';
 import { browserHistory } from 'react-router';
-import cookie from 'react-cookie';
 import jwtDecode from 'jwt-decode';
-import{ userLogin } from '../../actions/loginAction'
-import auth from '../../Auth'
+import auth from '../../Auth';
 import LoginInput from './LoginInput';
-import ValidateInputForm from './LoginFormValidation';
+import validateLoginInput from './LoginFormValidation';
 
-//is route component for this route
-//ValidateInputForm not setting state properly, use alert for now
-//using setTimeout for alert due to interferance of microtask
+// is route component for this route
+// ValidateInputForm not setting state properly, use alert for now
+// using setTimeout for alert due to interferance of microtask
 class LoginForm extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			userName: '',
-			password: '',
-			errors: {}
-		}
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: '',
+      password: '',
+      error: {},
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
-		this.onChange = this.onChange.bind(this)
-		this.onSubmit = this.onSubmit.bind(this)
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
-	}
+  isValid() {
+    const that = this;
+    const { errors, isValid } = validateLoginInput(this.state);
+    if (!isValid) {
+      that.setState({ error: errors });
+      return false;
+    }
+    return true;
+  }
 
-	onChange(e) {
-		this.setState({[e.target.name] : e.target.value })
-	}
+  onSubmit(e) {
+    e.preventDefault();
+    if (this.isValid()) {
+      const that = this;
+      this.props.userLogin(that.state).then((response) => {
+        if (response.data) {
+          browserHistory.push(`dashboard/${that.state.userName}`);
+        }
+      }).catch((error) => {
+        console.log('submit error', error);
+        that.setState({ error: { userName: error.data.error } });
+      });
+    }
+  }
 
-	isValid() {
-		var that = this
-		const {errors, isValid } = ValidateInputForm(this.state)
-		let errorArray = []
-		if(!isValid) {
-			for(var value in errors) {
-				errorArray.push(errors[value] + " ")
-			}
-			alert(errorArray)
-		}
-		return isValid
-	}
-	
-	onSubmit(e) {
-		e.preventDefault();
-		if(this.isValid()) {
-			var _this = this.state
-			this.props.userLogin(_this).then(function(response) {
-			if(response.data){
-				browserHistory.push('dashboard/' + _this.userName)
-			}
-		}).catch(function(error) {
-			return setTimeout(function() {
-				console.log(error)
-				alert(error.data)
-			}, 0)
-		})
-		} 
-	}
+  componentDidMount() {
+    if (auth.loggedIn()) {
+      const sheepToken = jwtDecode(localStorage.sheepToken);
+      browserHistory.push(`dashboard/${sheepToken.userName}`);
+    }
+  }
 
-	componentDidMount(){
-		if(auth.loggedIn()){
-			let sheepToken = jwtDecode(localStorage.sheepToken);
-			browserHistory.push('dashboard/' + sheepToken.userName);
-		}
-	}
-
-	render() {
-		return (
-			<div className="login-input-outer">
-				<LoginInput onSubmit={this.onSubmit}
-									  onChange={this.onChange} 
-									  userName={this.state.userName}
-									  error={this.state.errors}
-									  password={this.state.password} />			
-			</div>
-		)
-	}
+  render() {
+    return (
+      <div className="login-input-outer">
+        <LoginInput
+          onSubmit={this.onSubmit}
+          onChange={this.onChange}
+          userName={this.state.userName}
+          password={this.state.password}
+          error={this.state.error}
+        />
+      </div>
+    );
+  }
 }
 
 LoginForm.propTypes = {
-	userLogin: React.PropTypes.func.isRequired
-}
+  userLogin: React.PropTypes.func,
+};
 
 LoginForm.contextTypes = {
-	router: React.PropTypes.object.isRequired
-}
+  router: React.PropTypes.object,
+};
 
 
 export default LoginForm;

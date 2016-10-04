@@ -1,19 +1,21 @@
 import React from 'react';
 
-
 const ClientInput = (props) => {
   return (
-    <div className=" display well well-lg">
+    <div className="display well well-lg">
       <form>
         <div className="form-group">
+          <h2 className="api-sandbox-words font">Your Profile</h2>
           <div className="input-group input-group-lg col-lg-6">
             <label className="font user-profile">Database Name</label>
+            {props.error.dbName &&
+              <div className="error">{props.error.dbName}</div>
+            }
             <br />
             <small
               id="databaseHelp"
               className="form-text text-muted"
-            >If you would like to create a new database, enter a new database name. Otherwise,
-            enter the name of an existing database you would like to add a collection to</small>
+            >If you would like to create a new database, enter a new database name. Otherwise, enter the name of an existing database you would like to add a collection to</small>
             <input
               className="form-control"
               onChange={props.onChange}
@@ -22,9 +24,12 @@ const ClientInput = (props) => {
               name="dbName"
             />
           </div>
-          <p />
+          <br />
           <div className="input-group input-group-lg col-lg-6">
             <label className="font user-profile">Collection Name</label>
+            {props.error.collectionName &&
+              <div className="error">{props.error.collectionName}</div>
+            }
             <br />
             <small
               id="collectionHelp"
@@ -38,9 +43,12 @@ const ClientInput = (props) => {
               name="collectionName"
             />
           </div>
-          <p />
+          <br />
           <div className="form-group input-group form-control-lg col-lg-6">
             <label className="font user-profile">Schema</label>
+            {props.error.schema &&
+              <div className="error">{props.error.schema}</div>
+            }
             <br />
             <small
               id="databaseHelp"
@@ -58,9 +66,8 @@ const ClientInput = (props) => {
           <div>
             <button
               className=" api-button btn btn-default btn-lg"
-              onClick={props.onCreateClick}>
-							ADD
-            </button>
+              onClick={props.onCreateClick}
+            >ADD</button>
           </div>
         </div>
       </form>
@@ -68,5 +75,10 @@ const ClientInput = (props) => {
   );
 };
 
+ClientInput.propTypes = {
+  error: React.PropTypes.object,
+  onChange: React.PropTypes.func,
+  onCreateClick: React.PropTypes.func,
+};
 
 export default ClientInput;
